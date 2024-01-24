@@ -1,6 +1,5 @@
 <template>
-  <p v-if="isFetching">Загрузка QR кода</p>
-  <SaleTemporaryCodeRenderer v-else :bot-username="bot.username" :code="code?.code" />
+  <SaleTemporaryCodeRenderer @update-code="updateCode" :bot-username="bot.username" :code="data?.result?.code" :code-refreshes-in-seconds="codeRefreshesInSeconds" />
 </template>
 
 <script setup>
@@ -17,12 +16,22 @@ const props = defineProps({
   },
 })
 
+const codeRefreshesInSeconds = ref(30)
 const time = ref(1)
 const url = computed(() => `${import.meta.env.VITE_API_BASE_URL}/shops/codes/?t=${time.value}`)
-const { isFetching, data: code } = useFetch(url, { refetch: true }).post({ bot_id: props.bot.id, client_user_id: userId }).json()
+const { isFetching, data } = useFetch(url, { refetch: true }).post({ bot_id: props.bot.id, client_user_id: userId }).json()
+
+const updateCode = () => {
+  time.value += 1
+  codeRefreshesInSeconds.value = 30
+}
 
 useIntervalFn(() => {
-  time.value += 1
-}, 30000)
+  codeRefreshesInSeconds.value -= 1
+  if (codeRefreshesInSeconds.value <= 0 ) {
+    codeRefreshesInSeconds.value = 30
+    time.value += 1
+  }
+}, 1000)
 
 </script>
