@@ -1,28 +1,41 @@
 <template>
-  <ClientView v-if="userType === 'client'" :user-first-name="user.firstName" :bot="bot" :each-nth-cup="eachNthCup"
-    :nth-cup-progress-current="nthCupProgressCurrent" />
+  <ClientView v-if="userType === 'client'"/>
   <p v-else>Undefined user type</p>
 </template>
 
 <script setup>
-import { provide } from 'vue';
-import ClientView from './views/ClientView.vue';
+import { provide, ref } from 'vue'
+import ClientView from './views/ClientView.vue'
+import { getTelegramUser } from './services/telegram'
+import { getBotData } from "./services/queryParams.js";
 
-
-const user = {
-  id: 896678539,
-  firstName: 'Eldos',
+const isTelegramMode = import.meta.env.VITE_TELEGRAM_MODE === 'true'
+let telegramUser
+if (isTelegramMode) {
+  telegramUser = getTelegramUser()
+} else {
+  telegramUser = {
+    id: 6314531184,
+    first_name: 'Hello',
+  }
 }
 
-provide('userId', user.id)
+let bot = getBotData()
 
-const bot = {
-  id: 6887092432,
-  username: 'coffeeShopBot',
+if (bot === null) {
+  bot = {
+    id: 6887092432,
+    username: 'gfdhgdhdfgbot',
+  }
 }
 
-const eachNthCup = 6
-const nthCupProgressCurrent = 1
+provide('bot', bot)
+provide('user', telegramUser)
+provide('shop', {
+  each_nth_cup: 6,
+  nth_cup_progress_current: 1,
+})
+const userType = ref('client')
 
-const userType = 'client'
+console.log(telegramUser, bot)
 </script>
