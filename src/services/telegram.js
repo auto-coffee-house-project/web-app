@@ -1,0 +1,1 @@
+export const getTelegramUser = () => window?.Telegram?.WebApp?.initDataUnsafe?.user
