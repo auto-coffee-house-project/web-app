@@ -2,7 +2,7 @@
   <div class="flex h-full w-full">
     <div
       class="h-6 bg-white border-black border first:rounded-l-md last:rounded-r-md grow"
-      :class="{'tg-primary-bg': index <= currentValue}"
+      :class="{'tg-btn': index <= currentValue}"
       v-for="index in maxValue"
     >
     </div>
