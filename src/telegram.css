@@ -27,5 +27,5 @@
 }
 
 .tg-border {
-    background-color: var(--tg-theme-text-color);
+    border-color: var(--tg-theme-text-color);
 }
