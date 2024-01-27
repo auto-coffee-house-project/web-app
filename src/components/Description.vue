@@ -1,7 +1,7 @@
 <template>
   <template v-if="userStatistics">
     <h3 class="text-2xl font-semibold">Привет {{ userFirstName }}!</h3>
-    <p class="mt-2 my-4">
+    <p class="mt-2 my-4 tg-primary-text">
       Мы с удовольствием угостим бесплатным кофе, приходи к нам почаще и копи свои бонусы,
       ведь каждая {{ userStatistics.each_nth_cup_free }}-я кружка кофе в подарок!
     </p>
