@@ -25,3 +25,7 @@
 .tg-bg-secondary {
     background-color: var(--tg-theme-secondary-bg-color);
 }
+
+.tg-border {
+    background-color: var(--tg-theme-text-color);
+}

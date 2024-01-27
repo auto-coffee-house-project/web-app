@@ -12,7 +12,7 @@
       <div class="flex flex-col gap-y-2">
         <div class="flex justify-between gap-x-3">
           <p class="tg-text-primary">Бесплатный напиток</p>
-          <p class="font-semibold">{{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
+          <p class="font-semibold tg-text-primary">{{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
         </div>
         <CupProgressBar
           :current-value="userStatistics.current_cups_count"
