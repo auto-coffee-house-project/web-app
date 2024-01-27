@@ -32,10 +32,10 @@ const props = defineProps({
 })
 
 const code = ref()
-const codeRefreshesInSeconds = ref(5)
+const codeRefreshesInSeconds = ref(30)
 
 const qrCodeUrl = computed(() => {
-  return `https://t.me/${props.bot.username}?start=${props.code}`
+  return `https://t.me/${props.bot.username}?start=scan-${code.value}`
 })
 
 const updateCode = async () => {
@@ -55,7 +55,7 @@ useIntervalFn(async () => {
   codeRefreshesInSeconds.value -= 1
   if (codeRefreshesInSeconds.value <= 0) {
     await updateCode()
-    codeRefreshesInSeconds.value = 5
+    codeRefreshesInSeconds.value = 30
   }
 }, 1000)
 
