@@ -1,7 +1,7 @@
 <template>
   <template v-if="userStatistics">
-    <h3 class="text-2xl font-semibold">Привет {{ userFirstName }}!</h3>
-    <p class="mt-2 my-4 tg-primary-text">
+    <h3 class="text-2xl font-semibold tg-text-primary">Привет {{ userFirstName }}!</h3>
+    <p class="mt-2 my-4 tg-text-primary">
       Мы с удовольствием угостим бесплатным кофе, приходи к нам почаще и копи свои бонусы,
       ведь каждая {{ userStatistics.each_nth_cup_free }}-я кружка кофе в подарок!
     </p>
@@ -11,7 +11,7 @@
            alt="external-coffee-usa-flatart-icons-lineal-color-flatarticons"/>
       <div class="flex flex-col gap-y-2">
         <div class="flex justify-between gap-x-3">
-          <p>Бесплатный напиток</p>
+          <p class="tg-text-primary">Бесплатный напиток</p>
           <p class="font-semibold">{{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
         </div>
         <CupProgressBar

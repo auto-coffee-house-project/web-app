@@ -5,7 +5,7 @@
     <VueQrcode
       :value="qrCodeUrl"
     />
-    <p class="tg-text-primary">Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
+    <p class="tg-hint">Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
   </template>
   <template v-else>
     <p>Загрузка...</p>
