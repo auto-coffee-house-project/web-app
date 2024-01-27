@@ -1,20 +1,23 @@
 <template>
   <template v-if="userStatistics">
-    <h3>Привет {{ userFirstName }}</h3>
-    <p>
+    <h3 class="text-2xl font-semibold">Привет {{ userFirstName }}!</h3>
+    <p class="mt-2 my-4">
       Мы с удовольствием угостим бесплатным кофе, приходи к нам почаще и копи свои бонусы,
       ведь каждая {{ userStatistics.each_nth_cup_free }}-я кружка кофе в подарок!
     </p>
-    <div class="flex justify-between">
-      <p>Бесплатный напиток</p>
-      <p>{{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
-    </div>
-    <div class="flex h-full w-full">
-      <div
-        class="w-5 h-4 bg-white border-black border first:rounded-l-md last:rounded-r-md"
-        :class="{'bg-sky-500': index <= userStatistics.current_cups_count}"
-        v-for="index in userStatistics.each_nth_cup_free"
-      >
+    <div class="flex gap-x-3">
+      <img width="64" height="64"
+           src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/64/external-coffee-usa-flatart-icons-lineal-color-flatarticons.png"
+           alt="external-coffee-usa-flatart-icons-lineal-color-flatarticons"/>
+      <div class="flex flex-col gap-y-2">
+        <div class="flex justify-between gap-x-3">
+          <p>Бесплатный напиток</p>
+          <p class="font-semibold">{{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
+        </div>
+        <CupProgressBar
+          :current-value="userStatistics.current_cups_count"
+          :max-value="userStatistics.each_nth_cup_free"
+        />
       </div>
     </div>
   </template>
@@ -24,6 +27,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useFetch, useIntervalFn } from "@vueuse/core";
+import CupProgressBar from "./CupProgressBar.vue";
 
 const props = defineProps({
   botId: {

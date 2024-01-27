@@ -1,8 +1,6 @@
 <template>
   <template v-if="code">
-    <p>
-      <strong>Скажите код: {{ code }}</strong>
-    </p>
+    <p class="font-bold mt-4 mb-2">Скажите код: {{ code }}</p>
     <p>Ваш QR код:</p>
     <VueQrcode
       :value="qrCodeUrl"

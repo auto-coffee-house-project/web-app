@@ -1,5 +1,5 @@
 <template>
-  <main class="px-3 py-4">
+  <main class="p-6">
     <Description
       :user-id="user.id"
       :user-first-name="user.first_name"
