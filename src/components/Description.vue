@@ -37,7 +37,7 @@ const userStatistics = ref()
 
 const fetchUserStatistics = async () => {
   const url = `${import.meta.env.VITE_API_BASE_URL}/shops/clients/statistics/?bot_id=${bot.id}&user_id=${user.id}`
-  const {data} = await useFetch(url).get({query:}).json()
+  const {data} = await useFetch(url).json()
   userStatistics.value = data.value?.result
 }
 
