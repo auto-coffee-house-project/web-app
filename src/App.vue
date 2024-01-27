@@ -1,11 +1,10 @@
 <template>
-  <ClientView v-if="userType === 'client'"/>
-  <p v-else>Undefined user type</p>
+  <ClientView/>
 </template>
 
 <script setup>
-import { provide, ref } from 'vue'
 import ClientView from './views/ClientView.vue'
+import { provide } from 'vue'
 import { getTelegramUser } from './services/telegram'
 import { getBotData } from "./services/queryParams.js";
 
@@ -31,11 +30,4 @@ if (bot === null) {
 
 provide('bot', bot)
 provide('user', telegramUser)
-provide('shop', {
-  each_nth_cup: 6,
-  nth_cup_progress_current: 1,
-})
-const userType = ref('client')
-
-console.log(telegramUser, bot)
 </script>

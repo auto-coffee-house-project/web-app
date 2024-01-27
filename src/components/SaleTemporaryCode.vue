@@ -21,12 +21,16 @@ import { computed, onMounted, ref } from "vue";
 
 
 const props = defineProps({
-  bot: {
-    type: Object,
+  botId: {
+    type: Number,
     required: true,
   },
-  user: {
-    type: Object,
+  botUsername: {
+    type: String,
+    required: true,
+  },
+  userId: {
+    type: Number,
     required: true,
   },
 })
@@ -35,15 +39,15 @@ const code = ref()
 const codeRefreshesInSeconds = ref(30)
 
 const qrCodeUrl = computed(() => {
-  return `https://t.me/${props.bot.username}?start=scan-${code.value}`
+  return `https://t.me/${props.botUsername}?start=scan-${code.value}`
 })
 
 const updateCode = async () => {
   const url = `${import.meta.env.VITE_API_BASE_URL}/shops/codes/`
   const {data} = await useFetch(url)
     .post({
-      bot_id: props.bot.id,
-      client_user_id: props.user.id,
+      bot_id: props.botId,
+      client_user_id: props.userId,
     })
     .json()
   code.value = data.value?.result?.code

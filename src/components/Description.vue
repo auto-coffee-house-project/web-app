@@ -13,30 +13,28 @@
 </template>
 
 <script setup>
-import { inject, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useFetch, useIntervalFn } from "@vueuse/core";
 
 const props = defineProps({
+  userId: {
+    type: Number,
+    required: true,
+  },
   userFirstName: {
     type: String,
     required: true,
   },
-  eachNthCup: {
+  botId: {
     type: Number,
     required: true,
-  },
-  nthCupProgressCurrent: {
-    type: Number,
-    required: true,
-  },
+  }
 })
 
-const bot = inject('bot')
-const user = inject('user')
 const userStatistics = ref()
 
 const fetchUserStatistics = async () => {
-  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/clients/statistics/?bot_id=${bot.id}&user_id=${user.id}`
+  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/clients/statistics/?bot_id=${props.botId}&user_id=${props.userId}`
   const {data} = await useFetch(url).json()
   userStatistics.value = data.value?.result
 }
