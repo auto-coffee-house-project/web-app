@@ -1,15 +1,24 @@
 <template>
-  <h3>Привет {{ userFirstName }}</h3>
-  <p>
-    Мы с удовольствием угостим бесплатным кофе, приходи к нам почаще и копи свои бонусы, ведь каждая {{ eachNthCup }}-я
-    кружка кофе в подарок!
-  </p>
-  <p v-if="userStatistics">
-    Бесплатный напиток {{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}
-  </p>
-  <p v-else>
-    Загрузка...
-  </p>
+  <template v-if="userStatistics">
+    <h3>Привет {{ userFirstName }}</h3>
+    <p>
+      Мы с удовольствием угостим бесплатным кофе, приходи к нам почаще и копи свои бонусы,
+      ведь каждая {{ userStatistics.each_nth_cup_free }}-я кружка кофе в подарок!
+    </p>
+    <div class="flex justify-between">
+      <p>Бесплатный напиток</p>
+      <p>{{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
+    </div>
+    <div class="flex h-full w-full">
+      <div
+        class="w-5 h-4 bg-white border-black border first:rounded-l-md last:rounded-r-md"
+        :class="{'bg-sky-500': index <= userStatistics.current_cups_count}"
+        v-for="index in userStatistics.each_nth_cup_free"
+      >
+      </div>
+    </div>
+  </template>
+  <p v-else>Loading</p>
 </template>
 
 <script setup>
@@ -17,6 +26,10 @@ import { onMounted, ref } from "vue";
 import { useFetch, useIntervalFn } from "@vueuse/core";
 
 const props = defineProps({
+  botId: {
+    type: Number,
+    required: true,
+  },
   userId: {
     type: Number,
     required: true,
@@ -25,12 +38,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  botId: {
-    type: Number,
-    required: true,
-  }
 })
-
 const userStatistics = ref()
 
 const fetchUserStatistics = async () => {
@@ -42,5 +50,4 @@ const fetchUserStatistics = async () => {
 onMounted(fetchUserStatistics)
 
 useIntervalFn(fetchUserStatistics, 30 * 1000)
-
 </script>

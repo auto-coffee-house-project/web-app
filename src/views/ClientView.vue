@@ -1,8 +1,7 @@
 <template>
-  <ClientNavbar/>
   <main class="px-3 py-4">
     <Description
-      :user-id="bot.id"
+      :user-id="user.id"
       :user-first-name="user.first_name"
       :bot-id="bot.id"
     />

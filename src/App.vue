@@ -6,7 +6,7 @@
 import ClientView from './views/ClientView.vue'
 import { provide } from 'vue'
 import { getTelegramUser } from './services/telegram'
-import { getBotData } from "./services/queryParams.js";
+import { getBotData } from "./services/queryParams";
 
 const isTelegramMode = import.meta.env.VITE_TELEGRAM_MODE === 'true'
 let telegramUser
