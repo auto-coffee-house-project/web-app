@@ -1,11 +1,11 @@
 <template>
   <template v-if="code">
-    <p class="font-bold mt-4 mb-2">Скажите код: {{ code }}</p>
-    <p>Ваш QR код:</p>
+    <p class="font-bold mt-4 mb-2 tg-text-primary">Скажите код: {{ code }}</p>
+    <p class="tg-text-primary">Ваш QR код:</p>
     <VueQrcode
       :value="qrCodeUrl"
     />
-    <p>Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
+    <p class="tg-text-primary">Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
   </template>
   <template v-else>
     <p>Загрузка...</p>
