@@ -14,8 +14,7 @@
 </template>
 
 <script setup>
-import ClientNavbar from '../components/ClientNavbar.vue';
-import Description from "../components/Description.vue";
+import Description from "../components/CupRequirementsInfo.vue";
 import SaleTemporaryCode from "../components/SaleTemporaryCode.vue";
 import { inject } from "vue";
 import { useTitle } from '@vueuse/core'
