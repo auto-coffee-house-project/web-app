@@ -1,10 +1,9 @@
 <template>
   <template v-if="userStatistics">
-    <h3 class="text-2xl font-semibold tg-text-primary">Привет {{ userFirstName }}!</h3>
-    <p class="mt-2 my-4 tg-text-primary">
-      Мы с удовольствием угостим бесплатным кофе, приходи к нам почаще и копи свои бонусы,
-      ведь каждая {{ userStatistics.each_nth_cup_free + 1 }}-я кружка кофе в подарок!
-    </p>
+    <CupDescription
+      :each-nth-cup-free="userStatistics.each_nth_cup_free"
+      :user-first-name="userFirstName"
+    />
     <div class="flex gap-x-3">
       <CupIcon/>
       <CupProgress
@@ -22,6 +21,7 @@ import { useFetch, useIntervalFn } from "@vueuse/core";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import CupIcon from "./CupIcon.vue";
 import CupProgress from "./CupProgress.vue";
+import CupDescription from "./CupDescription.vue";
 
 const props = defineProps({
   botId: {
