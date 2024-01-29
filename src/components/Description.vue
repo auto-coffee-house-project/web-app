@@ -7,17 +7,10 @@
     </p>
     <div class="flex gap-x-3">
       <CupIcon/>
-      <div class="flex flex-col gap-y-2">
-        <div class="flex justify-between gap-x-3">
-          <p class="tg-text-primary">Бесплатный напиток</p>
-          <p class="font-semibold tg-text-primary">
-            {{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
-        </div>
-        <CupProgressBar
-          :current-value="userStatistics.current_cups_count"
-          :max-value="userStatistics.each_nth_cup_free"
-        />
-      </div>
+      <CupProgress
+        :current-cups-count="userStatistics.current_cups_count"
+        :each-nth-cup-free="userStatistics.each_nth_cup_free"
+      />
     </div>
   </template>
   <LoadingSpinner v-else/>
@@ -26,9 +19,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useFetch, useIntervalFn } from "@vueuse/core";
-import CupProgressBar from "./CupProgressBar.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import CupIcon from "./CupIcon.vue";
+import CupProgress from "./CupProgress.vue";
 
 const props = defineProps({
   botId: {
