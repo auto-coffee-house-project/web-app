@@ -47,5 +47,5 @@ const fetchUserStatistics = async () => {
 
 onMounted(fetchUserStatistics)
 
-useIntervalFn(fetchUserStatistics, 30 * 1000)
+useIntervalFn(fetchUserStatistics, 10 * 1000)
 </script>
