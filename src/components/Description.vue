@@ -12,7 +12,7 @@
       <div class="flex flex-col gap-y-2">
         <div class="flex justify-between gap-x-3">
           <p class="tg-text-primary">Бесплатный напиток</p>
-          <p class="font-semibold tg-text-primary">{{ userStatistics.current_cups_count }}/{{ userStatistics.each_nth_cup_free }}</p>
+          <p class="font-semibold tg-text-primary">{{ userStatistics.current_cups_count}}/{{ userStatistics.each_nth_cup_free }}</p>
         </div>
         <CupProgressBar
           :current-value="userStatistics.current_cups_count"
@@ -21,13 +21,14 @@
       </div>
     </div>
   </template>
-  <p v-else>Loading</p>
+  <LoadingSpinner v-else/>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import { useFetch, useIntervalFn } from "@vueuse/core";
 import CupProgressBar from "./CupProgressBar.vue";
+import LoadingSpinner from "./LoadingSpinner.vue";
 
 const props = defineProps({
   botId: {
