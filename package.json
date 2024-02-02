@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chenfengyuan/vue-qrcode": "^2.0.0",
     "@vueuse/core": "^10.7.2",
     "qrcode": "^1.5.3",
     "vue": "^3.4.15"
