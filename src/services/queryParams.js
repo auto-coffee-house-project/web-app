@@ -1,11 +1,6 @@
-export const getBotData = () => {
+export const getBotId = () => {
   const url = new URL(window.location.href)
   const queryParams = Object.fromEntries(url.searchParams.entries())
-  if (!queryParams.botId || !queryParams.botUsername) {
-    return null
-  }
-  return {
-    id: Number.parseInt(queryParams.botId),
-    username: queryParams.botUsername,
-  }
+  if (!queryParams.botId) return null
+  return Number.parseInt(queryParams.botId)
 }

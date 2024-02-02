@@ -3,11 +3,10 @@
     <Description
       :user-id="user.id"
       :user-first-name="user.first_name"
-      :bot-id="bot.id"
+      :bot-id="botId"
     />
     <SaleTemporaryCode
-      :bot-id="bot.id"
-      :bot-username="bot.username"
+      :bot-id="botId"
       :user-id="user.id"
     />
   </main>
@@ -22,5 +21,5 @@ import { useTitle } from '@vueuse/core'
 useTitle('Клиент | Coffee House Bot')
 
 const user = inject('user')
-const bot = inject('bot')
+const botId = inject('botId')
 </script>

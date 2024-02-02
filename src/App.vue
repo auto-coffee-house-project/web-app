@@ -6,7 +6,7 @@
 import ClientView from './views/ClientView.vue'
 import { provide } from 'vue'
 import { getTelegramUser } from './services/telegram'
-import { getBotData } from "./services/queryParams";
+import { getBotId } from "./services/queryParams";
 
 const isTelegramMode = import.meta.env.VITE_TELEGRAM_MODE === 'true'
 let telegramUser
@@ -19,15 +19,8 @@ if (isTelegramMode) {
   }
 }
 
-let bot = getBotData()
+let botId = getBotId() || 6887092432
 
-if (bot === null) {
-  bot = {
-    id: 6887092432,
-    username: 'gfdhgdhdfgbot',
-  }
-}
-
-provide('bot', bot)
+provide('botId', botId)
 provide('user', telegramUser)
 </script>
