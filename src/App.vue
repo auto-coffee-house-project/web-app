@@ -17,7 +17,7 @@ if (isTelegramMode) {
   telegramUser = getTelegramUser()
 } else {
   telegramUser = {
-    id: 6314531184,
+    id: 6125802367,
     first_name: 'Hello',
   }
 }
