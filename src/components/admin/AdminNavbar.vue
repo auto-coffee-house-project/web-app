@@ -27,7 +27,6 @@ const items = ref([
   {
     label: 'Настройки',
     icon: 'pi pi-cog',
-    // routeName: 'settings',
     items: [
       {
         label: 'Опции',
