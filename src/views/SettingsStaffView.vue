@@ -17,7 +17,6 @@
         <Button label="Скопировать" icon="pi pi-paperclip" @click="onCopy" class="my-2"/>
       </div>
     </Dialog>
-    <ConfirmDialog/>
     <Card class="mb-4">
       <template #title>
         <i class="pi pi-shopping-bag mr-1"/>
@@ -49,8 +48,6 @@ import { useClipboard } from '@vueuse/core';
 import Message from 'primevue/message';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
-import ConfirmDialog from 'primevue/confirmdialog';
-import Toast from 'primevue/toast';
 import CardSalesmanList from '../components/admin/CardSalesman/CardSalesmanList.vue'
 
 const botId = inject('botId')

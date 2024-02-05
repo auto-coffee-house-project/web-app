@@ -1,5 +1,6 @@
 <template>
   <Toast/>
+  <ConfirmDialog class="mx-4"/>
   <template v-if="salesmans.length">
     <CardSalesmanItem
       v-for="salesman in salesmans"
@@ -15,6 +16,7 @@
 import CardSalesmanItem from './CardSalesmanItem.vue'
 import InlineMessage from 'primevue/inlinemessage'
 import Toast from 'primevue/toast'
+import ConfirmDialog from 'primevue/confirmdialog'
 import { useFetch } from '@vueuse/core'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
