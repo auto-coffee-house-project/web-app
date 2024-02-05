@@ -78,7 +78,7 @@ onFetchResponse(() => {
 })
 
 const onSubmit = () => {
-  const { isFetching, onFetchResponse, onFetchError, data } = useFetch(url).put({
+  const { isFetching, onFetchResponse, data } = useFetch(url).put({
     gift_name: giftName.value,
     gift_photo_url: giftPhotoUrl.value,
     each_nth_cup_free: eachNthCupFree.value,
@@ -97,15 +97,6 @@ const onSubmit = () => {
     giftPhotoUrl.value = data.value.result.gift_photo_url
     eachNthCupFree.value = data.value.result.each_nth_cup_free
     isMenuShown.value = data.value.result.is_menu_shown
-  })
-  onFetchError(() => {
-    messages.value = [{
-      id: Date.now(),
-      content: 'Ошибка сохранения',
-      severity: 'error',
-      life: 2000,
-      sticky: false
-    }]
   })
 }
 </script>
