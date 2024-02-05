@@ -43,7 +43,9 @@ import Message from "primevue/message";
 const botId = inject('botId')
 
 const giftName = ref('')
+const giftPhotoUrl = ref(null)
 const eachNthCupFree = ref(0)
+const isMenuShown = ref(false)
 
 const isButtonDisabled = ref(false)
 
@@ -70,27 +72,40 @@ const { onFetchResponse, data } = useFetch(url).json()
 
 onFetchResponse(() => {
   giftName.value = data.value.result.gift_name
+  giftPhotoUrl.value = data.value.result.gift_photo_url
   eachNthCupFree.value = data.value.result.each_nth_cup_free
+  isMenuShown.value = data.value.result.is_menu_shown
 })
 
 const onSubmit = () => {
-  const { isFetching, onFetchResponse, data } = useFetch(url).put({
+  const { isFetching, onFetchResponse, onFetchError, data } = useFetch(url).put({
     gift_name: giftName.value,
-    gift_photo_url: null,
-    each_nth_cup_free: eachNthCupFree.value
+    gift_photo_url: giftPhotoUrl.value,
+    each_nth_cup_free: eachNthCupFree.value,
+    is_menu_shown: isMenuShown.value,
   })
   isButtonDisabled.value = isFetching.value
   onFetchResponse(() => {
-    messages.value.push({
+    messages.value = [{
       id: Date.now(),
       content: 'Изменения сохранены',
       severity: 'success',
       life: 2000,
       sticky: false
-    })
+    }]
     giftName.value = data.value.result.gift_name
+    giftPhotoUrl.value = data.value.result.gift_photo_url
     eachNthCupFree.value = data.value.result.each_nth_cup_free
-
+    isMenuShown.value = data.value.result.is_menu_shown
+  })
+  onFetchError(() => {
+    messages.value = [{
+      id: Date.now(),
+      content: 'Ошибка сохранения',
+      severity: 'error',
+      life: 2000,
+      sticky: false
+    }]
   })
 }
 </script>

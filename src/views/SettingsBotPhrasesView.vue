@@ -22,13 +22,13 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-import { useFetch, useTitle } from "@vueuse/core";
-import AdminNavbar from "../components/admin/AdminNavbar.vue";
+import { inject, ref } from 'vue';
+import { useFetch, useTitle } from '@vueuse/core';
+import AdminNavbar from '../components/admin/AdminNavbar.vue';
 import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
-import Message from "primevue/message";
-import BasicContainer from "../layouts/BasicContainer.vue";
+import Message from 'primevue/message';
+import BasicContainer from '../layouts/BasicContainer.vue';
 
 useTitle('Coffee House Bot | Admin')
 
@@ -45,7 +45,12 @@ onFetchResponse(() => {
 
 const onSubmit = () => {
   const url = `${import.meta.env.VITE_API_BASE_URL}/telegram/bots/${botId}/`
-  const { data, isFetching, onFetchResponse } = useFetch(url).put({ start_text: botStartText.value }).json()
+  const {
+    data,
+    isFetching,
+    onFetchResponse,
+    onFetchError,
+  } = useFetch(url).put({ start_text: botStartText.value }).json()
   isButtonDisabled.value = isFetching.value
   onFetchResponse(() => {
     botStartText.value = data.value.result.start_text
@@ -54,7 +59,16 @@ const onSubmit = () => {
       content: 'Изменения сохранены',
       severity: 'success',
       life: 2000,
-      sticky: false
+      sticky: false,
+    })
+  })
+  onFetchError(() => {
+    messages.value.push({
+      id: Date.now(),
+      content: 'Ошибка сохранения',
+      severity: 'error',
+      life: 2000,
+      sticky: false,
     })
   })
 }
