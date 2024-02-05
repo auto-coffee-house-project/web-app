@@ -17,7 +17,6 @@
         <Button label="Скопировать" icon="pi pi-paperclip" @click="onCopy" class="my-2"/>
       </div>
     </Dialog>
-    <Toast position="top-left"/>
     <ConfirmDialog/>
     <Card class="mb-4">
       <template #title>
@@ -32,62 +31,27 @@
         <Button class="w-full" label="Ссылка-приглашение" outlined @click="onCreateInvitationLink"/>
       </template>
     </Card>
-    <template v-if="salesmans.length">
-      <Card
-        v-for="salesman in salesmans"
-        :id="salesman.user_id"
-        class="my-5"
-      >
-        <template #title>Продавец: {{ getFullName(salesman) }}</template>
-        <template #content>
-          <div class="flex justify-between items-center">
-            <div>
-              <p>Telegram ID: {{ salesman.user_id }}</p>
-              <p>Username: {{ salesman.user_username || '-' }}</p>
-            </div>
-            <Button @click="confirm2(salesman.user_id)" severity="danger" icon="pi pi-trash" rounded/>
-          </div>
-        </template>
-      </Card>
-    </template>
-    <InlineMessage v-else class="w-full mt-2 mb-6" severity="info">У вас нет других сотрудников</InlineMessage>
-
+    <CardSalesmanList
+      :salesmans="salesmans"
+      @load-salesmans="loadSalesmans"
+    />
   </BasicContainer>
 </template>
 
 <script setup>
-import AdminNavbar from "../components/admin/AdminNavbar.vue";
-import { useFetch } from "@vueuse/core";
-import { inject, ref } from "vue";
-import Dialog from "primevue/dialog";
-import Textarea from "primevue/textarea";
-import BasicContainer from "../layouts/BasicContainer.vue";
-import InputText from "primevue/inputtext";
-import { useClipboard } from "@vueuse/core";
-import Message from "primevue/message";
-import Card from "primevue/card";
-import Button from "primevue/button";
-import ConfirmDialog from "primevue/confirmdialog";
-import { useConfirm } from "primevue/useconfirm";
-import { useToast } from "primevue/usetoast";
-import Toast from "primevue/toast";
-import InlineMessage from 'primevue/inlinemessage';
-
-const confirm = useConfirm();
-const toast = useToast();
-
-const confirm2 = userId => {
-  confirm.require({
-    message: 'Вы уверены что хотите удалить сотрудника?',
-    header: 'Удалить сотрудника',
-    icon: 'pi pi-info-circle',
-    rejectLabel: 'Отменить',
-    acceptLabel: 'Удалить',
-    rejectClass: 'p-button-secondary',
-    acceptClass: 'p-button-danger',
-    accept: () => onDeleteSalesman(userId),
-  });
-};
+import AdminNavbar from '../components/admin/AdminNavbar.vue';
+import { useFetch } from '@vueuse/core';
+import { inject, onMounted, ref } from 'vue';
+import Dialog from 'primevue/dialog';
+import Textarea from 'primevue/textarea';
+import BasicContainer from '../layouts/BasicContainer.vue';
+import { useClipboard } from '@vueuse/core';
+import Message from 'primevue/message';
+import Card from 'primevue/card';
+import Button from 'primevue/button';
+import ConfirmDialog from 'primevue/confirmdialog';
+import Toast from 'primevue/toast';
+import CardSalesmanList from '../components/admin/CardSalesman/CardSalesmanList.vue'
 
 const botId = inject('botId')
 const user = inject('user')
@@ -102,12 +66,17 @@ const shopName = ref('')
 
 const { copy: copyInvitationUrl } = useClipboard({ source: invitationUrl })
 
-const url = `${import.meta.env.VITE_API_BASE_URL}/shops/salesmans/?admin_user_id=${user.id}&bot_id=${botId}`
-const { onFetchResponse, data } = useFetch(url).json()
-onFetchResponse(() => {
-  shopName.value = data.value.result.shop_name
-  salesmans.value = data.value.result.salesmans
-})
+const loadSalesmans = () => {
+  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/salesmans/?admin_user_id=${user.id}&bot_id=${botId}`
+  const { onFetchResponse, data } = useFetch(url).json()
+
+  onFetchResponse(() => {
+    shopName.value = data.value.result.shop_name
+    salesmans.value = data.value.result.salesmans
+  })
+}
+
+onMounted(loadSalesmans)
 
 const onCopy = () => {
   copyInvitationUrl(invitationUrl.value)
@@ -123,27 +92,6 @@ const onCreateInvitationLink = () => {
   onFetchResponse(() => {
     invitationUrl.value = data.value.result.url
     visible.value = true
-  })
-}
-
-const getFullName = salesman => {
-  if (salesman.user_last_name) {
-    return `${salesman.user_first_name} ${salesman.user_last_name}`
-  }
-  return salesman.user_first_name
-}
-
-const onDeleteSalesman = (userId) => {
-  toast.add({
-    severity: 'warn',
-    summary: 'Удалено',
-    detail: 'Сотрудник удален',
-    life: 2000,
-  });
-  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/salesmans/?user_id=${userId}&bot_id=${botId}`
-  const { onFetchResponse } = useFetch(url).delete().json()
-  onFetchResponse(() => {
-    salesmans.value = salesmans.value.filter(salesman => salesman.user_id !== userId)
   })
 }
 </script>
