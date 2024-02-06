@@ -31,10 +31,10 @@
 </template>
 
 <script setup>
-import AdminNavbar from "../components/admin/AdminNavbar.vue";
+import AdminNavbar from "../../components/admin/AdminNavbar.vue";
 import { useFetch } from "@vueuse/core";
 import { inject, ref } from "vue";
-import BasicContainer from "../layouts/BasicContainer.vue";
+import BasicContainer from "../../layouts/BasicContainer.vue";
 import InputText from "primevue/inputtext";
 import InputNumber from "primevue/inputnumber";
 import Button from "primevue/button";

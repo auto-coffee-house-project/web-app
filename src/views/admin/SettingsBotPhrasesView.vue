@@ -24,11 +24,11 @@
 <script setup>
 import { inject, ref } from 'vue';
 import { useFetch, useTitle } from '@vueuse/core';
-import AdminNavbar from '../components/admin/AdminNavbar.vue';
+import AdminNavbar from '../../components/admin/AdminNavbar.vue';
 import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
 import Message from 'primevue/message';
-import BasicContainer from '../layouts/BasicContainer.vue';
+import BasicContainer from '../../layouts/BasicContainer.vue';
 
 useTitle('Coffee House Bot | Admin')
 

@@ -13,10 +13,10 @@
 </template>
 
 <script setup>
-import AdminNavbar from '../components/admin/AdminNavbar.vue'
-import BasicContainer from '../layouts/BasicContainer.vue'
-import CardSalesmanList from '../components/admin/CardSalesman/CardSalesmanList.vue'
-import ShopDetail from '../components/admin/ShopDetail.vue'
+import AdminNavbar from '../../components/admin/AdminNavbar.vue'
+import BasicContainer from '../../layouts/BasicContainer.vue'
+import CardSalesmanList from '../../components/admin/CardSalesman/CardSalesmanList.vue'
+import ShopDetail from '../../components/admin/ShopDetail.vue'
 import { useFetch } from '@vueuse/core'
 import { inject, onMounted, ref } from 'vue'
 

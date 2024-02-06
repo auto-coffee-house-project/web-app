@@ -1,7 +1,7 @@
-import SettingsBotPhrasesView from './views/SettingsBotPhrasesView.vue';
-import SettingsStaffView from './views/SettingsStaffView.vue';
-import SettingsGiftView from './views/SettingsGiftView.vue';
-import SettingsShopOptions from './views/SettingsShopOptions.vue';
+import SettingsBotPhrasesView from './views/admin/SettingsBotPhrasesView.vue';
+import SettingsStaffView from './views/admin/SettingsStaffView.vue';
+import SettingsGiftView from './views/admin/SettingsGiftView.vue';
+import SettingsShopOptions from './views/admin/SettingsShopOptions.vue';
 import ClientGiftView from './views/client/ClientGiftView.vue'
 import ClientShopMenu from './views/client/ClientShopMenu.vue'
 

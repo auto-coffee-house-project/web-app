@@ -26,8 +26,8 @@
 </template>
 
 <script setup>
-import BasicContainer from '../layouts/BasicContainer.vue'
-import AdminNavbar from '../components/admin/AdminNavbar.vue'
+import BasicContainer from '../../layouts/BasicContainer.vue'
+import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
