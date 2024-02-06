@@ -21,7 +21,7 @@ if (isTelegramMode) {
 
 const botId = getBotId() || 6887092432
 
-const userRole = 'client'
+const userRole = 'admin'
 
 provide('botId', botId)
 provide('user', telegramUser)
