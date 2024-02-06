@@ -1,11 +1,8 @@
 <template>
-<!--  <ClientView v-if="userRole === 'client'"/>-->
   <router-view/>
 </template>
 
 <script setup>
-import ClientView from './views/ClientView.vue'
-import AdminView from './views/SettingsBotPhrasesView.vue'
 import { provide } from 'vue'
 import { getTelegramUser } from './services/telegram'
 import { getBotId } from "./services/queryParams";
@@ -24,12 +21,14 @@ if (isTelegramMode) {
 
 const botId = getBotId() || 6887092432
 
-const userRole = 'admin'
+const userRole = 'client'
 
 provide('botId', botId)
 provide('user', telegramUser)
 
 if (userRole === 'admin') {
   useRouter().push({name: 'gift'})
+} else if (userRole === 'client') {
+  useRouter().push({name: 'client-gift'})
 }
 </script>

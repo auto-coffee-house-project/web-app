@@ -1,6 +1,7 @@
 <template>
+  <ClientNavbar/>
   <main class="p-6">
-    <Description
+    <CupRequirementsInfo
       :user-id="user.id"
       :user-first-name="user.first_name"
       :bot-id="botId"
@@ -13,10 +14,11 @@
 </template>
 
 <script setup>
-import Description from "../components/CupRequirementsInfo.vue";
-import SaleTemporaryCode from "../components/SaleTemporaryCode.vue";
-import { inject } from "vue";
+import { inject } from 'vue';
 import { useTitle } from '@vueuse/core'
+import CupRequirementsInfo from '../../components/client/CupRequirementsInfo.vue'
+import ClientNavbar from '../../components/client/ClientNavbar.vue'
+import SaleTemporaryCode from '../../components/client/SaleTemporaryCode.vue'
 
 useTitle('Клиент | Coffee House Bot')
 
