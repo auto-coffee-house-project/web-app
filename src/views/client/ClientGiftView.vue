@@ -1,6 +1,6 @@
 <template>
   <ClientNavbar/>
-  <main class="p-6">
+  <BasicContainer>
     <CupRequirementsInfo
       :user-id="user.id"
       :user-first-name="user.first_name"
@@ -10,7 +10,7 @@
       :bot-id="botId"
       :user-id="user.id"
     />
-  </main>
+  </BasicContainer>
 </template>
 
 <script setup>
@@ -19,6 +19,7 @@ import { useTitle } from '@vueuse/core'
 import CupRequirementsInfo from '../../components/client/CupRequirementsInfo.vue'
 import ClientNavbar from '../../components/client/ClientNavbar.vue'
 import SaleTemporaryCode from '../../components/client/SaleTemporaryCode.vue'
+import BasicContainer from '../../layouts/BasicContainer.vue'
 
 useTitle('Клиент | Coffee House Bot')
 
