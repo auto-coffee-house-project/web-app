@@ -4,8 +4,14 @@ import SettingsGiftView from './views/admin/SettingsGiftView.vue';
 import SettingsShopOptions from './views/admin/SettingsShopOptions.vue';
 import ClientGiftView from './views/client/ClientGiftView.vue'
 import ClientShopMenu from './views/client/ClientShopMenu.vue'
+import SettingsShopMenuView from './views/admin/SettingsShopMenuView.vue'
 
 export default [
+  {
+    path: '/admin/menu',
+    name: 'admin-shop-menu',
+    component: SettingsShopMenuView,
+  },
   {
     path: '/admin/staff',
     name: 'staff',

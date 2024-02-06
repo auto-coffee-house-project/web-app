@@ -43,6 +43,11 @@ const items = ref([
         icon: 'pi pi-comment',
         routeName: 'phrases',
       },
+      {
+        label: 'Каталог',
+        icon: 'pi pi-align-justify',
+        routeName: 'admin-shop-menu',
+      },
     ],
   },
 ]);
