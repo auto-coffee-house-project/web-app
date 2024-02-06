@@ -32,13 +32,13 @@
 
 <script setup>
 import AdminNavbar from "../../components/admin/AdminNavbar.vue";
-import { useFetch } from "@vueuse/core";
 import { inject, ref } from "vue";
 import BasicContainer from "../../layouts/BasicContainer.vue";
 import InputText from "primevue/inputtext";
 import InputNumber from "primevue/inputnumber";
 import Button from "primevue/button";
 import Message from "primevue/message";
+import useApiFetch from '../../services/useApiFetch.js'
 
 const botId = inject('botId')
 
@@ -67,8 +67,8 @@ const messages = ref([])
 //     })
 //   };
 // };
-const url = `${import.meta.env.VITE_API_BASE_URL}/shops/groups/bots/${botId}/`
-const { onFetchResponse, data } = useFetch(url).json()
+const url = `/shops/groups/bots/${botId}/`
+const { onFetchResponse, data } = useApiFetch(url).json()
 
 onFetchResponse(() => {
   giftName.value = data.value.result.gift_name
@@ -78,7 +78,7 @@ onFetchResponse(() => {
 })
 
 const onSubmit = () => {
-  const { isFetching, onFetchResponse, data } = useFetch(url).put({
+  const { isFetching, onFetchResponse, data } = useApiFetch(url).put({
     gift_name: giftName.value,
     gift_photo_url: giftPhotoUrl.value,
     each_nth_cup_free: eachNthCupFree.value,

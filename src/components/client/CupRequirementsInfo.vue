@@ -16,12 +16,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useFetch, useIntervalFn } from "@vueuse/core";
-import LoadingSpinner from "./LoadingSpinner.vue";
-import CupIcon from "./CupIcon.vue";
-import CupProgress from "./CupProgress.vue";
-import CupDescription from "./CupDescription.vue";
+import { onMounted, ref } from 'vue';
+import { useIntervalFn } from '@vueuse/core';
+import LoadingSpinner from './LoadingSpinner.vue';
+import CupIcon from './CupIcon.vue';
+import CupProgress from './CupProgress.vue';
+import CupDescription from './CupDescription.vue';
+import useApiFetch from '../../services/useApiFetch.js'
 
 const props = defineProps({
   botId: {
@@ -39,10 +40,12 @@ const props = defineProps({
 })
 const userStatistics = ref()
 
-const fetchUserStatistics = async () => {
-  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/clients/statistics/?bot_id=${props.botId}&user_id=${props.userId}`
-  const {data} = await useFetch(url).json()
-  userStatistics.value = data.value?.result
+const fetchUserStatistics = () => {
+  const url = `/shops/clients/statistics/?bot_id=${props.botId}&user_id=${props.userId}`
+  const { data, onFetchResponse } = useApiFetch(url).json()
+  onFetchResponse(() => {
+    userStatistics.value = data.value?.result
+  })
 }
 
 onMounted(fetchUserStatistics)

@@ -33,11 +33,12 @@
 <script setup>
 import Card from 'primevue/card'
 import Button from 'primevue/button'
-import { useClipboard, useFetch } from '@vueuse/core'
+import { useClipboard } from '@vueuse/core'
 import Message from 'primevue/message'
 import Dialog from 'primevue/dialog'
 import Textarea from 'primevue/textarea'
 import { inject, ref } from 'vue'
+import useApiFetch from '../../services/useApiFetch.js'
 
 const invitationUrl = ref('')
 const dialogMessages = ref([])
@@ -66,8 +67,8 @@ const onCopy = () => {
 }
 
 const onCreateInvitationLink = () => {
-  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/invitations/`
-  const { onFetchResponse, data } = useFetch(url).post({
+  const url = '/shops/invitations/'
+  const { onFetchResponse, data } = useApiFetch(url).post({
     bot_id: botId,
     admin_user_id: user.id,
   }).json()

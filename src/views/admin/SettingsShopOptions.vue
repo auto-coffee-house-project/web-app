@@ -32,7 +32,7 @@ import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
 import { inject, onMounted, ref } from 'vue'
-import { useFetch } from '@vueuse/core'
+import useApiFetch from '../../services/useApiFetch.js'
 
 const isMenuShown = ref(false)
 const giftName = ref('')
@@ -45,10 +45,10 @@ const messages = ref([])
 
 const isButtonDisabled = ref(false)
 
-const url = `${import.meta.env.VITE_API_BASE_URL}/shops/groups/bots/${botId}/`
+const url = `/shops/groups/bots/${botId}/`
 
 const loadShopGroup = () => {
-  const { onFetchResponse, data } = useFetch(url).json()
+  const { onFetchResponse, data } = useApiFetch(url).json()
 
   onFetchResponse(() => {
     isMenuShown.value = data.value.result.is_menu_shown
@@ -59,7 +59,7 @@ const loadShopGroup = () => {
 }
 
 const onShopGroupUpdate = () => {
-  const { onFetchResponse, data, isFetching } = useFetch(url).put({
+  const { onFetchResponse, data, isFetching } = useApiFetch(url).put({
     is_menu_shown: isMenuShown.value,
     gift_name: giftName.value,
     gift_photo_url: giftPhotoUrl.value,

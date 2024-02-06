@@ -17,10 +17,10 @@ import CardSalesmanItem from './CardSalesmanItem.vue'
 import InlineMessage from 'primevue/inlinemessage'
 import Toast from 'primevue/toast'
 import ConfirmDialog from 'primevue/confirmdialog'
-import { useFetch } from '@vueuse/core'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
 import { inject } from 'vue'
+import useApiFetch from '../../../services/useApiFetch.js'
 
 const toast = useToast()
 const confirm = useConfirm()
@@ -44,9 +44,9 @@ const onDeleteSalesman = (userId) => {
     life: 2000,
   })
 
-  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/salesmans/?user_id=${userId}&bot_id=${botId}`
+  const url = `/shops/salesmans/?user_id=${userId}&bot_id=${botId}`
 
-  const { onFetchResponse } = useFetch(url).delete().json()
+  const { onFetchResponse } = useApiFetch(url).delete().json()
 
   onFetchResponse(() => {
     emit('loadSalesmans')

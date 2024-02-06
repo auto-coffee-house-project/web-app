@@ -23,12 +23,13 @@
 
 <script setup>
 import { inject, ref } from 'vue';
-import { useFetch, useTitle } from '@vueuse/core';
+import { useTitle } from '@vueuse/core';
 import AdminNavbar from '../../components/admin/AdminNavbar.vue';
 import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
 import Message from 'primevue/message';
 import BasicContainer from '../../layouts/BasicContainer.vue';
+import useApiFetch from '../../services/useApiFetch.js'
 
 useTitle('Coffee House Bot | Admin')
 
@@ -38,19 +39,20 @@ const isButtonDisabled = ref(false)
 
 const messages = ref([])
 
-const { data, onFetchResponse } = useFetch(`${import.meta.env.VITE_API_BASE_URL}/telegram/bots/${botId}/`).json()
+const url = `/telegram/bots/${botId}/`
+
+const { data, onFetchResponse } = useApiFetch(url).json()
 onFetchResponse(() => {
   botStartText.value = data?.value?.result.start_text
 })
 
 const onSubmit = () => {
-  const url = `${import.meta.env.VITE_API_BASE_URL}/telegram/bots/${botId}/`
   const {
     data,
     isFetching,
     onFetchResponse,
     onFetchError,
-  } = useFetch(url).put({ start_text: botStartText.value }).json()
+  } = useApiFetch(url).put({ start_text: botStartText.value }).json()
   isButtonDisabled.value = isFetching.value
   onFetchResponse(() => {
     botStartText.value = data.value.result.start_text
