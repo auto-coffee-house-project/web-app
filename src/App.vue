@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { provide } from 'vue'
+import { onMounted, provide } from 'vue'
 import { getTelegramUser } from './services/telegram'
 import { getBotId } from './services/queryParams'
 import { useRouter } from 'vue-router'
@@ -19,18 +19,17 @@ const botId = getBotId() || 6828517506
 provide('botId', botId)
 provide('user', telegramUser)
 
-const { onFetchResponse, data } = getUser({
-  botId: botId,
-  userId: telegramUser.id,
-})
-
-onFetchResponse(() => {
+onMounted(async () => {
+  const { data } = await getUser({
+    botId: botId,
+    userId: telegramUser.id,
+  })
   const role = data.value?.result?.role
   const roleToViewName = {
     admin: 'gift',
     client: 'client-gift',
   }
   const viewName = roleToViewName[role] ?? 'unsupported'
-  router.push({ name: viewName })
+  await router.push({ name: viewName })
 })
 </script>
