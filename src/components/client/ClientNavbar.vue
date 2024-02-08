@@ -14,9 +14,14 @@
 </template>
 
 <script setup>
-import Menubar from "primevue/menubar";
-import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import Menubar from 'primevue/menubar'
+import { inject, ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import { getShopGroup } from '../../services/api.js'
+
+const botId = inject('botId')
+
+const { onFetchResponse, data } = getShopGroup(botId)
 
 const items = ref([
   {
@@ -24,10 +29,16 @@ const items = ref([
     icon: 'pi pi-gift',
     routeName: 'client-gift',
   },
-  {
-    label: 'Каталог',
-    icon: 'pi pi-th-large',
-    routeName: 'client-shop-menu',
-  },
-]);
+])
+
+onFetchResponse(() => {
+  if (data.value?.result?.is_menu_shown) {
+    items.value.push({
+      label: 'Каталог',
+      icon: 'pi pi-th-large',
+      routeName: 'client-shop-menu',
+    })
+  }
+})
+
 </script>

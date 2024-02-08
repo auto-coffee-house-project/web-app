@@ -21,18 +21,17 @@
 </template>
 
 <script setup>
-import { inject, ref } from 'vue';
+import { inject, ref } from 'vue'
 import { useTitle } from '@vueuse/core'
 import CupRequirementsInfo from '../../components/client/CupRequirementsInfo.vue'
 import ClientNavbar from '../../components/client/ClientNavbar.vue'
 import SaleTemporaryCode from '../../components/client/SaleTemporaryCode.vue'
 import BasicContainer from '../../layouts/BasicContainer.vue'
-
 import Button from 'primevue/button'
 
 const isCodeSown = ref(false)
 
-useTitle('Клиент | Coffee House Bot')
+useTitle('Подарок | Coffeconnect')
 
 const user = inject('user')
 const botId = inject('botId')

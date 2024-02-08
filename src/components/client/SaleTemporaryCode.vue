@@ -7,9 +7,10 @@
 </template>
 
 <script setup>
-import { useFetch, useIntervalFn } from "@vueuse/core";
-import { onMounted, ref } from "vue";
-import LoadingSpinner from "./LoadingSpinner.vue";
+import { useIntervalFn } from '@vueuse/core'
+import { onMounted, ref } from 'vue'
+import LoadingSpinner from './LoadingSpinner.vue'
+import { createCode } from '../../services/api.js'
 
 
 const props = defineProps({
@@ -27,13 +28,7 @@ const code = ref()
 const codeRefreshesInSeconds = ref(30)
 
 const updateCode = async () => {
-  const url = `${import.meta.env.VITE_API_BASE_URL}/shops/codes/`
-  const {data} = await useFetch(url)
-    .post({
-      bot_id: props.botId,
-      client_user_id: props.userId,
-    })
-    .json()
+  const { data } = await createCode({ botId: props.botId, clientUserId: props.userId })
   code.value = data.value?.result?.code
 }
 

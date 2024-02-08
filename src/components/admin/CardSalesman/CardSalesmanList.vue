@@ -20,12 +20,12 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
 import { inject } from 'vue'
-import useApiFetch from '../../../services/useApiFetch.js'
+import { deleteSalesman } from '../../../services/api.js'
 
 const toast = useToast()
 const confirm = useConfirm()
 
-const emit = defineEmits([ 'loadSalesmans' ])
+const emit = defineEmits(['loadSalesmans'])
 
 const botId = inject('botId')
 
@@ -36,24 +36,18 @@ defineProps({
   },
 })
 
-const onDeleteSalesman = (userId) => {
+const onDeleteSalesman = async (userId) => {
+  await deleteSalesman({ botId, salesmanUserId: userId })
   toast.add({
     severity: 'warn',
     summary: 'Удалено',
     detail: 'Сотрудник удален',
     life: 2000,
   })
-
-  const url = `/shops/salesmans/?user_id=${userId}&bot_id=${botId}`
-
-  const { onFetchResponse } = useApiFetch(url).delete().json()
-
-  onFetchResponse(() => {
-    emit('loadSalesmans')
-  })
+  emit('loadSalesmans')
 }
 
-const onShowDialogForDelete = userId => {
+const onShowDialogForDelete = (userId) => {
   confirm.require({
     message: 'Вы уверены что хотите удалить сотрудника?',
     header: 'Удалить сотрудника',
@@ -62,8 +56,7 @@ const onShowDialogForDelete = userId => {
     acceptLabel: 'Удалить',
     rejectClass: 'p-button-secondary',
     acceptClass: 'p-button-danger',
-    accept: () => onDeleteSalesman(userId),
+    accept: async () => await onDeleteSalesman(userId),
   })
 }
-
 </script>

@@ -9,7 +9,7 @@
     >
       {{ message.content }}
     </Message>
-    <Textarea v-model="invitationUrl" class="w-full mb-2" readonly autoResize/>
+    <Textarea @click="onCopy" v-model="invitationUrl" class="w-full mb-2" readonly autoResize/>
     <div class="flex gap-x-4">
       <Button label="Закрыть" icon="pi pi-times" @click="visible = false" severity="secondary" class="my-2"/>
       <Button label="Скопировать" icon="pi pi-paperclip" @click="onCopy" class="my-2"/>
@@ -38,7 +38,7 @@ import Message from 'primevue/message'
 import Dialog from 'primevue/dialog'
 import Textarea from 'primevue/textarea'
 import { inject, ref } from 'vue'
-import useApiFetch from '../../services/useApiFetch.js'
+import { createInvitation } from '../../services/api.js'
 
 const invitationUrl = ref('')
 const dialogMessages = ref([])
@@ -63,18 +63,15 @@ const { copy: copyInvitationUrl } = useClipboard({ source: invitationUrl })
 
 const onCopy = () => {
   copyInvitationUrl(invitationUrl.value)
-  dialogMessages.value = [ { id: Date.now(), severity: 'success', content: 'Скопировано', life: 2000, sticky: false } ]
+  dialogMessages.value = [{ id: Date.now(), severity: 'success', content: 'Скопировано', life: 2000, sticky: false }]
 }
 
-const onCreateInvitationLink = () => {
-  const url = '/shops/invitations/'
-  const { onFetchResponse, data } = useApiFetch(url).post({
-    bot_id: botId,
-    admin_user_id: user.id,
-  }).json()
-  onFetchResponse(() => {
-    invitationUrl.value = data.value.result.url
+const onCreateInvitationLink = async () => {
+  try {
+    const { data } = await createInvitation({ botId, adminUserId: user.id })
+    invitationUrl.value = data.value?.result?.url
+  } finally {
     visible.value = true
-  })
+  }
 }
 </script>

@@ -1,34 +1,36 @@
 <template>
-  <router-view/>
+  <RouterView/>
 </template>
 
 <script setup>
 import { provide } from 'vue'
 import { getTelegramUser } from './services/telegram'
-import { getBotId } from "./services/queryParams";
-import { useRoute, useRouter } from "vue-router";
+import { getBotId } from './services/queryParams'
+import { useRouter } from 'vue-router'
+import { RouterView } from 'vue-router'
+import { getUser } from './services/api.js'
 
-const isTelegramMode = import.meta.env.VITE_TELEGRAM_MODE === 'true'
-let telegramUser
-if (isTelegramMode) {
-  telegramUser = getTelegramUser()
-} else {
-  telegramUser = {
-    id: 6125802367,
-    first_name: 'Hello',
-  }
-}
 
-const botId = getBotId() || 6887092432
+const router = useRouter()
+const telegramUser = getTelegramUser()
 
-const userRole = 'admin'
+const botId = getBotId() || 6828517506
 
 provide('botId', botId)
 provide('user', telegramUser)
 
-if (userRole === 'admin') {
-  useRouter().push({name: 'gift'})
-} else if (userRole === 'client') {
-  useRouter().push({name: 'client-gift'})
-}
+const { onFetchResponse, data } = getUser({
+  botId: botId,
+  userId: telegramUser.id,
+})
+
+onFetchResponse(() => {
+  const role = data.value?.result?.role
+  const roleToViewName = {
+    admin: 'gift',
+    client: 'client-gift',
+  }
+  const viewName = roleToViewName[role] ?? 'unsupported'
+  router.push({ name: viewName })
+})
 </script>

@@ -5,6 +5,8 @@ import SettingsShopOptions from './views/admin/SettingsShopOptions.vue';
 import ClientGiftView from './views/client/ClientGiftView.vue'
 import ClientShopMenu from './views/client/ClientShopMenu.vue'
 import SettingsShopMenuView from './views/admin/SettingsShopMenuView.vue'
+import UnsupportedRoleView from "./views/UnsupportedRoleView.vue";
+import UserDoesNotExistView from './views/UserDoesNotExistView.vue'
 
 export default [
   {
@@ -42,4 +44,14 @@ export default [
     name: 'client-shop-menu',
     component: ClientShopMenu,
   },
+  {
+    path: '/unsupported',
+    name: 'unsupported',
+    component: UnsupportedRoleView,
+  },
+  {
+    path: '/no-user',
+    name: 'user-does-not-exist',
+    component: UserDoesNotExistView,
+  }
 ]
