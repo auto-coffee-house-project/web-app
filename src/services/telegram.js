@@ -1,4 +1,15 @@
-const getTelegramUserFromWebApp = () => window?.Telegram?.WebApp?.initDataUnsafe?.user
+const getTelegramWebApp = () => {
+  const webApp = window?.Telegram?.WebApp
+  if (webApp === undefined) {
+    console.log('Telegram WebApp not found')
+  }
+  return webApp
+}
+
+
+export const getColorScheme = () => getTelegramWebApp()?.colorScheme || 'light'
+
+const getTelegramUserFromWebApp = () => getTelegramWebApp()?.initDataUnsafe?.user
 
 const getTestTelegramUser = () => ({ id: 896678539, first_name: 'Eldos' })
 
