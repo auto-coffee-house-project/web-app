@@ -1,8 +1,8 @@
 <template>
   <div class="flex h-full w-full">
     <div
-      class="h-6 border-black border first:rounded-l-md last:rounded-r-md grow"
-      :class="{'bg-emerald-500': index <= currentValue}"
+      class="h-6 border-black dark:border-white border first:rounded-l-md last:rounded-r-md grow"
+      :class="{'bg-emerald-500 dark:bg-emerald-400': index <= currentValue}"
       v-for="index in maxValue"
     >
     </div>
