@@ -16,7 +16,7 @@ const PrimeVue = usePrimeVue()
 const router = useRouter()
 const telegramUser = getTelegramUser()
 
-const botId = getBotId() || 6828517506
+const botId = getBotId() || 6887092432
 
 provide('botId', botId)
 provide('user', telegramUser)

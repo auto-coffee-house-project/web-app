@@ -5,14 +5,16 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coffee House Bot</title>
-  <link ref="stylesheet" href="src/output.css"/>
-  <link rel="stylesheet" id="primevue-theme" href="/themes/aura-light-green.css"/>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 
 <body>
 <div id="app"></div>
 <script type="module" src="/src/main.js"></script>
+
+<!--Including theme styles MUST BE AFTER mounting app, i.e. AFTER div with id "app" -->
+<link rel="stylesheet" id="primevue-theme" href="/themes/aura-light-green.css"/>
+
 </body>
 
 </html>

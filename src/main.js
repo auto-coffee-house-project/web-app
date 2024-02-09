@@ -4,6 +4,7 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import 'primeicons/primeicons.css'
 import routes from './routes.js'
+import './output.css'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 
