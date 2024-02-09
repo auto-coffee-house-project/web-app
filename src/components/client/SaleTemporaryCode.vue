@@ -1,7 +1,7 @@
 <template>
   <template v-if="code">
     <p class="font-bold mt-4 mb-2 tg-text-primary">Скажите код: {{ code }}</p>
-    <p class="tg-hint">Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
+    <p>Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
   </template>
   <LoadingSpinner v-else/>
 </template>

@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col gap-y-2">
     <div class="flex justify-between gap-x-3">
-      <p class="tg-text-primary">Бесплатный напиток</p>
-      <p class="font-semibold tg-text-primary">
+      <p>Бесплатный напиток</p>
+      <p class="font-semibold">
         {{ currentCupsCount }}/{{ eachNthCupFree }}
       </p>
     </div>
