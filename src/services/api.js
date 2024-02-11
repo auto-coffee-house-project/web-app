@@ -32,7 +32,7 @@ export const getClientStatistics = ({ userId, botId }) => {
   return useApiFetch(url).json()
 }
 
-export const createCode = ({ botId, clientUserId }) => {
+export const createSaleCode = ({ botId, clientUserId }) => {
   const url = `/shops/codes/`
   return useApiFetch(url)
     .post({

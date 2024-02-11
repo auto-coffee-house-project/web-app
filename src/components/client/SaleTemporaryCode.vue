@@ -10,7 +10,7 @@
 import { useIntervalFn } from '@vueuse/core'
 import { onMounted, ref } from 'vue'
 import LoadingSpinner from './LoadingSpinner.vue'
-import { createCode } from '../../services/api.js'
+import { createSaleCode } from '../../services/api.js'
 
 
 const props = defineProps({
@@ -28,7 +28,7 @@ const code = ref()
 const codeRefreshesInSeconds = ref(30)
 
 const updateCode = async () => {
-  const { data } = await createCode({ botId: props.botId, clientUserId: props.userId })
+  const { data } = await createSaleCode({ botId: props.botId, clientUserId: props.userId })
   code.value = data.value?.result?.code
 }
 
