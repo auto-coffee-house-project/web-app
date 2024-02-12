@@ -32,9 +32,7 @@ const props = defineProps({
 })
 
 const userFullName = computed(() => {
-  if (props.salesman.user_last_name) {
-    return `${props.salesman.user_first_name} ${props.salesman.user_last_name}`
-  }
-  return props.salesman.user_first_name
+  if (!props.salesman.last_name) return props.salesman.first_name
+  return `${props.salesman.first_name} ${props.salesman.last_name}`
 })
 </script>

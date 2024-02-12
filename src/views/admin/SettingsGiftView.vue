@@ -24,30 +24,26 @@
         <label for="each-nth-cup-free">Необходимо чашек</label>
         <InputNumber id="each-nth-cup-free" :min="2" :max="100" v-model="eachNthCupFree" :use-grouping="false"/>
       </div>
-      <Button type="submit" @click="onSubmit" :disabled="isButtonDisabled" label="Сохранить" class="w-full"/>
+      <Button type="submit" @click="onSubmit" label="Сохранить" class="w-full"/>
     </form>
   </BasicContainer>
 
 </template>
 
 <script setup>
-import AdminNavbar from "../../components/admin/AdminNavbar.vue";
-import { inject, ref } from "vue";
-import BasicContainer from "../../layouts/BasicContainer.vue";
-import InputText from "primevue/inputtext";
-import InputNumber from "primevue/inputnumber";
-import Button from "primevue/button";
-import Message from "primevue/message";
-import useApiFetch from '../../services/useApiFetch.js'
+import AdminNavbar from '../../components/admin/AdminNavbar.vue';
+import BasicContainer from '../../layouts/BasicContainer.vue';
+import InputText from 'primevue/inputtext';
+import InputNumber from 'primevue/inputnumber';
+import Button from 'primevue/button';
+import Message from 'primevue/message';
+import useShopGroupStore from '../../stores/useShopGroupStore.js'
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue';
 
-const botId = inject('botId')
+const shopGroupStore = useShopGroupStore()
 
-const giftName = ref('')
-const giftPhotoUrl = ref(null)
-const eachNthCupFree = ref(0)
-const isMenuShown = ref(false)
-
-const isButtonDisabled = ref(false)
+const { giftName, giftPhotoUrl, eachNthCupFree, isMenuShown } = storeToRefs(shopGroupStore)
 
 const messages = ref([])
 
@@ -67,36 +63,23 @@ const messages = ref([])
 //     })
 //   };
 // };
-const url = `/shops/groups/bots/${botId}/`
-const { onFetchResponse, data } = useApiFetch(url).json()
 
-onFetchResponse(() => {
-  giftName.value = data.value.result.gift_name
-  giftPhotoUrl.value = data.value.result.gift_photo_url
-  eachNthCupFree.value = data.value.result.each_nth_cup_free
-  isMenuShown.value = data.value.result.is_menu_shown
-})
 
-const onSubmit = () => {
-  const { isFetching, onFetchResponse, data } = useApiFetch(url).put({
-    gift_name: giftName.value,
-    gift_photo_url: giftPhotoUrl.value,
-    each_nth_cup_free: eachNthCupFree.value,
-    is_menu_shown: isMenuShown.value,
+const onSubmit = async () => {
+  await shopGroupStore.update({
+    giftName: giftName.value,
+    giftPhotoUrl: giftPhotoUrl.value,
+    eachNthCupFree: eachNthCupFree.value,
+    isMenuShown: isMenuShown.value,
   })
-  isButtonDisabled.value = isFetching.value
-  onFetchResponse(() => {
-    messages.value = [{
+  messages.value = [
+    {
       id: Date.now(),
       content: 'Изменения сохранены',
       severity: 'success',
       life: 2000,
-      sticky: false
-    }]
-    giftName.value = data.value.result.gift_name
-    giftPhotoUrl.value = data.value.result.gift_photo_url
-    eachNthCupFree.value = data.value.result.each_nth_cup_free
-    isMenuShown.value = data.value.result.is_menu_shown
-  })
+      sticky: false,
+    },
+  ]
 }
 </script>

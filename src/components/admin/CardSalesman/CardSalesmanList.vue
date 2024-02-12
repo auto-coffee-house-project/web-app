@@ -1,9 +1,9 @@
 <template>
   <Toast/>
   <ConfirmDialog class="mx-4"/>
-  <template v-if="salesmans.length">
+  <template v-if="salesmansStore.salesmans.length">
     <CardSalesmanItem
-      v-for="salesman in salesmans"
+      v-for="salesman in salesmansStore.salesmans"
       :key="salesman.user_id"
       :salesman="salesman"
       @show-dialog-for-delete="onShowDialogForDelete"
@@ -19,35 +19,26 @@ import Toast from 'primevue/toast'
 import ConfirmDialog from 'primevue/confirmdialog'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
-import { inject } from 'vue'
-import { deleteSalesman } from '../../../services/api.js'
+import useSalesmansStore from '../../../stores/useSalesmansStore.js'
 
 const toast = useToast()
 const confirm = useConfirm()
 
-const emit = defineEmits(['loadSalesmans'])
+const salesmansStore = useSalesmansStore()
 
-const botId = inject('botId')
-
-defineProps({
-  salesmans: {
-    type: Array,
-    required: true,
-  },
-})
 
 const onDeleteSalesman = async (userId) => {
-  await deleteSalesman({ botId, salesmanUserId: userId })
+  await salesmansStore.delete({ salesmanUserId: userId })
   toast.add({
     severity: 'warn',
     summary: 'Удалено',
     detail: 'Сотрудник удален',
     life: 2000,
   })
-  emit('loadSalesmans')
+  await salesmansStore.fetch()
 }
 
-const onShowDialogForDelete = (userId) => {
+const onShowDialogForDelete = userId => {
   confirm.require({
     message: 'Вы уверены что хотите удалить сотрудника?',
     header: 'Удалить сотрудника',

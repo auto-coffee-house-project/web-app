@@ -11,6 +11,7 @@ import { RouterView } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 import useUserStore from './stores/useUserStore.js'
 import useBotStore from './stores/useBotStore.js'
+import useShopGroupStore from './stores/useShopGroupStore.js'
 
 
 const PrimeVue = usePrimeVue()
@@ -19,11 +20,9 @@ const telegramUser = getTelegramUser()
 
 const userStore = useUserStore()
 const botStore = useBotStore()
+const shopGroupStore = useShopGroupStore()
 
 const botId = getBotId() || 6887092432
-
-provide('botId', botId)
-provide('user', telegramUser)
 
 const colorScheme = getColorScheme()
 
@@ -43,6 +42,7 @@ onMounted(async () => {
 
   await userStore.fetch()
   await botStore.fetch()
+  await shopGroupStore.fetch()
 
   const roleToViewName = {
     admin: 'gift',
