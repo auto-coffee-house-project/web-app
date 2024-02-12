@@ -7,6 +7,7 @@ import routes from './routes.js'
 import './output.css'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
+import { createPinia } from 'pinia'
 
 const router = createRouter({
   history: createWebHistory(), routes,
@@ -14,6 +15,7 @@ const router = createRouter({
 
 createApp(App)
   .use(router)
+  .use(createPinia())
   .use(PrimeVue)
   .use(ConfirmationService)
   .use(ToastService)
