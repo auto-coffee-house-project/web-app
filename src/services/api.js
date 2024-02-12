@@ -5,9 +5,22 @@ export const getUser = ({ userId, botId }) => {
   return useApiFetch(url).json()
 }
 
-export const getShopGroup = botId => {
+export const getShopGroup = ({ botId }) => {
   const url = `/shops/groups/bots/${botId}/`
   return useApiFetch(url).json()
+}
+
+
+export const updateShopGroup = ({ botId, eachNthCupFree, giftName, giftPhotoUrl, isMenuShown }) => {
+  const url = `/shops/groups/bots/${botId}/`
+  return useApiFetch(url)
+    .put({
+      each_nth_cup_free: eachNthCupFree,
+      gift_name: giftName,
+      gift_photo_url: giftPhotoUrl,
+      is_menu_shown: isMenuShown,
+    })
+    .json()
 }
 
 
@@ -55,4 +68,9 @@ export const createInvitation = ({ botId, adminUserId }) => {
 export const deleteSalesman = ({ botId, salesmanUserId }) => {
   const url = `/shops/salesmans/?user_id=${salesmanUserId}&bot_id=${botId}`
   return useApiFetch(url).delete().json()
+}
+
+export const getSalesmans = ({ botId, adminUserId }) => {
+  const url = `/shops/salesmans/?bot_id=${botId}&admin_user_id=${adminUserId}`
+  return useApiFetch(url).json()
 }

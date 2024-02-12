@@ -19,7 +19,6 @@
         @click="onShopGroupUpdate"
         type="submit"
         label="Сохранить"
-        :disabled="isButtonDisabled"
       />
     </form>
   </BasicContainer>
@@ -31,60 +30,32 @@ import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
-import { inject, onMounted, ref } from 'vue'
-import useApiFetch from '../../services/useApiFetch.js'
+import { onMounted, ref } from 'vue'
+import useShopGroupStore from '../../stores/useShopGroupStore.js'
+import { storeToRefs } from 'pinia'
 
-const isMenuShown = ref(false)
-const giftName = ref('')
-const giftPhotoUrl = ref(null)
-const eachNthCupFree = ref(0)
+const shopGroupStore = useShopGroupStore()
 
-const botId = inject('botId')
+const { giftName, giftPhotoUrl, eachNthCupFree, isMenuShown } = storeToRefs(shopGroupStore)
 
 const messages = ref([])
 
-const isButtonDisabled = ref(false)
-
-const url = `/shops/groups/bots/${botId}/`
-
-const loadShopGroup = () => {
-  const { onFetchResponse, data } = useApiFetch(url).json()
-
-  onFetchResponse(() => {
-    isMenuShown.value = data.value.result.is_menu_shown
-    giftName.value = data.value.result.gift_name
-    giftPhotoUrl.value = data.value.result.gift_photo_url
-    eachNthCupFree.value = data.value.result.each_nth_cup_free
+const onShopGroupUpdate = async () => {
+  await shopGroupStore.update({
+    giftName: giftName.value,
+    giftPhotoUrl: giftPhotoUrl.value,
+    eachNthCupFree: eachNthCupFree.value,
+    isMenuShown: isMenuShown.value,
   })
-}
 
-const onShopGroupUpdate = () => {
-  const { onFetchResponse, data, isFetching } = useApiFetch(url).put({
-    is_menu_shown: isMenuShown.value,
-    gift_name: giftName.value,
-    gift_photo_url: giftPhotoUrl.value,
-    each_nth_cup_free: eachNthCupFree.value,
-  }).json()
-
-  isButtonDisabled.value = isFetching.value
-
-  onFetchResponse(() => {
-      messages.value = [ {
-        id: Date.now(),
-        content: 'Изменения сохранены',
-        severity: 'success',
-        life: 2000,
-        sticky: false,
-      } ]
-      isMenuShown.value = data.value.result.is_menu_shown
-      giftName.value = data.value.result.gift_name
-      giftPhotoUrl.value = data.value.result.gift_photo_url
-      eachNthCupFree.value = data.value.result.each_nth_cup_free
-      isButtonDisabled.value = false
+  messages.value = [
+    {
+      id: Date.now(),
+      content: 'Изменения сохранены',
+      severity: 'success',
+      life: 2000,
+      sticky: false,
     },
-  )
+  ]
 }
-
-onMounted(loadShopGroup)
-
 </script>

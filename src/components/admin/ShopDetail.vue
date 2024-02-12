@@ -18,11 +18,11 @@
   <Card class="mb-4">
     <template #title>
       <i class="pi pi-shopping-bag mr-1"/>
-      Магазин {{ shopName }}
+      Магазин {{ salesmansStore.shopName }}
     </template>
     <template #content>
       <i class="pi pi-users mr-1"/>
-      Количество сотрудников: {{ salesmansCount }}
+      Количество сотрудников: {{ salesmansStore.salesmans.length }}
     </template>
     <template #footer>
       <Button class="w-full" label="Ссылка-приглашение" outlined @click="onCreateInvitationLink"/>
@@ -37,38 +37,42 @@ import { useClipboard } from '@vueuse/core'
 import Message from 'primevue/message'
 import Dialog from 'primevue/dialog'
 import Textarea from 'primevue/textarea'
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import { createInvitation } from '../../services/api.js'
+import useSalesmansStore from '../../stores/useSalesmansStore.js'
+import useBotStore from '../../stores/useBotStore.js'
+import useUserStore from '../../stores/useUserStore.js'
 
 const invitationUrl = ref('')
 const dialogMessages = ref([])
 const visible = ref(false)
 
-const botId = inject('botId')
-const user = inject('user')
+const salesmansStore = useSalesmansStore()
+const botStore = useBotStore()
+const userStore = useUserStore()
 
-
-const props = defineProps({
-  shopName: {
-    type: String,
-    required: true,
-  },
-  salesmansCount: {
-    type: Number,
-    required: true,
-  },
-})
 
 const { copy: copyInvitationUrl } = useClipboard({ source: invitationUrl })
 
 const onCopy = () => {
   copyInvitationUrl(invitationUrl.value)
-  dialogMessages.value = [{ id: Date.now(), severity: 'success', content: 'Скопировано', life: 2000, sticky: false }]
+  dialogMessages.value = [
+    {
+      id: Date.now(),
+      severity: 'success',
+      content: 'Скопировано',
+      life: 2000,
+      sticky: false,
+    },
+  ]
 }
 
 const onCreateInvitationLink = async () => {
   try {
-    const { data } = await createInvitation({ botId, adminUserId: user.id })
+    const { data } = await createInvitation({
+      botId: botStore.id,
+      adminUserId: userStore.id,
+    })
     invitationUrl.value = data.value?.result?.url
   } finally {
     visible.value = true
