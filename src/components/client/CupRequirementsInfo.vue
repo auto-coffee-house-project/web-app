@@ -19,7 +19,7 @@ import CupIcon from './CupIcon.vue'
 import CupProgress from './CupProgress.vue'
 import CupDescription from './CupDescription.vue'
 import { getBot } from '../../services/api.js'
-import useClientStatistics from '../../stores/useClientStatistics.js'
+import useClientStatisticsStore from '../../stores/useClientStatisticsStore.js'
 
 const props = defineProps({
   botId: {
@@ -37,7 +37,7 @@ const props = defineProps({
 })
 const startText = ref('')
 
-const clientStatisticsStore = useClientStatistics()
+const clientStatisticsStore = useClientStatisticsStore()
 
 const fetchUserStatistics = async () => {
   await clientStatisticsStore.fetchClientStatistics({ botId: props.botId, userId: props.userId })
