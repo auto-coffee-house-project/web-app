@@ -1,16 +1,8 @@
 <template>
   <ClientNavbar/>
   <BasicContainer>
-    <CupRequirementsInfo
-      :user-id="user.id"
-      :user-first-name="user.first_name"
-      :bot-id="botId"
-    />
-    <SaleTemporaryCode
-      v-if="isCodeSown"
-      :bot-id="botId"
-      :user-id="user.id"
-    />
+    <CupRequirementsInfo/>
+    <SaleTemporaryCode v-if="isCodeSown"/>
     <Button
       class="w-full my-4"
       label="Получить код"

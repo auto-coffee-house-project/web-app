@@ -11,24 +11,21 @@ import { useIntervalFn } from '@vueuse/core'
 import { onMounted, ref } from 'vue'
 import LoadingSpinner from './LoadingSpinner.vue'
 import { createSaleCode } from '../../services/api.js'
+import useUserStore from '../../stores/useUserStore.js'
+import useBotStore from '../../stores/useBotStore.js'
 
 
-const props = defineProps({
-  botId: {
-    type: Number,
-    required: true,
-  },
-  userId: {
-    type: Number,
-    required: true,
-  },
-})
+const userStore = useUserStore()
+const botStore = useBotStore()
 
 const code = ref()
 const codeRefreshesInSeconds = ref(30)
 
 const updateCode = async () => {
-  const { data } = await createSaleCode({ botId: props.botId, clientUserId: props.userId })
+  const { data } = await createSaleCode({
+    botId: botStore.id,
+    clientUserId: userStore.id,
+  })
   code.value = data.value?.result?.code
 }
 
@@ -41,5 +38,4 @@ useIntervalFn(async () => {
     codeRefreshesInSeconds.value = 30
   }
 }, 1000)
-
 </script>

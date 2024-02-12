@@ -8,13 +8,17 @@ import { getColorScheme, getTelegramUser } from './services/telegram'
 import { getBotId } from './services/queryParams'
 import { useRouter } from 'vue-router'
 import { RouterView } from 'vue-router'
-import { getUser } from './services/api.js'
 import { usePrimeVue } from 'primevue/config'
+import useUserStore from './stores/useUserStore.js'
+import useBotStore from './stores/useBotStore.js'
 
 
 const PrimeVue = usePrimeVue()
 const router = useRouter()
 const telegramUser = getTelegramUser()
+
+const userStore = useUserStore()
+const botStore = useBotStore()
 
 const botId = getBotId() || 6887092432
 
@@ -28,21 +32,23 @@ if (colorScheme === 'dark') {
     'aura-light-green',
     'aura-dark-green',
     'primevue-theme',
-    () => {},
+    () => {
+    },
   )
 }
 
 onMounted(async () => {
-  const { data } = await getUser({
-    botId: botId,
-    userId: telegramUser.id,
-  })
-  const role = data.value?.result?.role
+  botStore.setId(botId)
+  userStore.setId(telegramUser.id)
+
+  await userStore.fetch()
+  await botStore.fetch()
+
   const roleToViewName = {
     admin: 'gift',
     client: 'client-gift',
   }
-  const viewName = roleToViewName[role] ?? 'unsupported'
+  const viewName = roleToViewName[userStore.role] ?? 'unsupported'
   await router.push({ name: viewName })
 })
 </script>
