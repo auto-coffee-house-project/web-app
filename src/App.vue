@@ -1,26 +1,54 @@
 <template>
-  <ClientView/>
+  <RouterView/>
 </template>
 
 <script setup>
-import ClientView from './views/ClientView.vue'
-import { provide } from 'vue'
-import { getTelegramUser } from './services/telegram'
-import { getBotId } from "./services/queryParams";
+import { onMounted } from 'vue'
+import { getColorScheme, getTelegramUser } from './services/telegram'
+import { getBotId } from './services/queryParams'
+import { useRouter } from 'vue-router'
+import { RouterView } from 'vue-router'
+import { usePrimeVue } from 'primevue/config'
+import useUserStore from './stores/useUserStore.js'
+import useBotStore from './stores/useBotStore.js'
+import useShopGroupStore from './stores/useShopGroupStore.js'
 
-const isTelegramMode = import.meta.env.VITE_TELEGRAM_MODE === 'true'
-let telegramUser
-if (isTelegramMode) {
-  telegramUser = getTelegramUser()
-} else {
-  telegramUser = {
-    id: 6314531184,
-    first_name: 'Hello',
-  }
+
+const PrimeVue = usePrimeVue()
+const router = useRouter()
+const telegramUser = getTelegramUser()
+
+const userStore = useUserStore()
+const botStore = useBotStore()
+const shopGroupStore = useShopGroupStore()
+
+const botId = getBotId() || 6887092432
+
+const colorScheme = getColorScheme()
+
+if (colorScheme === 'dark') {
+  PrimeVue.changeTheme(
+    'aura-light-green',
+    'aura-dark-green',
+    'primevue-theme',
+    () => {
+    },
+  )
 }
 
-let botId = getBotId() || 6887092432
+onMounted(async () => {
+  botStore.setId(botId)
+  userStore.setId(telegramUser.id)
 
-provide('botId', botId)
-provide('user', telegramUser)
+  await userStore.fetch()
+  await botStore.fetch()
+  await shopGroupStore.fetch()
+
+  const roleToViewName = {
+    admin: 'gift',
+    client: 'client-gift',
+  }
+  const viewName = roleToViewName[userStore.role] ?? 'unsupported'
+  await router.push({ name: viewName })
+})
 </script>
