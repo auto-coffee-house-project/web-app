@@ -15,13 +15,11 @@
 
 <script setup>
 import Menubar from 'primevue/menubar'
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { getShopGroup } from '../../services/api.js'
+import useShopGroupStore from '../../stores/useShopGroupStore.js'
 
-const botId = inject('botId')
-
-const { onFetchResponse, data } = getShopGroup(botId)
+const shopGroupStore = useShopGroupStore()
 
 const items = ref([
   {
@@ -31,14 +29,11 @@ const items = ref([
   },
 ])
 
-onFetchResponse(() => {
-  if (data.value?.result?.is_menu_shown) {
-    items.value.push({
-      label: 'Каталог',
-      icon: 'pi pi-th-large',
-      routeName: 'client-shop-menu',
-    })
-  }
-})
-
+if (shopGroupStore.isMenuShown) {
+  items.value.push({
+    label: 'Каталог',
+    icon: 'pi pi-th-large',
+    routeName: 'client-shop-menu',
+  })
+}
 </script>
