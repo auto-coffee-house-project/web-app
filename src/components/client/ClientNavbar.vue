@@ -15,7 +15,7 @@
 
 <script setup>
 import Menubar from 'primevue/menubar'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import useShopGroupStore from '../../stores/useShopGroupStore.js'
 
@@ -29,11 +29,13 @@ const items = ref([
   },
 ])
 
-if (shopGroupStore.isMenuShown) {
-  items.value.push({
-    label: 'Каталог',
-    icon: 'pi pi-th-large',
-    routeName: 'client-shop-menu',
-  })
-}
+onMounted(() => {
+  if (shopGroupStore.isMenuShown) {
+    items.value.push({
+      label: 'Каталог',
+      icon: 'pi pi-th-large',
+      routeName: 'client-shop-menu',
+    })
+  }
+})
 </script>
