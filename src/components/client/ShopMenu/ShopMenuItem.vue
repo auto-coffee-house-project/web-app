@@ -2,7 +2,20 @@
   <Card
     class="my-4"
   >
-    <template #subtitle><span class="font-semibold text-xl">{{ product.name }}</span></template>
+    <template
+      #header
+      v-if="product.photo"
+    >
+      <img
+        :src="product.photo"
+        alt="product photo"
+      />
+    </template>
+    <template #subtitle>
+      <span class="font-semibold text-xl">
+        {{ product.name }}
+      </span>
+    </template>
     <template #content>Цена: {{ product.price }}</template>
   </Card>
 </template>
