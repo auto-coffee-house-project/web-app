@@ -74,3 +74,28 @@ export const getSalesmans = ({ botId, adminUserId }) => {
   const url = `/shops/salesmans/?bot_id=${botId}&admin_user_id=${adminUserId}`
   return useApiFetch(url).json()
 }
+
+
+export const getProducts = ({ botId }) => {
+  const url = `/shops/products/`
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).json()
+}
+
+export const createProduct = ({ botId, name, price }) => {
+  const url = `/shops/products/`
+  return useApiFetch(
+    url,
+    {
+      headers: {
+        'bot-id': botId,
+      },
+    },
+  ).post({
+    name,
+    price,
+  }).json()
+}

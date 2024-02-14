@@ -18,8 +18,11 @@ import Menubar from 'primevue/menubar'
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import useShopGroupStore from '../../stores/useShopGroupStore.js'
+import { storeToRefs } from 'pinia'
 
 const shopGroupStore = useShopGroupStore()
+
+const { isMenuShown } = storeToRefs(shopGroupStore)
 
 const items = ref([
   {
@@ -30,7 +33,7 @@ const items = ref([
 ])
 
 onMounted(() => {
-  if (shopGroupStore.isMenuShown) {
+  if (isMenuShown) {
     items.value.push({
       label: 'Каталог',
       icon: 'pi pi-th-large',
