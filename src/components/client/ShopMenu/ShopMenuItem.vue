@@ -6,10 +6,11 @@
       #header
       v-if="product.photo"
     >
-      <img
+      <Image
         :src="product.photo"
         alt="product photo"
         class="rounded-t-lg"
+        preview
       />
     </template>
     <template #subtitle>
@@ -23,6 +24,7 @@
 
 <script setup>
 import Card from 'primevue/card'
+import Image from 'primevue/image'
 
 defineProps({
   product: {

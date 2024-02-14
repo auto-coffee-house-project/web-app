@@ -633,6 +633,22 @@ video {
     height: 100%;
   }
 
+  .h-4{
+    height: 1rem;
+  }
+
+  .h-16{
+    height: 4rem;
+  }
+
+  .h-20{
+    height: 5rem;
+  }
+
+  .h-32{
+    height: 8rem;
+  }
+
   .w-12{
     width: 3rem;
   }
@@ -661,6 +677,10 @@ video {
 
   .items-center{
     align-items: center;
+  }
+
+  .justify-center{
+    justify-content: center;
   }
 
   .justify-between{
