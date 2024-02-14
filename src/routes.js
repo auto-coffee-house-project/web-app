@@ -40,7 +40,7 @@ export default [
     component: ClientGiftView,
   },
   {
-    path: '/client',
+    path: '/client/menu',
     name: 'client-shop-menu',
     component: ClientShopMenu,
   },

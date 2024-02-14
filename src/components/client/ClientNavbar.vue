@@ -15,13 +15,14 @@
 
 <script setup>
 import Menubar from 'primevue/menubar'
-import { inject, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { getShopGroup } from '../../services/api.js'
+import useShopGroupStore from '../../stores/useShopGroupStore.js'
+import { storeToRefs } from 'pinia'
 
-const botId = inject('botId')
+const shopGroupStore = useShopGroupStore()
 
-const { onFetchResponse, data } = getShopGroup(botId)
+const { isMenuShown } = storeToRefs(shopGroupStore)
 
 const items = ref([
   {
@@ -31,8 +32,8 @@ const items = ref([
   },
 ])
 
-onFetchResponse(() => {
-  if (data.value?.result?.is_menu_shown) {
+onMounted(() => {
+  if (isMenuShown.value) {
     items.value.push({
       label: 'Каталог',
       icon: 'pi pi-th-large',
@@ -40,5 +41,4 @@ onFetchResponse(() => {
     })
   }
 })
-
 </script>

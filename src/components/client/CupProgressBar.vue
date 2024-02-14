@@ -5,7 +5,7 @@
       :class="{'bg-emerald-500 dark:bg-emerald-400': index <= currentValue}"
       v-for="index in maxValue"
     >
-      <i v-if="index === maxValue" class="pi pi-gift"/>
+      <i v-if="index === maxValue" class="pi pi-gift dark:text-black"/>
     </div>
   </div>
 </template>
