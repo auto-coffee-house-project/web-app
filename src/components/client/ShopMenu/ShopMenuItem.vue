@@ -24,6 +24,7 @@
         v-for="category in product.categories"
         :id="category.id"
         :label="category.name"
+        class="mr-2"
       />
     </template>
   </Card>
