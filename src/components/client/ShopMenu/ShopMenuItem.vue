@@ -9,6 +9,7 @@
       <img
         :src="product.photo"
         alt="product photo"
+        class="rounded-t"
       />
     </template>
     <template #subtitle>
