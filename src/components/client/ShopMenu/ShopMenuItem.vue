@@ -19,12 +19,20 @@
       </span>
     </template>
     <template #content>Цена: {{ product.price }}</template>
+    <template #footer>
+      <Chip
+        v-for="category in product.categories"
+        :id="category.id"
+        :label="category.name"
+      />
+    </template>
   </Card>
 </template>
 
 <script setup>
 import Card from 'primevue/card'
 import Image from 'primevue/image'
+import Chip from 'primevue/chip'
 
 defineProps({
   product: {
