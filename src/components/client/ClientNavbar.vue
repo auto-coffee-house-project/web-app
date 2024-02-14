@@ -33,7 +33,7 @@ const items = ref([
 ])
 
 onMounted(() => {
-  if (isMenuShown) {
+  if (isMenuShown.value) {
     items.value.push({
       label: 'Каталог',
       icon: 'pi pi-th-large',
