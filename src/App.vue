@@ -1,4 +1,5 @@
 <template>
+  <Toast class="w-80"/>
   <RouterView/>
 </template>
 
@@ -12,6 +13,7 @@ import { usePrimeVue } from 'primevue/config'
 import useUserStore from './stores/useUserStore.js'
 import useBotStore from './stores/useBotStore.js'
 import useShopGroupStore from './stores/useShopGroupStore.js'
+import Toast from 'primevue/toast'
 
 
 const PrimeVue = usePrimeVue()

@@ -7,8 +7,20 @@ import ClientShopMenu from './views/client/ClientShopMenu.vue'
 import SettingsShopMenuView from './views/admin/SettingsShopMenuView.vue'
 import UnsupportedRoleView from "./views/UnsupportedRoleView.vue";
 import UserDoesNotExistView from './views/UserDoesNotExistView.vue'
+import ProductView from './views/admin/ProductView.vue'
+import ProductCreateFormView from './views/admin/ProductCreateFormView.vue'
 
 export default [
+  {
+    path: '/admin/products/create',
+    name: 'admin-product-create',
+    component: ProductCreateFormView,
+  },
+  {
+    path: '/admin/products/:id',
+    name: 'admin-product',
+    component: ProductView,
+  },
   {
     path: '/admin/menu',
     name: 'admin-shop-menu',
