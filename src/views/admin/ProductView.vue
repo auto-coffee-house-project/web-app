@@ -23,8 +23,12 @@
           <Chips id="categories" v-model="categoryNames" separator=","/>
           <small>Можно указать несколько тегов через запятую</small>
         </div>
+        <CardProductUpdatePhotoUpload
+          :bot-id="botId"
+          :product-id="productId"
+        />
         <Button
-            icon="pi pi-file-edit"
+          icon="pi pi-file-edit"
           type="submit"
           label="Сохранить"
           @click="onUpdateProduct"
@@ -61,11 +65,11 @@ import Button from 'primevue/button'
 import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import Chips from 'primevue/chips'
-import Toast from 'primevue/toast'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import CardSkeleton from '../../components/skeletons/CardSkeleton.vue'
 import ConfirmPopup from 'primevue/confirmpopup'
+import CardProductUpdatePhotoUpload from '../../components/admin/CardProduct/CardProductPhotoUpload.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -74,7 +78,7 @@ const confirm = useConfirm();
 const toast = useToast()
 
 const botId = botStore.id
-const productId = route.params.id
+const productId = Number(route.params.id)
 
 const isLoading = ref(true)
 const productName = ref()
