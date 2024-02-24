@@ -1,80 +1,110 @@
 import useApiFetch from './useApiFetch.js'
 
 export const getUser = ({ userId, botId }) => {
-  const url = `/telegram/users/?user_id=${userId}&bot_id=${botId}`
-  return useApiFetch(url).json()
+  const url = `/telegram/users/${userId}/`
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).json()
 }
 
-export const getShopGroup = ({ botId }) => {
-  const url = `/shops/groups/bots/${botId}/`
-  return useApiFetch(url).json()
+export const getShop = ({ botId }) => {
+  const url = '/shops/me/'
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).json()
 }
 
 
-export const updateShopGroup = ({ botId, eachNthCupFree, giftName, giftPhotoUrl, isMenuShown }) => {
+export const updateShop = ({ botId, eachNthSaleFree, giftName, isMenuShown, startText }) => {
   const url = `/shops/groups/bots/${botId}/`
-  return useApiFetch(url)
-    .put({
-      each_nth_cup_free: eachNthCupFree,
-      gift_name: giftName,
-      gift_photo_url: giftPhotoUrl,
-      is_menu_shown: isMenuShown,
-    })
-    .json()
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).put({
+    each_nth_sale_free: eachNthSaleFree,
+    gift_name: giftName,
+    is_menu_shown: isMenuShown,
+    start_text: startText,
+  }).json()
 }
 
 
 export const getBot = ({ botId }) => {
-  const url = `/telegram/bots/${botId}/`
-  return useApiFetch(url).json()
+  const url = '/telegram/bots/me/'
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).json()
 }
 
 
-export const updateBot = ({ botId, startText, startTextClientWebApp }) => {
+export const updateBot = ({ botId, startText }) => {
   const url = `/telegram/bots/${botId}/`
-  return useApiFetch(url)
-    .put({
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).put(
+    {
       start_text: startText,
-      start_text_client_web_app: startTextClientWebApp,
-    })
-    .json()
+    },
+  ).json()
 }
 
-export const getClientStatistics = ({ userId, botId }) => {
-  const url = `/shops/clients/statistics/?bot_id=${botId}&user_id=${userId}`
-  return useApiFetch(url).json()
+export const getClient = ({ userId, botId }) => {
+  const url = `/shops/clients/users/${userId}/`
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).json()
 }
 
 export const createSaleCode = ({ botId, clientUserId }) => {
-  const url = `/shops/codes/`
-  return useApiFetch(url)
-    .post({
-      bot_id: botId,
-      client_user_id: clientUserId,
-    })
-    .json()
+  const url = `/shops/sale-codes/`
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).post({
+    client_user_id: clientUserId,
+  }).json()
 }
 
 export const createInvitation = ({ botId, adminUserId }) => {
   const url = '/shops/invitations/'
-  return useApiFetch(url)
-    .post({
-      bot_id: botId,
-      admin_user_id: adminUserId,
-    })
-    .json()
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).post({
+    admin_user_id: adminUserId,
+  }).json()
 }
 
-export const deleteSalesman = ({ botId, salesmanUserId }) => {
-  const url = `/shops/salesmans/?user_id=${salesmanUserId}&bot_id=${botId}`
-  return useApiFetch(url).delete().json()
+export const deleteEmployee = ({ botId, employeeId }) => {
+  const url = `/shops/employees/${employeeId}/`
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).delete().json()
 }
 
-export const getSalesmans = ({ botId, adminUserId }) => {
-  const url = `/shops/salesmans/?bot_id=${botId}&admin_user_id=${adminUserId}`
-  return useApiFetch(url).json()
+export const getEmployees = ({ botId }) => {
+  const url = '/shops/employees/'
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).json()
 }
-
 
 export const getProducts = ({ botId }) => {
   const url = `/shops/products/`
@@ -87,9 +117,7 @@ export const getProducts = ({ botId }) => {
 
 export const createProduct = ({ botId, name, price, categoryNames }) => {
   const url = `/shops/products/`
-  return useApiFetch(
-    url,
-    {
+  return useApiFetch(url, {
       headers: {
         'bot-id': botId,
       },
@@ -121,7 +149,6 @@ export const updateProduct = ({ botId, productId, name, price, categoryNames, ph
     name,
     price,
     category_names: categoryNames,
-    photo,
   }).json()
 }
 
