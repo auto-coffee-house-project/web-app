@@ -18,11 +18,11 @@
   <Card class="mb-4">
     <template #title>
       <i class="pi pi-shopping-bag mr-1"/>
-      Магазин {{ salesmansStore.shopName }}
+      Магазин {{ shopName }}
     </template>
     <template #content>
       <i class="pi pi-users mr-1"/>
-      Количество сотрудников: {{ salesmansStore.salesmans.length }}
+      Количество сотрудников: {{ employees.length }}
     </template>
     <template #footer>
       <Button class="w-full" label="Ссылка-приглашение" outlined @click="onCreateInvitationLink"/>
@@ -33,25 +33,27 @@
 <script setup>
 import Card from 'primevue/card'
 import Button from 'primevue/button'
-import { useClipboard } from '@vueuse/core'
 import Message from 'primevue/message'
 import Dialog from 'primevue/dialog'
 import Textarea from 'primevue/textarea'
+import { useClipboard } from '@vueuse/core'
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { createInvitation } from '../../services/api.js'
-import useSalesmansStore from '../../stores/useSalesmansStore.js'
+import useEmployeeStore from '../../stores/useEmployeeStore.js'
 import useBotStore from '../../stores/useBotStore.js'
 import useUserStore from '../../stores/useUserStore.js'
+import useShopStore from '../../stores/useShopStore.js'
 
 const invitationUrl = ref('')
 const dialogMessages = ref([])
 const visible = ref(false)
 
-const salesmansStore = useSalesmansStore()
+const employeeStore = useEmployeeStore()
 const botStore = useBotStore()
 const userStore = useUserStore()
 
-
+const { employees, shopName } = storeToRefs(employeeStore)
 const { copy: copyInvitationUrl } = useClipboard({ source: invitationUrl })
 
 const onCopy = () => {

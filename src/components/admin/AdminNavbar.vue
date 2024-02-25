@@ -1,22 +1,22 @@
 <template>
-  <div class="card">
-    <Menubar :model="items" breakpoint="0px">
-      <template #item="{ item, props }">
-        <RouterLink v-slot="{ href, navigate }" :to="{ name: item.routeName }" custom>
-          <a :href="href" v-bind="props.action" @click="navigate">
-            <span :class="item.icon"/>
-            <span class="ml-2">{{ item.label }}</span>
-          </a>
-        </RouterLink>
-      </template>
-    </Menubar>
-  </div>
+    <div class="card">
+        <Menubar :model="items" breakpoint="0px">
+            <template #item="{ item, props }">
+                <RouterLink v-slot="{ href, navigate }" :to="{ name: item.routeName }" custom>
+                    <a :href="href" v-bind="props.action" @click="navigate">
+                        <span :class="item.icon"/>
+                        <span class="ml-2">{{ item.label }}</span>
+                    </a>
+                </RouterLink>
+            </template>
+        </Menubar>
+    </div>
 </template>
 
 <script setup>
-import Menubar from "primevue/menubar";
-import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import Menubar from 'primevue/menubar'
+import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const items = ref([
   {
@@ -48,7 +48,12 @@ const items = ref([
         icon: 'pi pi-align-justify',
         routeName: 'admin-shop-menu',
       },
+      {
+        label: 'Рассылка',
+        icon: 'pi pi-envelope',
+        routeName: 'admin-mailing',
+      },
     ],
   },
-]);
+])
 </script>

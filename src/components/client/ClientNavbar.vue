@@ -17,7 +17,7 @@
 import Menubar from 'primevue/menubar'
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import useShopGroupStore from '../../stores/useShopGroupStore.js'
+import useShopGroupStore from '../../stores/useShopStore.js'
 import { storeToRefs } from 'pinia'
 
 const shopGroupStore = useShopGroupStore()

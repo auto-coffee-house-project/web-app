@@ -1,22 +1,20 @@
 <template>
   <AdminNavbar/>
   <BasicContainer>
-    <Message
-      v-for="message in messages"
-      :key="message.id"
-      :severity="message.severity"
-      :life="message.life"
-      :sticky="message.sticky"
-    >
-      {{ message.content }}
-    </Message>
     <form class="flex flex-col gap-y-6" @submit.prevent>
       <div class="flex gap-x-2 items-center">
         <InputSwitch input-id="is-menu-shown" v-model="isMenuShown"/>
         <label for="is-menu-shown">Показывать каталог</label>
       </div>
+      <div class="flex flex-col gap-y-2">
+        <div class="flex gap-x-2 items-center">
+          <InputSwitch input-id="is-birthdays-collecting" disabled/>
+          <label for="is-birthdays-collecting">Система дней рождений</label>
+        </div>
+        <small class="font-semibold">В разработке</small>
+      </div>
       <Button
-        @click="onShopGroupUpdate"
+        @click="onUpdate"
         type="submit"
         label="Сохранить"
       />
@@ -29,33 +27,27 @@ import BasicContainer from '../../layouts/BasicContainer.vue'
 import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
-import Message from 'primevue/message'
-import { onMounted, ref } from 'vue'
-import useShopGroupStore from '../../stores/useShopGroupStore.js'
+import useShopStore from '../../stores/useShopStore.js'
 import { storeToRefs } from 'pinia'
+import { useToast } from 'primevue/usetoast'
 
-const shopGroupStore = useShopGroupStore()
+const toast = useToast()
+const shopStore = useShopStore()
 
-const { giftName, giftPhotoUrl, eachNthCupFree, isMenuShown } = storeToRefs(shopGroupStore)
+const { giftName, eachNthSaleFree, startText, isMenuShown } = storeToRefs(shopStore)
 
-const messages = ref([])
-
-const onShopGroupUpdate = async () => {
-  await shopGroupStore.update({
+const onUpdate = async () => {
+  await shopStore.update({
     giftName: giftName.value,
-    giftPhotoUrl: giftPhotoUrl.value,
-    eachNthCupFree: eachNthCupFree.value,
+    eachNthSaleFree: eachNthSaleFree.value,
     isMenuShown: isMenuShown.value,
+    startText: startText.value,
   })
-
-  messages.value = [
-    {
-      id: Date.now(),
-      content: 'Изменения сохранены',
-      severity: 'success',
-      life: 2000,
-      sticky: false,
-    },
-  ]
+  toast.add({
+    severity: 'success',
+    summary: 'Обновлено',
+    detail: 'Настройки обновлены',
+    life: 2000,
+  })
 }
 </script>

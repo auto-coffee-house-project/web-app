@@ -2,17 +2,17 @@
   <AdminNavbar/>
   <BasicContainer>
     <ShopDetail/>
-    <CardSalesmanList/>
+    <CardEmployeesList/>
   </BasicContainer>
 </template>
 
 <script setup>
 import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import BasicContainer from '../../layouts/BasicContainer.vue'
-import CardSalesmanList from '../../components/admin/CardSalesman/CardSalesmanList.vue'
+import CardEmployeesList from '../../components/admin/CardSalesman/CardEmployeesList.vue'
 import ShopDetail from '../../components/admin/ShopDetail.vue'
 import { onMounted } from 'vue'
-import useSalesmansStore from '../../stores/useSalesmansStore.js'
+import useSalesmansStore from '../../stores/useEmployeeStore.js'
 
 const salesmansStore = useSalesmansStore()
 

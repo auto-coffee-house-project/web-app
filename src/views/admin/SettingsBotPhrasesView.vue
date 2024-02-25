@@ -1,19 +1,10 @@
 <template>
   <AdminNavbar/>
   <BasicContainer>
-    <Message
-      v-for="message in messages"
-      :key="message.id"
-      :severity="message.severity"
-      :life="message.life"
-      :sticky="message.sticky"
-    >
-      {{ message.content }}
-    </Message>
     <form @submit.prevent>
       <div class="flex flex-col gap-2">
         <label for="bot-start-text">Стартовое сообщение в Telegram</label>
-        <Textarea id="bot-start-text" v-model="startText" auto-resize class="w-full"/>
+        <Textarea id="bot-start-text" v-model="startTextBot" auto-resize class="w-full"/>
         <small>Оно будет показываться каждый раз при запуске бота в Telegram</small>
       </div>
       <Divider class="my-5"/>
@@ -28,38 +19,42 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useTitle } from '@vueuse/core'
-import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
-import Message from 'primevue/message'
-import BasicContainer from '../../layouts/BasicContainer.vue'
 import Divider from 'primevue/divider'
-import useBotStore from '../../stores/useBotStore.js'
+import { useToast } from 'primevue/usetoast'
 import { storeToRefs } from 'pinia'
+import AdminNavbar from '../../components/admin/AdminNavbar.vue'
+import BasicContainer from '../../layouts/BasicContainer.vue'
+import useBotStore from '../../stores/useBotStore.js'
+import useShopStore from '../../stores/useShopStore.js'
 
-useTitle('Coffee House Bot | Admin')
+const toast = useToast()
 
 const botStore = useBotStore()
+const shopStore = useShopStore()
 
-const { startText, startTextClientWebApp } = storeToRefs(botStore)
+const { startText: startTextBot } = storeToRefs(botStore)
+const {
+  giftName,
+  eachNthSaleFree,
+  startText: startTextClientWebApp,
+  isMenuShown,
+} = storeToRefs(shopStore)
 
-const messages = ref([])
 
 const onSubmit = async () => {
-  await botStore.update({
-    startText: startText.value,
-    startTextClientWebApp: startTextClientWebApp.value,
+  await botStore.update({ startText: startTextBot.value })
+  await shopStore.update({
+    giftName: giftName.value,
+    eachNthSaleFree: eachNthSaleFree.value,
+    startText: startTextClientWebApp.value,
+    isMenuShown: isMenuShown.value,
   })
-  messages.value = [
-    {
-      id: Date.now(),
-      content: 'Изменения сохранены',
-      severity: 'success',
-      life: 2000,
-      sticky: false,
-    },
-  ]
+  toast.add({
+    severity: 'success',
+    summary: 'Изменения сохранены',
+    life: 2000,
+  })
 }
 </script>

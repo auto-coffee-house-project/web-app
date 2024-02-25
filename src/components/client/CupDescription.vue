@@ -3,15 +3,9 @@
   <p class="mt-2 my-4">{{ startText}}</p>
 </template>
 
-<script setup>
-defineProps({
-  startText: {
-    type: String,
-    required: true,
-  },
-  userFirstName: {
-    type: String,
-    required: true,
-  },
-})
+<script setup lang="ts">
+defineProps<{
+  startText: string
+  userFirstName: string
+}>()
 </script>

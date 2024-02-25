@@ -8,7 +8,6 @@ export default defineStore('bot', {
     id: null,
     name: '',
     startText: '',
-    startTextClientWebApp: '',
   }),
   actions: {
     async fetch() {
@@ -18,18 +17,16 @@ export default defineStore('bot', {
 
         this.name = data.value.result.name
         this.startText = data.value.result.start_text
-        this.startTextClientWebApp = data.value.result.start_text_client_web_app
       } finally {
         this.isLoading = false
       }
     },
-    async update({ startText, startTextClientWebApp }) {
+    async update({ startText }) {
       try {
         this.isLoading = true
         const { data } = await updateBot({
           botId: this.id,
           startText,
-          startTextClientWebApp,
         })
         this.data = data.value.result
       } finally {

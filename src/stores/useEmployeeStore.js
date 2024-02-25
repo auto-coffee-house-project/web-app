@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
-import { deleteSalesman, getSalesmans } from '../services/api.js'
+import { deleteEmployee, getEmployees } from '../services/api.js'
 import useBotStore from './useBotStore.js'
 import useUserStore from './useUserStore.js'
 
-export default defineStore('salesman', {
+export default defineStore('employee', {
   state: () => ({
     isLoading: false,
     shopName: '',
-    salesmans: [],
+    employees: [],
   }),
   actions: {
     async fetch() {
@@ -16,23 +16,23 @@ export default defineStore('salesman', {
 
       try {
         this.isLoading = true
-        const { data } = await getSalesmans({
+        const { data } = await getEmployees({
           botId: botStore.id,
           adminUserId: userStore.id,
         })
 
-        this.salesmans = data.value.result.salesmans
+        this.employees = data.value.result.employees
         this.shopName = data.value.result.shop_name
       } finally {
         this.isLoading = false
       }
     },
-    async delete({ salesmanUserId }) {
+    async delete({ employeeId }) {
       const botStore = useBotStore()
 
-      await deleteSalesman({
+      await deleteEmployee({
         botId: botStore.id,
-        salesmanUserId,
+        employeeId,
       })
     }
   },

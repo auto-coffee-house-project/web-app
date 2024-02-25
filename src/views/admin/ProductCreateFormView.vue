@@ -68,13 +68,16 @@ const onCreateProduct = async () => {
     price: productPrice.value,
     categoryNames: categoryNames.value || [],
   }
-  const { data } = await createProduct(requestData)
+  const { data, error } = await createProduct(requestData)
 
-  productName.value = data.value.result.name
-  productPrice.value = Number(data.value.result.price)
-  categoryNames.value = data.value.result.categories.map(category => category.name)
+  const productId = data.value?.result?.id
 
-  await router.push({ name: 'admin-shop-menu'})
-  toast.add({ severity: 'success', summary: 'Успешно', detail: 'Товар создан' })
+  if (error.value || productId === undefined) {
+    await router.push({ name: 'admin-shop-menu' })
+    toast.add({ severity: 'error', life: 2000, summary: 'Ошибка', detail: error.value })
+  } else {
+    await router.push({ name: 'admin-product', params: { id: productId } })
+    toast.add({ severity: 'success', life: 2000, summary: 'Успешно', detail: 'Товар создан' })
+  }
 }
 </script>

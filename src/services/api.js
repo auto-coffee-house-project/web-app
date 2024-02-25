@@ -20,7 +20,7 @@ export const getShop = ({ botId }) => {
 
 
 export const updateShop = ({ botId, eachNthSaleFree, giftName, isMenuShown, startText }) => {
-  const url = `/shops/groups/bots/${botId}/`
+  const url = `/shops/me/`
   return useApiFetch(url, {
     headers: {
       'bot-id': botId,
@@ -45,7 +45,7 @@ export const getBot = ({ botId }) => {
 
 
 export const updateBot = ({ botId, startText }) => {
-  const url = `/telegram/bots/${botId}/`
+  const url = `/telegram/bots/me/`
   return useApiFetch(url, {
     headers: {
       'bot-id': botId,
@@ -159,4 +159,17 @@ export const deleteProduct = ({ botId, productId }) => {
       'bot-id': botId,
     },
   }).delete().json()
+}
+
+export const createMailing = ({ botId, text, isMarkdown, buttons }) => {
+  const url = `/shops/mailings/`
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).post({
+    text,
+    is_markdown: isMarkdown,
+    buttons,
+  }).json()
 }

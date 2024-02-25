@@ -12,7 +12,7 @@ import { RouterView } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 import useUserStore from './stores/useUserStore.js'
 import useBotStore from './stores/useBotStore.js'
-import useShopGroupStore from './stores/useShopGroupStore.js'
+import useShopGroupStore from './stores/useShopStore.js'
 import Toast from 'primevue/toast'
 
 

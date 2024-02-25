@@ -3,6 +3,7 @@
   <BasicContainer>
     <CardSkeleton v-if="isLoading"/>
     <template v-else>
+      <p class="text-2xl font-bold my-3">Редактировать товар</p>
       <ConfirmPopup class="mx-2"/>
       <form class="flex flex-col gap-y-4" @submit.prevent>
         <div class="flex flex-col">
@@ -125,8 +126,11 @@ const onDeleteProduct = event => {
 }
 
 onMounted(async () => {
-  const { data } = await getProduct({ productId, botId })
-  parseResponse(data.value.result)
-  isLoading.value = false
+  try {
+    const { data } = await getProduct({ productId, botId })
+    parseResponse(data.value.result)
+  } finally {
+    isLoading.value = false
+  }
 })
 </script>

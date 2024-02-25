@@ -1,5 +1,5 @@
 import SettingsBotPhrasesView from './views/admin/SettingsBotPhrasesView.vue';
-import SettingsStaffView from './views/admin/SettingsStaffView.vue';
+import SettingsStaffView from './views/admin/EmployeesView.vue';
 import SettingsGiftView from './views/admin/SettingsGiftView.vue';
 import SettingsShopOptions from './views/admin/SettingsShopOptions.vue';
 import ClientGiftView from './views/client/ClientGiftView.vue'
@@ -9,8 +9,14 @@ import UnsupportedRoleView from "./views/UnsupportedRoleView.vue";
 import UserDoesNotExistView from './views/UserDoesNotExistView.vue'
 import ProductView from './views/admin/ProductView.vue'
 import ProductCreateFormView from './views/admin/ProductCreateFormView.vue'
+import MailingView from './views/admin/MailingView.vue'
 
 export default [
+  {
+    path: '/admin/mailing',
+    name: 'admin-mailing',
+    component: MailingView,
+  },
   {
     path: '/admin/products/create',
     name: 'admin-product-create',
