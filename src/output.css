@@ -584,6 +584,11 @@ video {
     margin-bottom: 0.5rem;
   }
 
+  .my-3{
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
   .my-4{
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -592,11 +597,6 @@ video {
   .my-5{
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
-  }
-
-  .my-3{
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
   }
 
   .mb-2{
@@ -637,6 +637,10 @@ video {
 
   .mt-4{
     margin-top: 1rem;
+  }
+
+  .mb-16{
+    margin-bottom: 4rem;
   }
 
   .block{
@@ -806,11 +810,6 @@ video {
   .text-2xl{
     font-size: 1.5rem;
     line-height: 2rem;
-  }
-
-  .text-lg{
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .text-xl{
