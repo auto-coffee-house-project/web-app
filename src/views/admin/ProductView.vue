@@ -101,8 +101,7 @@ const onUpdateProduct = async () => {
     botId,
     name: productName.value,
     price: productPrice.value,
-    categoryNames: categoryNames.value,
-    photo: photo.value,
+    categoryNames: categoryNames.value || [],
   })
   parseResponse(data.value.result)
   toast.add({ severity: 'success', summary: 'Успешно', detail: 'Товар обновлен', life: 3000 })

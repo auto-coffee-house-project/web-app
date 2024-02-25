@@ -141,7 +141,7 @@ export const getProduct = ({ botId, productId }) => {
   }).json()
 }
 
-export const updateProduct = ({ botId, productId, name, price, categoryNames, photo }) => {
+export const updateProduct = ({ botId, productId, name, price, categoryNames }) => {
   const url = `/shops/products/${productId}/`
   return useApiFetch(url, {
     headers: {
