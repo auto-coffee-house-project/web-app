@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.8",
     "@vueuse/core": "^10.7.2",
+    "is-url": "^1.2.4",
     "pinia": "^2.1.7",
     "primeicons": "^6.0.1",
     "primevue": "^3.48.0",
+    "uuid": "^9.0.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
