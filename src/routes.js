@@ -1,4 +1,4 @@
-import SettingsBotPhrasesView from './views/admin/SettingsBotPhrasesView.vue';
+import PhrasesView from './views/admin/PhrasesView.vue';
 import SettingsStaffView from './views/admin/EmployeesView.vue';
 import SettingsGiftView from './views/admin/SettingsGiftView.vue';
 import SettingsShopOptions from './views/admin/SettingsShopOptions.vue';
@@ -40,7 +40,7 @@ export default [
   {
     path: '/admin/phrases',
     name: 'phrases',
-    component: SettingsBotPhrasesView,
+    component: PhrasesView,
   },
   {
     path: '/admin/gift',
