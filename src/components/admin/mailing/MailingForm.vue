@@ -18,6 +18,10 @@
       <Checkbox v-model="isKeyboardMarkup" binary input-id="isKeyboardMarkup"/>
       <label for="isKeyboardMarkup">Прикрепить Inline-клавиатуру</label>
     </div>
+    <MailingKeyboardMarkupBuilder
+      v-if="isKeyboardMarkup"
+      v-model:buttons="buttons"
+    />
     <div class="flex gap-x-2 items-center">
       <Checkbox v-model="isPhoto" binary input-id="isPhoto"/>
       <label for="isPhoto">Прикрепить фото</label>
@@ -26,9 +30,14 @@
       v-if="isPhoto"
       v-model:photo="photo"
     />
-    <MailingKeyboardMarkupBuilder
-      v-if="isKeyboardMarkup"
-      v-model:buttons="buttons"
+    <div class="flex gap-x-2 items-center">
+      <Checkbox v-model="isAdditionalOptions" binary input-id="isAdditionalOptions"/>
+      <label for="isAdditionalOptions">Сегрегация пользователей</label>
+    </div>
+    <MailingRecipientsSegregation
+      v-if="isAdditionalOptions"
+      v-model:last-n-days="lastNDays"
+      v-model:purchases-for-last-n-days-count="purchasesForLastNDaysCount"
     />
     <Button @click="onStartMailing" label="Начать" :disabled="isDisabled"/>
   </form>
@@ -43,15 +52,19 @@ import MailingKeyboardMarkupBuilder from './MailingKeyboardMarkupBuilder.vue'
 import Checkbox from 'primevue/checkbox'
 import useBotStore from '../../../stores/useBotStore.js'
 import { computed, ref } from 'vue'
+import MailingRecipientsSegregation from './MailingRecipientsSegregation.vue'
 
 const botStore = useBotStore()
 
 const text = ref('')
 const photo = ref(null)
+const lastNDays = ref(null)
+const purchasesForLastNDaysCount = ref(null)
 
 const isMarkdown = ref(false)
 const isKeyboardMarkup = ref(false)
 const isPhoto = ref(false)
+const isAdditionalOptions = ref(false)
 
 const buttons = ref([])
 
