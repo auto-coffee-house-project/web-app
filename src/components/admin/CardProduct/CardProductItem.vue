@@ -22,9 +22,9 @@
       <template #content>Цена: {{ product.price }}</template>
       <template #footer>
         <Chip
-          v-for="category in product.categories"
-          :id="category.id"
-          :label="category.name"
+          v-for="categoryName in product.category_names"
+          :id="categoryName"
+          :label="categoryName"
           class="mr-2"
         />
       </template>
@@ -32,15 +32,18 @@
   </RouterLink>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Card from 'primevue/card'
 import Image from 'primevue/image'
 import Chip from 'primevue/chip'
 
-defineProps({
+defineProps<{
   product: {
-    type: Object,
-    required: true,
+    id: number,
+    name: string,
+    price: number,
+    photo: string,
+    category_names: string[],
   },
-})
+}>()
 </script>

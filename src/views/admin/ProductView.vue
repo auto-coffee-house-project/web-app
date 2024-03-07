@@ -79,19 +79,19 @@ const confirm = useConfirm();
 const toast = useToast()
 
 const botId = botStore.id
-const productId = Number(route.params.id)
+const productId = Number.parseInt(route.params.id)
 
 const isLoading = ref(true)
-const productName = ref()
-const productPrice = ref()
-const categoryNames = ref()
-const photo = ref()
+const productName = ref('')
+const productPrice = ref(null)
+const categoryNames = ref('')
+const photo = ref(null)
 
 
 const parseResponse = product => {
   productName.value = product.name
   productPrice.value = Number(product.price)
-  categoryNames.value = product.categories.map(category => category.name)
+  categoryNames.value = product.category_names
   photo.value = product.photo
 }
 
