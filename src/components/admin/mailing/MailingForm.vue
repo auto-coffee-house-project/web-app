@@ -53,8 +53,11 @@ import Checkbox from 'primevue/checkbox'
 import useBotStore from '../../../stores/useBotStore.js'
 import { computed, ref } from 'vue'
 import MailingRecipientsSegregation from './MailingRecipientsSegregation.vue'
+import { createMailing } from '../../../services/api.js'
+import useUserStore from '../../../stores/useUserStore.js'
 
 const botStore = useBotStore()
+const userStore = useUserStore()
 
 const text = ref('')
 const photo = ref(null)
@@ -85,12 +88,13 @@ const onStartMailing = async () => {
     buttons: cleanedButtons.value,
     photo: photo.value,
   })
-  // await createMailing({
-  //   botId: botStore.id,
-  //   text: text.value,
-  //   isMarkdown: isMarkdown.value,
-  //   buttons: cleanedButtons.value,
-  // })
+  await createMailing({
+    userId: userStore.id,
+    botId: botStore.id,
+    text: text.value,
+    parseMode: isMarkdown.value ? 'Markdown' : null,
+    buttons: cleanedButtons.value,
+    photo: photo.value,
+  })
 }
-
 </script>
