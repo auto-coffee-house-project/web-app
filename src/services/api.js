@@ -163,15 +163,18 @@ export const deleteProduct = ({ botId, productId }) => {
   }).delete().json()
 }
 
-export const createMailing = ({ botId, text, isMarkdown, buttons }) => {
-  const url = `/shops/mailings/`
+export const createMailing = ({ userId, botId, text, parseMode, buttons, photo }) => {
+  const requestData = {
+    text,
+    parse_mode: parseMode,
+    buttons,
+    user_id: userId,
+    photo: photo,
+  }
+  const url = `/mailing/`
   return useApiFetch(url, {
     headers: {
       'bot-id': botId,
     },
-  }).post({
-    text,
-    is_markdown: isMarkdown,
-    buttons,
-  }).json()
+  }).post(requestData).json()
 }
