@@ -118,7 +118,7 @@ export const getProducts = ({ botId }) => {
   }).json()
 }
 
-export const createProduct = ({ botId, name, price, categoryNames }) => {
+export const createProduct = ({ botId, name, price, categoryNames, photo }) => {
   const url = `/shops/products/`
   return useApiFetch(url, {
       headers: {
@@ -129,6 +129,7 @@ export const createProduct = ({ botId, name, price, categoryNames }) => {
     name,
     price,
     category_names: categoryNames,
+    photo,
   }).json()
 }
 
@@ -142,7 +143,7 @@ export const getProduct = ({ botId, productId }) => {
   }).json()
 }
 
-export const updateProduct = ({ botId, productId, name, price, categoryNames }) => {
+export const updateProduct = ({ botId, productId, name, photo, price, categoryNames }) => {
   const url = `/shops/products/${productId}/`
   return useApiFetch(url, {
     headers: {
@@ -151,6 +152,7 @@ export const updateProduct = ({ botId, productId, name, price, categoryNames }) 
   }).put({
     name,
     price,
+    photo,
     category_names: categoryNames,
   }).json()
 }
