@@ -1,55 +1,64 @@
 import { defineStore } from 'pinia'
-import { getClient, updateClient } from '../services/api'
+import { getClient, updateClient } from '../services/api/index.js'
 import useBotStore from './useBotStore.js'
-import useUserStore from './useUserStore.js'
-import useShopStore from './useShopStore.js'
-
 
 export default defineStore('client', {
   state: () => ({
     isLoading: false,
-    currentCupsCount: null,
+    id: null,
+    user: {},
+    totalPurchasesCount: null,
+    freePurchasesCount: null,
+    currentPurchasesCount: null,
     hasGift: null,
+    bornOn: null,
   }),
-  actions: {
-    async fetch() {
-      const botStore = useBotStore()
-      const userStore = useUserStore()
 
+  actions: {
+    async fetch({ userId }) {
+      const botStore = useBotStore()
+
+      this.isLoading = true
       try {
-        this.isLoading = true
         const { data } = await getClient({
           botId: botStore.id,
-          userId: userStore.id,
+          userId,
         })
-        this.currentCupsCount = data.value.result.current_cups_count
+
+        this.id = data.value.result.id
+        this.user = data.value.result.user
+        this.totalPurchasesCount = data.value.result.total_purchases_count
+        this.freePurchasesCount = data.value.result.free_urchases_count
+        this.currentPurchasesCount = data.value.result.current_purchases_count
         this.hasGift = data.value.result.has_gift
+        this.bornOn = data.value.result.born_on
       } finally {
         this.isLoading = false
       }
     },
-    async update({ bornOn, hasGift }) {
-      const botStore = useBotStore()
-      const userStore = useUserStore()
 
+    async update({ userId, bornOn, hasGift }) {
+      const botStore = useBotStore()
+
+      this.isLoading = true
       try {
-        this.isLoading = true
-        await updateClient({
+        const { data } = await updateClient({
           botId: botStore.id,
-          userId: userStore.id,
+          userId,
           bornOn,
           hasGift,
         })
+
+        this.id = data.value.result.id
+        this.user = data.value.result.user
+        this.totalPurchasesCount = data.value.result.total_purchases_count
+        this.freePurchasesCount = data.value.result.free_urchases_count
+        this.currentPurchasesCount = data.value.result.current_purchases_count
+        this.hasGift = data.value.result.has_gift
+        this.bornOn = data.value.result.born_on
       } finally {
         this.isLoading = false
       }
-    }
+    },
   },
-  getters: {
-    currentProgress(state) {
-      const shopStore = useShopStore()
-
-      return state.hasGift ? shopStore.eachNthSaleFree : state.currentCupsCount
-    }
-  }
 })
