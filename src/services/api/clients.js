@@ -20,3 +20,12 @@ export const updateClient = ({ botId, userId, bornOn, hasGift }) => {
     has_gift: hasGift,
   }).json()
 }
+
+export const getClients = ({ botId }) => {
+  const url = '/shops/clients/'
+  return useApiFetch(url, {
+    headers: {
+      'bot-id': botId,
+    },
+  }).json()
+}
