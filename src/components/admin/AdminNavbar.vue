@@ -53,6 +53,11 @@ const items = ref([
         icon: 'pi pi-envelope',
         routeName: 'admin-mailing',
       },
+      {
+        label: 'Клиенты',
+        icon: 'pi pi-users',
+        routeName: 'admin-clients',
+      },
     ],
   },
 ])

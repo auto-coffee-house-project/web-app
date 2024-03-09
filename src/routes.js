@@ -10,8 +10,20 @@ import UserDoesNotExistView from './views/UserDoesNotExistView.vue'
 import ProductView from './views/admin/ProductView.vue'
 import ProductCreateFormView from './views/admin/ProductCreateFormView.vue'
 import MailingView from './views/admin/MailingView.vue'
+import ClientListView from './views/admin/ClientListView.vue'
+import ClientDetailView from './views/admin/ClientDetailView.vue'
 
 export default [
+  {
+    path: '/admin/clients/:id',
+    name: 'admin-client',
+    component: ClientDetailView,
+  },
+  {
+    path: '/admin/clients',
+    name: 'admin-clients',
+    component: ClientListView,
+  },
   {
     path: '/admin/mailing',
     name: 'admin-mailing',
