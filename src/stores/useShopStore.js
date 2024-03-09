@@ -8,7 +8,7 @@ export default defineStore('shop', {
     eachNthSaleFree: null,
     name: '',
     giftName: '',
-    giftPhoto: null,
+    giftPhotoPath: null,
     startText: '',
     isMenuShown: false,
   }),
@@ -23,14 +23,14 @@ export default defineStore('shop', {
         this.eachNthSaleFree = data.value.result.each_nth_sale_free
         this.name = data.value.result.name
         this.giftName = data.value.result.gift_name
-        this.giftPhoto = data.value.result.gift_photo
+        this.giftPhotoPath = data.value.result.gift_photo
         this.isMenuShown = data.value.result.is_menu_shown
         this.startText = data.value.result.start_text
       } finally {
         this.isLoading = false
       }
     },
-    async update({ eachNthSaleFree, startText, giftName, isMenuShown }) {
+    async update({ eachNthSaleFree, startText, giftName, giftPhoto, isMenuShown }) {
       const botStore = useBotStore()
 
       try {
@@ -39,6 +39,7 @@ export default defineStore('shop', {
           botId: botStore.id,
           eachNthSaleFree,
           giftName,
+          giftPhoto,
           startText,
           isMenuShown,
         })
