@@ -81,10 +81,7 @@ const onSubmit = async () => {
     giftGivenText: giftGivenText.value,
   })
   await shopStore.update({
-    giftName: giftName.value,
-    eachNthSaleFree: eachNthSaleFree.value,
     startText: startTextClientWebApp.value,
-    isMenuShown: isMenuShown.value,
   })
   toast.add({
     severity: 'success',

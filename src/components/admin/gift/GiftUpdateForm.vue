@@ -43,17 +43,15 @@ const botStore = useBotStore()
 const shopStore = useShopStore()
 
 const botId = botStore.id
-const base64Photo = ref(null)
+const base64Photo = ref(undefined)
 
-const { giftName, giftPhotoPath, eachNthSaleFree, startText, isMenuShown } = storeToRefs(shopStore)
+const { giftName, giftPhotoPath, eachNthSaleFree } = storeToRefs(shopStore)
 
 const onSubmit = async () => {
   await shopStore.update({
     giftName: giftName.value,
     giftPhoto: base64Photo.value,
-    startText: startText.value,
     eachNthSaleFree: eachNthSaleFree.value,
-    isMenuShown: isMenuShown.value,
   })
   toast.add({
     severity: 'success',

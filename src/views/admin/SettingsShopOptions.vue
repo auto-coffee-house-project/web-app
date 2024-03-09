@@ -34,15 +34,10 @@ import { useToast } from 'primevue/usetoast'
 const toast = useToast()
 const shopStore = useShopStore()
 
-const { giftName, eachNthSaleFree, startText, isMenuShown } = storeToRefs(shopStore)
+const { isMenuShown } = storeToRefs(shopStore)
 
 const onUpdate = async () => {
-  await shopStore.update({
-    giftName: giftName.value,
-    eachNthSaleFree: eachNthSaleFree.value,
-    isMenuShown: isMenuShown.value,
-    startText: startText.value,
-  })
+  await shopStore.update({ isMenuShown: isMenuShown.value })
   toast.add({
     severity: 'success',
     summary: 'Обновлено',

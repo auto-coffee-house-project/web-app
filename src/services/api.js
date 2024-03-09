@@ -25,7 +25,7 @@ export const updateShop = ({ botId, eachNthSaleFree, giftName, giftPhoto, isMenu
     headers: {
       'bot-id': botId,
     },
-  }).put({
+  }).patch({
     each_nth_sale_free: eachNthSaleFree,
     gift_name: giftName,
     gift_photo: giftPhoto,
