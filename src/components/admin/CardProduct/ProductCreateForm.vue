@@ -8,7 +8,7 @@ import ProductForm from './ProductForm.vue'
 import useBotStore from '../../../stores/useBotStore.js'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
-import { createProduct } from '../../../services/api.js'
+import { createProduct } from '../../../services/api'
 
 const botStore = useBotStore()
 const router = useRouter()

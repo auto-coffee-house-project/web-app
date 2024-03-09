@@ -19,7 +19,7 @@ import useBotStore from '../../../stores/useBotStore.js'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { onMounted, ref } from 'vue'
-import { deleteProduct, getProduct, updateProduct } from '../../../services/api.js'
+import { deleteProduct, getProduct, updateProduct } from '../../../services/api'
 import ConfirmPopup from 'primevue/confirmpopup'
 
 const router = useRouter()

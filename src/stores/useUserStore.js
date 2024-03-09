@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { getUser } from '../services/api.js'
-import useBotStore from './useBotStore.js'
+import { getUser } from '../services/api'
+import useBotStore from './useBotStore'
 
 export default defineStore('user', {
   state: () => ({

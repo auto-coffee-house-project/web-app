@@ -10,7 +10,7 @@
 import { useIntervalFn } from '@vueuse/core'
 import { onMounted, ref } from 'vue'
 import LoadingSpinner from './LoadingSpinner.vue'
-import { createSaleCode } from '../../services/api.js'
+import { createSaleCode } from '../../services/api'
 import useUserStore from '../../stores/useUserStore.js'
 import useBotStore from '../../stores/useBotStore.js'
 

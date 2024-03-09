@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { deleteEmployee, getEmployees } from '../services/api.js'
+import { deleteEmployee, getEmployees } from '../services/api'
 import useBotStore from './useBotStore.js'
 import useUserStore from './useUserStore.js'
 

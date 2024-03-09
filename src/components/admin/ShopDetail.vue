@@ -39,7 +39,7 @@ import Textarea from 'primevue/textarea'
 import { useClipboard } from '@vueuse/core'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { createInvitation } from '../../services/api.js'
+import { createEmployeeInvitation } from '../../services/api'
 import useEmployeeStore from '../../stores/useEmployeeStore.js'
 import useBotStore from '../../stores/useBotStore.js'
 import useUserStore from '../../stores/useUserStore.js'
@@ -71,7 +71,7 @@ const onCopy = () => {
 
 const onCreateInvitationLink = async () => {
   try {
-    const { data } = await createInvitation({
+    const { data } = await createEmployeeInvitation({
       botId: botStore.id,
       adminUserId: userStore.id,
     })

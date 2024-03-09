@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getBot, updateBot } from '../services/api.js'
+import { getBot, updateBot } from '../services/api'
 
 
 export default defineStore('bot', {

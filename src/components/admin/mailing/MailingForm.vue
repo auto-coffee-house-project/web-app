@@ -53,7 +53,7 @@ import Checkbox from 'primevue/checkbox'
 import useBotStore from '../../../stores/useBotStore.js'
 import { computed, ref } from 'vue'
 import MailingRecipientsSegregation from './MailingRecipientsSegregation.vue'
-import { createMailing } from '../../../services/api.js'
+import { createMailing } from '../../../services/api'
 import useUserStore from '../../../stores/useUserStore.js'
 
 const botStore = useBotStore()
