@@ -13,8 +13,13 @@
 <script setup>
 import FileUpload from 'primevue/fileupload'
 import { createSingleFileUploader } from '../../../services/fileUpload.js'
+import { onUnmounted } from 'vue'
 
 const photo = defineModel('photo')
 
 const onUpload = createSingleFileUploader(base64File => photo.value = base64File)
+
+onUnmounted(() => {
+  photo.value = null
+})
 </script>

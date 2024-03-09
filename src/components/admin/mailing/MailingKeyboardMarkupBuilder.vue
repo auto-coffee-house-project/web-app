@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { watchEffect } from 'vue'
+import { onUnmounted, watchEffect } from 'vue'
 import Divider from 'primevue/divider'
 import Fieldset from 'primevue/fieldset'
 import Button from 'primevue/button'
@@ -62,4 +62,8 @@ const onAddButton = () => {
     isUrlValid: false,
   })
 }
+
+onUnmounted(() => {
+  buttons.value = []
+})
 </script>
