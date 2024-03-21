@@ -1,42 +1,46 @@
 <template>
-  <form @submit.prevent class="flex flex-col gap-y-4">
+  <Fieldset legend="Редактировать подарок">
+    <form @submit.prevent class="flex flex-col gap-y-5">
 
-    <div class="flex flex-col">
-      <label for="gift-name">Название</label>
-      <InputText id="gift-name" v-model="giftName"/>
-    </div>
+      <div class="flex flex-col">
+        <label for="gift-name">Название</label>
+        <InputText id="gift-name" v-model="giftName"/>
+      </div>
 
-    <div class="flex flex-col">
-      <label for="each-nth-sale-free">Необходимо чашек</label>
-      <InputNumber
-        input-id="each-nth-sale-free"
-        :min="2"
-        :max="100"
-        v-model="eachNthSaleFree"
-        :use-grouping="false"
-      />
-    </div>
+      <div class="flex flex-col">
+        <label for="each-nth-sale-free">Необходимо чашек</label>
+        <InputNumber
+          input-id="each-nth-sale-free"
+          :min="2"
+          :max="100"
+          v-model="eachNthSaleFree"
+          :use-grouping="false"
+        />
+        <small class="font-bold">После {{ eachNthSaleFree || 'N' }} чашек будет выдан подарок</small>
+      </div>
 
-    <div class="flex flex-col">
-      <img v-if="giftPhotoPath" width="128rem" :src="giftPhotoPath" alt="logo photo"/>
-      <label for="gift-photo">Фото</label>
-      <GiftPhotoUpload v-model="base64Photo"/>
-    </div>
+      <div>
+        <p>Фото</p>
+        <img v-if="giftPhotoPath" width="128rem" :src="giftPhotoPath" alt="logo photo"/>
+        <GiftPhotoUpload v-model="base64Photo"/>
+      </div>
 
-    <Button type="submit" @click="onSubmit" label="Сохранить" class="w-full"/>
-  </form>
+      <Button type="submit" @click="onSubmit" label="Сохранить" raised class="w-full"/>
+    </form>
+  </Fieldset>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useToast } from 'primevue/usetoast'
+import Fieldset from 'primevue/fieldset'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
 import GiftPhotoUpload from './GiftPhotoUpload.vue'
-import { useToast } from 'primevue/usetoast'
 import useBotStore from '../../../stores/useBotStore.js'
 import useShopStore from '../../../stores/useShopStore.js'
-import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
 
 const toast = useToast()
 const botStore = useBotStore()
