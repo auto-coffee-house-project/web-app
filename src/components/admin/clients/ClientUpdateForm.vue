@@ -32,20 +32,21 @@ import Button from 'primevue/button'
 import { storeToRefs } from 'pinia'
 import useClientStore from '../../../stores/useClientStore.js'
 import { useToast } from 'primevue/usetoast'
+import { formatDate } from '../../../services/helpers.js'
 
 const clientStore = useClientStore()
+
 
 const toast = useToast()
 
 const { user, bornOn, hasGift, isLoading } = storeToRefs(clientStore)
 
 const onUpdateClient = async () => {
-  const requestData = {
+  await clientStore.update({
     userId: user.value.id,
-    bornOn: bornOn.value instanceof Date ? bornOn.value.toISOString().split('T')[0] : bornOn.value,
+    bornOn: formatDate(bornOn.value),
     hasGift: hasGift.value,
-  }
-  await clientStore.update(requestData)
+  })
   toast.add({ severity: 'success', summary: 'Успешно', life: 2000, detail: 'Клиент обновлен' })
 }
 </script>
