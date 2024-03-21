@@ -34,7 +34,7 @@
       <Checkbox v-model="isAdditionalOptions" binary input-id="isAdditionalOptions"/>
       <label for="isAdditionalOptions">Сегрегация пользователей</label>
     </div>
-    <MailingRecipientsSegregation
+    <MailingRecipientsSegregationByPurchases
       v-if="isAdditionalOptions"
       v-model:last-n-days="lastNDays"
       v-model:purchases-for-last-n-days-count="purchasesForLastNDaysCount"
@@ -52,7 +52,7 @@ import MailingKeyboardMarkupBuilder from './MailingKeyboardMarkupBuilder.vue'
 import Checkbox from 'primevue/checkbox'
 import useBotStore from '../../../stores/useBotStore.js'
 import { computed, ref } from 'vue'
-import MailingRecipientsSegregation from './MailingRecipientsSegregation.vue'
+import MailingRecipientsSegregationByPurchases from './MailingRecipientsSegregationByPurchases.vue'
 import { createMailing } from '../../../services/api'
 import useUserStore from '../../../stores/useUserStore.js'
 
