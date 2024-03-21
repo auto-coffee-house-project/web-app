@@ -8,18 +8,18 @@
   />
   <div v-else>
     <p class="font-bold mt-4 mb-2 tg-text-primary">Скажите код: {{ code }}</p>
-    <p>Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
+    <p>Код обновится через: {{ count }} сек.</p>
   </div>
 </template>
 
 <script setup>
-import { useIntervalFn } from '@vueuse/core'
+import Button from 'primevue/button'
+import { useToast } from 'primevue/usetoast'
+import { useCounter, useIntervalFn } from '@vueuse/core'
 import { ref } from 'vue'
 import { createSaleCode } from '../../services/api'
 import useUserStore from '../../stores/useUserStore.js'
 import useBotStore from '../../stores/useBotStore.js'
-import Button from 'primevue/button'
-import { useToast } from 'primevue/usetoast'
 
 const userStore = useUserStore()
 const botStore = useBotStore()
@@ -28,7 +28,8 @@ const toast = useToast()
 
 const isLoading = ref(false)
 const code = ref()
-const codeRefreshesInSeconds = ref(30)
+
+const { count, dec, reset } = useCounter(30)
 
 
 const onShownCode = async () => {
@@ -53,10 +54,10 @@ const updateCode = async () => {
 }
 
 const { pause, resume } = useIntervalFn(async () => {
-  codeRefreshesInSeconds.value -= 1
-  if (codeRefreshesInSeconds.value <= 0) {
+  dec(1)
+  if (count.value <= 0) {
+    reset()
     await updateCode()
-    codeRefreshesInSeconds.value = 30
   }
 }, 1000, { immediate: false })
 </script>
