@@ -6,4 +6,4 @@ export * from './users.js'
 export * from './mailings.js'
 export * from './products.js'
 export * from './saleCodes.js'
-
+export * from './giftCodes.js'

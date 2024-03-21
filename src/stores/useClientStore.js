@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { getClient, updateClient } from '../services/api/index.js'
 import useBotStore from './useBotStore.js'
+import useShopStore from './useShopStore.js'
 
 export default defineStore('client', {
   state: () => ({
@@ -61,4 +62,11 @@ export default defineStore('client', {
       }
     },
   },
+
+  getters: {
+    currentProgress(state) {
+      const shopStore = useShopStore()
+      return state.hasGift ? shopStore.eachNthSaleFree : state.currentPurchasesCount
+    }
+  }
 })

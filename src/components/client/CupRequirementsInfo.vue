@@ -6,7 +6,7 @@
   <div class="flex gap-x-3">
     <CupIcon/>
     <CupProgress
-      :current-progress="currentPurchasesCount"
+      :current-progress="currentProgress"
       :each-nth-sale-free="eachNthSaleFree"
     />
   </div>
@@ -28,7 +28,7 @@ const shopStore = useShopStore()
 
 const { firstName } = storeToRefs(userStore)
 const { startText, eachNthSaleFree } = storeToRefs(shopStore)
-const { currentPurchasesCount } = storeToRefs(clientStore)
+const { currentProgress } = storeToRefs(clientStore)
 
 useIntervalFn(async () => {
   await clientStore.fetch({ userId: userStore.id })
