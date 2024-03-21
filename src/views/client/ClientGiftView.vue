@@ -2,39 +2,28 @@
   <ClientNavbar/>
   <BasicContainer>
     <CupRequirementsInfo/>
-    <SaleTemporaryCode v-if="isCodeSown"/>
-    <Button
-      class="w-full my-4"
-      label="Получить код"
-      v-if="!isCodeSown && !hasGift"
-      @click="isCodeSown = true"
-    />
-    <Button
-      class="w-full my-4"
-      label="Получить подарок"
-      v-if="hasGift"
-    />
+    <SaleCode v-if="!hasGift"/>
+    <Gift v-else/>
   </BasicContainer>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import { useTitle } from '@vueuse/core'
+import { onMounted } from 'vue'
+import Gift from '../../components/client/GiftCode.vue'
 import CupRequirementsInfo from '../../components/client/CupRequirementsInfo.vue'
 import ClientNavbar from '../../components/client/ClientNavbar.vue'
-import SaleTemporaryCode from '../../components/client/SaleCode.vue'
+import SaleCode from '../../components/client/SaleCode.vue'
 import BasicContainer from '../../layouts/BasicContainer.vue'
-import Button from 'primevue/button'
 import { storeToRefs } from 'pinia'
 import useClientStore from '../../stores/useClientStore.js'
-
-const isCodeSown = ref(false)
+import useUserStore from '../../stores/useUserStore.js'
 
 const clientStore = useClientStore()
+const userStore = useUserStore()
 
 const { hasGift } = storeToRefs(clientStore)
 
-onMounted(clientStore.fetch)
-
-useTitle('Подарок | Coffeconnect')
+onMounted(async () => {
+  await clientStore.fetch({ userId: userStore.id })
+})
 </script>

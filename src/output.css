@@ -599,6 +599,10 @@ video {
     margin-bottom: 1.25rem;
   }
 
+  .mb-1{
+    margin-bottom: 0.25rem;
+  }
+
   .mb-16{
     margin-bottom: 4rem;
   }
@@ -641,10 +645,6 @@ video {
 
   .mt-4{
     margin-top: 1rem;
-  }
-
-  .mb-1{
-    margin-bottom: 0.25rem;
   }
 
   .block{
@@ -732,6 +732,10 @@ video {
     row-gap: 0.5rem;
   }
 
+  .gap-y-3{
+    row-gap: 0.75rem;
+  }
+
   .gap-y-4{
     row-gap: 1rem;
   }
@@ -742,10 +746,6 @@ video {
 
   .gap-y-6{
     row-gap: 1.5rem;
-  }
-
-  .gap-y-3{
-    row-gap: 0.75rem;
   }
 
   .rounded{
@@ -806,6 +806,11 @@ video {
     padding-right: 1rem;
   }
 
+  .py-4{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
   .py-6{
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -822,11 +827,6 @@ video {
 
   .text-xl{
     font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .text-lg{
-    font-size: 1.125rem;
     line-height: 1.75rem;
   }
 

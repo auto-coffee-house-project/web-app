@@ -6,7 +6,7 @@
   <div class="flex gap-x-3">
     <CupIcon/>
     <CupProgress
-      :current-progress="currentProgress"
+      :current-progress="currentPurchasesCount"
       :each-nth-sale-free="eachNthSaleFree"
     />
   </div>
@@ -28,7 +28,9 @@ const shopStore = useShopStore()
 
 const { firstName } = storeToRefs(userStore)
 const { startText, eachNthSaleFree } = storeToRefs(shopStore)
-const { currentProgress } = storeToRefs(clientStore)
+const { currentPurchasesCount } = storeToRefs(clientStore)
 
-useIntervalFn(clientStore.fetch, 5 * 1000)
+useIntervalFn(async () => {
+  await clientStore.fetch({ userId: userStore.id })
+}, 5 * 1000)
 </script>

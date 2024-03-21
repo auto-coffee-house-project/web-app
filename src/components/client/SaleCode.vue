@@ -1,41 +1,62 @@
 <template>
-  <template v-if="code">
+  <Button
+    class="w-full my-4"
+    label="Получить код"
+    v-if="!code"
+    @click="onShownCode"
+    :loading="isLoading"
+  />
+  <div v-else>
     <p class="font-bold mt-4 mb-2 tg-text-primary">Скажите код: {{ code }}</p>
     <p>Код обновится через: {{ codeRefreshesInSeconds }} сек.</p>
-  </template>
-  <LoadingSpinner v-else/>
+  </div>
 </template>
 
 <script setup>
 import { useIntervalFn } from '@vueuse/core'
-import { onMounted, ref } from 'vue'
-import LoadingSpinner from './LoadingSpinner.vue'
+import { ref } from 'vue'
 import { createSaleCode } from '../../services/api'
 import useUserStore from '../../stores/useUserStore.js'
 import useBotStore from '../../stores/useBotStore.js'
-
+import Button from 'primevue/button'
+import { useToast } from 'primevue/usetoast'
 
 const userStore = useUserStore()
 const botStore = useBotStore()
 
+const toast = useToast()
+
+const isLoading = ref(false)
 const code = ref()
 const codeRefreshesInSeconds = ref(30)
 
-const updateCode = async () => {
-  const { data } = await createSaleCode({
-    botId: botStore.id,
-    clientUserId: userStore.id,
-  })
-  code.value = data.value?.result?.code
+
+const onShownCode = async () => {
+  await updateCode()
+  resume()
 }
 
-onMounted(updateCode)
+const updateCode = async () => {
+  isLoading.value = true
+  try {
+    const { data } = await createSaleCode({
+      botId: botStore.id,
+      clientUserId: userStore.id,
+    })
+    code.value = data.value.result.code
+  } catch (error) {
+    console.error(error)
+    toast.add({ severity: 'error', summary: 'Ошибка', life: 2000, detail: 'Не удалось получить код' })
+  } finally {
+    isLoading.value = false
+  }
+}
 
-useIntervalFn(async () => {
+const { pause, resume } = useIntervalFn(async () => {
   codeRefreshesInSeconds.value -= 1
   if (codeRefreshesInSeconds.value <= 0) {
     await updateCode()
     codeRefreshesInSeconds.value = 30
   }
-}, 1000)
+}, 1000, { immediate: false })
 </script>
