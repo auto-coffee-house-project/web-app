@@ -1,6 +1,8 @@
 <template>
   <Toast class="w-80"/>
   <RouterView/>
+  {{ userStore.id }}
+  {{ botStore.id }}
 </template>
 
 <script setup>
