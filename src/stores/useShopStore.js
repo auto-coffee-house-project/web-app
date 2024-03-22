@@ -8,7 +8,7 @@ export default defineStore('shop', {
     eachNthSaleFree: null,
     name: '',
     giftName: '',
-    giftPhotoPath: null,
+    giftPhoto: null,
     startText: '',
     isMenuShown: false,
   }),
@@ -23,7 +23,7 @@ export default defineStore('shop', {
         this.eachNthSaleFree = data.value.result.each_nth_sale_free
         this.name = data.value.result.name
         this.giftName = data.value.result.gift_name
-        this.giftPhotoPath = data.value.result.gift_photo
+        this.giftPhoto = data.value.result.gift_photo
         this.isMenuShown = data.value.result.is_menu_shown
         this.startText = data.value.result.start_text
       } finally {

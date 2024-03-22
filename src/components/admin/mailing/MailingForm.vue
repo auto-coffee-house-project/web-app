@@ -8,31 +8,37 @@
           v-model="text"
           autoResize
           maxlength="1024"
+          :disabled="isLoading"
         />
       </div>
 
       <CheckboxWithLabel
         v-model="isMarkdownFormatted"
         label="Использовать Markdown"
+        :is-disabled="isLoading"
       />
       <MailingMarkdownInfo v-if="isMarkdownFormatted"/>
 
       <CheckboxWithLabel
         v-model="isPhotoAttached"
         label="Прикрепить фото"
+        :is-disabled="isLoading"
       />
       <MailingPhotoUpload
         v-if="isPhotoAttached"
         v-model:photo="photo"
+        :is-disabled="isLoading"
       />
 
       <CheckboxWithLabel
         v-model="isKeyboardMarkupAttached"
         label="Прикрепить кнопки"
+        :is-disabled="isLoading"
       />
       <MailingKeyboardMarkupBuilder
         v-if="isKeyboardMarkupAttached"
         v-model:buttons="buttons"
+        :is-disabled="isLoading"
       />
 
       <Fieldset legend="Сегрегация пользователей">
@@ -40,29 +46,33 @@
           <CheckboxWithLabel
             v-model="isSegregatedByPurchases"
             label="По покупкам"
+            :is-disabled="isLoading"
           />
           <MailingRecipientsSegregationByPurchases
             v-if="isSegregatedByPurchases"
-            v-model:last-n-days="lastNDays"
-            v-model:purchases-for-last-n-days-count="purchasesForLastNDaysCount"
+            v-model:dates-range="segregationByPurchasesDatesRange"
+            v-model:purchases-count="segregationByPurchasesCount"
+            :is-disabled="isLoading"
           />
 
           <CheckboxWithLabel
             v-model="isSegregatedByBirthdays"
             label="По дням рождений"
+            :is-disabled="isLoading"
           />
           <MailingRecipientsSegregationByBirthdays
             v-if="isSegregatedByBirthdays"
-            v-model:dates-range="datesRange"
+            v-model:dates-range="segregationByBirthdaysDatesRange"
+            :is-disabled="isLoading"
           />
         </div>
       </Fieldset>
 
       <Button
-        @click="onStartMailing"
+        @click="onCreateMailing"
         label="Начать рассылку"
-        :raised="!isDisabled"
-        :disabled="isDisabled"
+        :raised="!!text"
+        :disabled="!text"
         :loading="isLoading"
       />
     </form>
@@ -72,7 +82,6 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
-import { useDateFormat } from '@vueuse/core'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import Fieldset from 'primevue/fieldset'
@@ -85,6 +94,8 @@ import CheckboxWithLabel from './CheckboxWithLabel.vue'
 import useUserStore from '../../../stores/useUserStore.js'
 import useBotStore from '../../../stores/useBotStore.js'
 import { createMailing } from '../../../services/api'
+import { formatDatesRange } from '../../../services/helpers.js'
+import { get } from '@vueuse/core'
 
 const botStore = useBotStore()
 const userStore = useUserStore()
@@ -93,9 +104,9 @@ const toast = useToast()
 
 const text = ref('')
 const photo = ref(null)
-const lastNDays = ref(null)
-const purchasesForLastNDaysCount = ref(null)
-const datesRange = ref()
+const segregationByBirthdaysDatesRange = ref(null)
+const segregationByPurchasesCount = ref(null)
+const segregationByPurchasesDatesRange = ref(null)
 
 const isLoading = ref(false)
 
@@ -107,8 +118,6 @@ const isSegregatedByBirthdays = ref(false)
 
 const buttons = ref([])
 
-const isDisabled = computed(() => !text.value)
-
 const cleanedButtons = computed(() => {
   return buttons
     .value
@@ -116,46 +125,39 @@ const cleanedButtons = computed(() => {
     .map(({ text, url }) => ({ text, url }))
 })
 
-const birthdaysSegregationOptions = computed(() => {
-  if (!datesRange.value) return null
-  const [from, to] = datesRange.value
-
-  return {
-    from: useDateFormat(from, 'YYYY-MM-DD').value,
-    to: useDateFormat(to, 'YYYY-MM-DD').value,
-  }
-})
-
 const purchasesSegregationOptions = computed(() => {
-  if (!lastNDays.value || !purchasesForLastNDaysCount) return null
-
+  if (!segregationByPurchasesCount.value || !segregationByPurchasesDatesRange.value) return null
   return {
-    lastNDays: lastNDays.value,
-    purchasesForLastNDaysCount: purchasesForLastNDaysCount.value,
+    ...formatDatesRange(segregationByPurchasesDatesRange.value),
+    purchases_count: segregationByPurchasesCount.value,
   }
 })
 
 const segregationOptions = computed(() => {
   return {
-    birthdaysOptions: birthdaysSegregationOptions.value,
-    purchasesOptions: purchasesSegregationOptions.value,
+    by_birthdays: formatDatesRange(segregationByBirthdaysDatesRange.value) || undefined,
+    by_purchases: purchasesSegregationOptions.value || undefined,
   }
 })
 
-const parseMode = computed(() => isMarkdownFormatted.value ? 'Markdown' : null)
+const parseMode = computed(() => isMarkdownFormatted.value ? 'MarkdownV2' : null)
 
-const onStartMailing = async () => {
+const requestData = computed(() => {
+  return {
+    user_id: userStore.id,
+    bot_id: botStore.id,
+    text: text.value,
+    parse_mode: parseMode.value || undefined,
+    buttons: cleanedButtons.value || undefined,
+    photo: photo.value || undefined,
+    segregation_options: segregationOptions.value || undefined
+  }
+})
+
+const onCreateMailing = async () => {
   isLoading.value = true
   try {
-    const { data } = await createMailing({
-      userId: userStore.id,
-      botId: botStore.id,
-      text: text.value,
-      parseMode: parseMode.value,
-      buttons: cleanedButtons.value,
-      photo: photo.value,
-      segregationOptions: segregationOptions.value,
-    })
+    const { data } = await createMailing(requestData.value)
     if (data.value?.ok) {
       toast.add({
         severity: 'success',

@@ -1,6 +1,6 @@
 <template>
   <div class="flex gap-x-2 items-center">
-    <Checkbox v-model="isChecked" binary :input-id="inputId"/>
+    <Checkbox v-model="isChecked" :disabled="isDisabled" binary :input-id="inputId"/>
     <label :for="inputId">{{ label }}</label>
   </div>
 </template>
@@ -14,6 +14,10 @@ defineProps({
     type: String,
     required: true,
   },
+  isDisabled: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const isChecked = defineModel()

@@ -7,12 +7,12 @@
 
     <div class="flex flex-col mb-3">
       <label :for="`${button.id}-text`">Текст</label>
-      <InputText v-model="button.text" :id="`${button.id}-text`"/>
+      <InputText :disabled="isDisabled" v-model="button.text" :id="`${button.id}-text`"/>
     </div>
 
     <div class="flex flex-col mb-3">
       <label :for="`${button.id}-url`">Ссылка</label>
-      <InputText :id="`${button.id}-url`" v-model="button.url" :invalid="!button.isUrlValid"/>
+      <InputText :disabled="isDisabled" :id="`${button.id}-url`" v-model="button.url" :invalid="!button.isUrlValid"/>
     </div>
 
     <Button
@@ -21,7 +21,7 @@
       :label="`Удалить кнопку №${index + 1}`"
       icon="pi pi-trash"
       class="w-full mt-2"
-      raised
+      :disabled="isDisabled"
     />
 
   </Fieldset>
@@ -30,7 +30,7 @@
     @click="onAddButton"
     icon="pi pi-plus"
     label="Добавить кнопку"
-    raised
+    :disabled="isDisabled"
   />
   <Divider/>
 </template>
@@ -43,6 +43,13 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { v4 as uuid4 } from 'uuid'
 import isUrl from 'is-url'
+
+defineProps({
+  isDisabled: {
+    type: Boolean,
+    default: false,
+  }
+})
 
 const buttons = defineModel('buttons', { required: true })
 

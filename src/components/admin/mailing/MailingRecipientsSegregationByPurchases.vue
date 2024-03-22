@@ -1,49 +1,62 @@
 <template>
-  <Fieldset legend="Отправить только пользователям, которые">
-    <div
-      v-for="lastNDaysValue in lastNDaysOptions"
-      :key="lastNDaysValue"
-      class="flex items-center gap-x-2 my-2"
-    >
-      <RadioButton
-        v-model="lastNDaysSelected"
-        :value="lastNDaysValue"
-        :input-id="`last-${lastNDaysValue}-days`"
+  <Fieldset legend="Отправить только тем, кто">
+    <div class="flex flex-col my-2">
+      <label
+        for="segregation-by-purchases-dates-range"
+        class="font-semibold"
+      >
+        В период
+      </label>
+      <Calendar
+        v-model="datesRange"
+        date-format="yy-mm-dd"
+        selection-mode="range"
+        input-id="segregation-by-purchases-dates-range"
+        touchUI
+        :disabled="isDisabled"
       />
-      <label :for="`last-${lastNDaysValue}-days`">За последние {{ lastNDaysValue }} дней</label>
     </div>
+
     <div class="flex flex-col my-2">
       <label
         class="font-semibold"
-        for="purchases-for-last-n-days-count"
+        for="segregation-by-purchases-count"
       >
-        Совершили {{ purchasesForLastNDaysCount || 'N' }} покупок
+        Совершили покупок
       </label>
       <InputNumber
-        v-model="purchasesForLastNDaysCount"
-        input-id="purchases-for-last-n-days-count"
+        v-model="purchasesCount"
+        input-id="segregation-by-purchases-count"
         :use-grouping="false"
         :min="0"
         :max="10000"
         :input-props="{ inputmode: 'numeric' }"
+        :disabled="isDisabled"
       />
+      <small>Даты покупок регистрируются по UTC времени</small>
     </div>
   </Fieldset>
 </template>
 
 <script setup>
-import InputNumber from 'primevue/inputnumber'
-import RadioButton from 'primevue/radiobutton'
-import Fieldset from 'primevue/fieldset'
 import { onUnmounted } from 'vue'
+import InputNumber from 'primevue/inputnumber'
+import Fieldset from 'primevue/fieldset'
+import Calendar from 'primevue/calendar'
 
-const lastNDaysOptions = [7, 30]
 
-const lastNDaysSelected = defineModel('lastNDays')
-const purchasesForLastNDaysCount = defineModel('purchasesForLastNDaysCount')
+defineProps({
+  isDisabled: {
+    type: Boolean,
+    default: false,
+  }
+})
+
+const datesRange = defineModel('datesRange')
+const purchasesCount = defineModel('purchasesCount')
 
 onUnmounted(() => {
-  lastNDaysSelected.value = null
-  purchasesForLastNDaysCount.value = null
+  datesRange.value = null
+  purchasesCount.value = null
 })
 </script>

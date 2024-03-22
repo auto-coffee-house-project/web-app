@@ -1,7 +1,7 @@
 <template>
   <img
     class="w-16"
-    :src="giftPhotoUrl"
+    :src="giftPhotoUrl || defaultPhotoUrl"
     alt="external-coffee-usa-flatart-icons-lineal-color-flatarticons"
   />
 </template>
@@ -12,7 +12,7 @@ const defaultPhotoUrl = 'https://img.icons8.com/external-flatart-icons-lineal-co
 defineProps({
   giftPhotoUrl: {
     type: String,
-    default: defaultPhotoUrl,
+    required: false,
   },
 })
 </script>

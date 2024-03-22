@@ -7,6 +7,7 @@
     choose-label="Выбрать"
     customUpload
     @select="onUpload"
+    :disabled="isDisabled"
   />
 </template>
 
@@ -14,6 +15,13 @@
 import FileUpload from 'primevue/fileupload'
 import { createSingleFileUploader } from '../../../services/fileUpload.js'
 import { onUnmounted } from 'vue'
+
+defineProps({
+  isDisabled: {
+    type: Boolean,
+    default: false,
+  }
+})
 
 const photo = defineModel('photo')
 
