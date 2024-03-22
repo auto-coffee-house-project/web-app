@@ -3,14 +3,14 @@
   <RouterView/>
   {{ userStore.id }}
   {{ botStore.id }}
+  {{ webApp }}
 </template>
 
 <script setup>
-import { inject, onMounted, provide } from 'vue'
-import { getColorScheme, getTelegramUser } from './services/telegram'
+import { onMounted } from 'vue'
+import { getColorScheme, getTelegramUser, getTelegramWebApp } from './services/telegram'
 import { getBotId } from './services/queryParams'
-import { useRouter } from 'vue-router'
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 import useUserStore from './stores/useUserStore.js'
 import useBotStore from './stores/useBotStore.js'
@@ -20,16 +20,15 @@ import Toast from 'primevue/toast'
 
 const PrimeVue = usePrimeVue()
 const router = useRouter()
+
+const webApp = getTelegramWebApp()
 const telegramUser = getTelegramUser()
 
 const userStore = useUserStore()
 const botStore = useBotStore()
 const shopGroupStore = useShopGroupStore()
 
-
-const botId = getBotId() || inject('botId') || 6887092432
-
-provide('botId', botId)
+const botId = getBotId() || 6887092432
 
 
 const colorScheme = getColorScheme()
