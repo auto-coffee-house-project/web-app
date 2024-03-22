@@ -17,7 +17,8 @@
     "primevue": "^3.48.0",
     "uuid": "^9.0.1",
     "vue": "^3.4.15",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-tg": "^0.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
