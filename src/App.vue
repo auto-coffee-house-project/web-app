@@ -3,15 +3,15 @@
   <RouterView/>
   {{ userStore.id }}
   {{ botStore.id }}
-  {{ webApp }}
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
-import { getColorScheme, getTelegramUser, getTelegramWebApp } from './services/telegram'
+import { getColorScheme, getTelegramUser } from './services/telegram'
 import { getBotId } from './services/queryParams'
 import { RouterView, useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
+import { useWebAppPopup } from 'vue-tg'
 import useUserStore from './stores/useUserStore.js'
 import useBotStore from './stores/useBotStore.js'
 import useShopGroupStore from './stores/useShopStore.js'
@@ -21,15 +21,20 @@ import Toast from 'primevue/toast'
 const PrimeVue = usePrimeVue()
 const router = useRouter()
 
-const webApp = getTelegramWebApp()
 const telegramUser = getTelegramUser()
 
 const userStore = useUserStore()
 const botStore = useBotStore()
 const shopGroupStore = useShopGroupStore()
 
-const botId = getBotId() || 6887092432
+const botId = getBotId()
 
+const { showAlert } = useWebAppPopup()
+
+showAlert('hello')
+// if (!botId) {
+//   router.push({ name: 'bot-not-identified' })
+// }
 
 const colorScheme = getColorScheme()
 
