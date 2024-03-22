@@ -12,6 +12,7 @@ import ProductCreateFormView from './views/admin/ProductCreateFormView.vue'
 import MailingView from './views/admin/MailingView.vue'
 import ClientListView from './views/admin/ClientListView.vue'
 import ClientDetailView from './views/admin/ClientDetailView.vue'
+import BotNotIdentifiedView from './views/BotNotIdentifiedView.vue'
 
 export default [
   {
@@ -83,5 +84,10 @@ export default [
     path: '/no-user',
     name: 'user-does-not-exist',
     component: UserDoesNotExistView,
-  }
+  },
+  {
+    path: '/bot-not-identified',
+    name: 'bot-not-identified',
+    component: BotNotIdentifiedView,
+  },
 ]
