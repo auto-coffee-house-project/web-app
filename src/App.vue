@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { inject, onMounted } from 'vue'
+import { inject, onMounted, provide } from 'vue'
 import { getColorScheme, getTelegramUser } from './services/telegram'
 import { getBotId } from './services/queryParams'
 import { useRouter } from 'vue-router'
@@ -26,9 +26,10 @@ const userStore = useUserStore()
 const botStore = useBotStore()
 const shopGroupStore = useShopGroupStore()
 
-const botId = getBotId() || provide('botId') || 6887092432
 
-inject('botId', botId)
+const botId = getBotId() || inject('botId') || 6887092432
+
+provide('botId', botId)
 
 
 const colorScheme = getColorScheme()
