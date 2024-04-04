@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, provide } from 'vue'
 import { getColorScheme, getTelegramUser } from './services/telegram'
 import { getBotId } from './services/queryParams'
 import { RouterView, useRouter } from 'vue-router'
@@ -34,6 +34,7 @@ if (!botId) {
 }
 
 const colorScheme = getColorScheme()
+provide('theme', colorScheme)
 
 if (colorScheme === 'dark') {
   PrimeVue.changeTheme(

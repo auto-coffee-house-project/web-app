@@ -29,7 +29,7 @@ export default defineStore('client', {
         this.id = data.value.result.id
         this.user = data.value.result.user
         this.totalPurchasesCount = data.value.result.total_purchases_count
-        this.freePurchasesCount = data.value.result.free_urchases_count
+        this.freePurchasesCount = data.value.result.free_purchases_count
         this.currentPurchasesCount = data.value.result.current_cups_count
         this.hasGift = data.value.result.has_gift
         this.bornOn = data.value.result.born_on
@@ -53,7 +53,7 @@ export default defineStore('client', {
         this.id = data.value.result.id
         this.user = data.value.result.user
         this.totalPurchasesCount = data.value.result.total_purchases_count
-        this.freePurchasesCount = data.value.result.free_urchases_count
+        this.freePurchasesCount = data.value.result.free_purchases_count
         this.currentPurchasesCount = data.value.result.current_purchases_count
         this.hasGift = data.value.result.has_gift
         this.bornOn = data.value.result.born_on

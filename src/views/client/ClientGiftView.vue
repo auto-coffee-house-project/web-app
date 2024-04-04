@@ -24,6 +24,8 @@ const userStore = useUserStore()
 const { hasGift } = storeToRefs(clientStore)
 
 onMounted(async () => {
-  await clientStore.fetch({ userId: userStore.id })
+  if (!clientStore.id) {
+    await clientStore.fetch({ userId: userStore.id })
+  }
 })
 </script>
