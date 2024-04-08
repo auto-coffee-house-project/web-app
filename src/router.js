@@ -1,18 +1,3 @@
-import PhrasesView from './views/admin/PhrasesView.vue'
-import SettingsStaffView from './views/admin/EmployeesView.vue'
-import SettingsGiftView from './views/admin/SettingsGiftView.vue'
-import SettingsShopOptions from './views/admin/SettingsShopOptions.vue'
-import ClientGiftView from './views/client/ClientGiftView.vue'
-import ClientShopMenu from './views/client/ClientShopMenu.vue'
-import SettingsShopMenuView from './views/admin/SettingsShopMenuView.vue'
-import UnsupportedRoleView from './views/UnsupportedRoleView.vue'
-import UserDoesNotExistView from './views/UserDoesNotExistView.vue'
-import ProductView from './views/admin/ProductView.vue'
-import ProductCreateFormView from './views/admin/ProductCreateFormView.vue'
-import MailingView from './views/admin/MailingView.vue'
-import ClientListView from './views/admin/ClientListView.vue'
-import ClientDetailView from './views/admin/ClientDetailView.vue'
-import BotNotIdentifiedView from './views/BotNotIdentifiedView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -23,52 +8,52 @@ const routes = [
       {
         path: '/clients/:id',
         name: 'admin-client',
-        component: ClientDetailView,
+        component: () => import('./views/admin/ClientDetailView.vue'),
       },
       {
         path: '/clients',
         name: 'admin-clients',
-        component: ClientListView,
+        component: () => import('./views/admin/ClientListView.vue'),
       },
       {
         path: '/mailing',
         name: 'admin-mailing',
-        component: MailingView,
+        component: () => import('./views/admin/MailingView.vue'),
       },
       {
         path: '/products/create',
         name: 'admin-product-create',
-        component: ProductCreateFormView,
+        component: () => import('./views/admin/ProductCreateFormView.vue'),
       },
       {
         path: '/products/:id',
         name: 'admin-product',
-        component: ProductView,
+        component: () => import('./views/admin/ProductView.vue'),
       },
       {
         path: '/menu',
         name: 'admin-shop-menu',
-        component: SettingsShopMenuView,
+        component: () => import('./views/admin/SettingsShopMenuView.vue'),
       },
       {
         path: '/staff',
         name: 'staff',
-        component: SettingsStaffView,
+        component: () => import('./views/admin/EmployeesView.vue'),
       },
       {
         path: '/phrases',
         name: 'phrases',
-        component: PhrasesView,
+        component: () => import('./views/admin/PhrasesView.vue'),
       },
       {
         path: '/gift',
         name: 'gift',
-        component: SettingsGiftView,
+        component: () => import('./views/admin/SettingsGiftView.vue'),
       },
       {
         path: '/options',
         name: 'options',
-        component: SettingsShopOptions,
+        component: () => import('./views/admin/SettingsShopOptions.vue'),
       },
     ],
   },
@@ -78,12 +63,12 @@ const routes = [
       {
         path: '/gift',
         name: 'client-gift',
-        component: ClientGiftView,
+        component: () => import('./views/client/ClientGiftView.vue'),
       },
       {
         path: '/menu',
         name: 'client-shop-menu',
-        component: ClientShopMenu,
+        component: () => import('./views/client/ClientShopMenu.vue'),
       },
       {
         path: '/profile',
@@ -95,17 +80,17 @@ const routes = [
   {
     path: '/unsupported',
     name: 'unsupported',
-    component: UnsupportedRoleView,
+    component: () => import('./views/UnsupportedRoleView.vue'),
   },
   {
     path: '/no-user',
     name: 'user-does-not-exist',
-    component: UserDoesNotExistView,
+    component: () => import('./views/UserDoesNotExistView.vue'),
   },
   {
     path: '/bot-not-identified',
     name: 'bot-not-identified',
-    component: BotNotIdentifiedView,
+    component: () => import('./views/BotNotIdentifiedView.vue'),
   },
 ]
 
