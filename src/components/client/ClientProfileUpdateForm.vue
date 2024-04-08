@@ -20,6 +20,7 @@
         <Button
           @click="onSubmitForm"
           :loading="isLoading"
+          :disabled="!bornOn"
           label="Сохранить"
           class="w-full"
         />
