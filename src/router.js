@@ -70,11 +70,6 @@ const routes = [
         name: 'client-shop-menu',
         component: () => import('./views/client/ClientShopMenu.vue'),
       },
-      {
-        path: '/profile',
-        name: 'client-profile',
-        component: () => import('./views/client/ClientProfileView.vue'),
-      },
     ],
   },
   {
