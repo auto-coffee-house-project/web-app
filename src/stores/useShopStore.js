@@ -11,6 +11,7 @@ export default defineStore('shop', {
     giftPhoto: null,
     startText: '',
     isMenuShown: false,
+    birthdayOfferAfterNthSale: 0,
   }),
   actions: {
     async fetch() {
