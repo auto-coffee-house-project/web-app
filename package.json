@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
     "@types/uuid": "^9.0.8",
     "@vueuse/core": "^10.7.2",
     "is-url": "^1.2.4",
