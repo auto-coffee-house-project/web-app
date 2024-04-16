@@ -3,6 +3,7 @@ import { getClient, updateClient } from '../services/api/index.js'
 import useBotStore from './useBotStore.js'
 import useShopStore from './useShopStore.js'
 
+
 export default defineStore('client', {
   state: () => ({
     isLoading: false,
@@ -11,7 +12,7 @@ export default defineStore('client', {
     totalPurchasesCount: null,
     freePurchasesCount: null,
     currentPurchasesCount: null,
-    hasGift: null,
+    gifts: [],
     bornOn: null,
   }),
 
@@ -31,7 +32,7 @@ export default defineStore('client', {
         this.totalPurchasesCount = data.value.result.total_purchases_count
         this.freePurchasesCount = data.value.result.free_purchases_count
         this.currentPurchasesCount = data.value.result.current_cups_count
-        this.hasGift = data.value.result.has_gift
+        this.gifts = data.value.result.gifts
         this.bornOn = data.value.result.born_on
       } finally {
         this.isLoading = false
@@ -55,7 +56,7 @@ export default defineStore('client', {
         this.totalPurchasesCount = data.value.result.total_purchases_count
         this.freePurchasesCount = data.value.result.free_purchases_count
         this.currentPurchasesCount = data.value.result.current_purchases_count
-        this.hasGift = data.value.result.has_gift
+        this.gifts = data.value.result.gifts
         this.bornOn = data.value.result.born_on
       } finally {
         this.isLoading = false
@@ -66,7 +67,23 @@ export default defineStore('client', {
   getters: {
     currentProgress(state) {
       const shopStore = useShopStore()
-      return state.hasGift ? shopStore.eachNthSaleFree : state.currentPurchasesCount
+      return this.hasMainGift ? shopStore.eachNthSaleFree : state.currentPurchasesCount
+    },
+
+    mainGift(state) {
+      return state.gifts.find(({is_main}) => is_main) || null
+    },
+
+    hasMainGift() {
+      return this.mainGift !== null
+    },
+
+    nonMainGifts(state) {
+      return state.gifts.filter(({is_main}) => !is_main)
+    },
+
+    hasNonMainGifts() {
+      return this.nonMainGifts.length > 0
     }
-  }
+  },
 })

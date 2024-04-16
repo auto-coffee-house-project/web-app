@@ -30,11 +30,6 @@ const items = ref([
     icon: 'pi pi-gift',
     routeName: 'client-gift',
   },
-  {
-    label: 'Профиль',
-    icon: 'pi pi-user',
-    routeName: 'client-profile',
-  }
 ])
 
 onMounted(() => {

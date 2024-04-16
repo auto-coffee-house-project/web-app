@@ -27,7 +27,7 @@ const userStore = useUserStore()
 const botStore = useBotStore()
 const shopGroupStore = useShopGroupStore()
 
-const botId = isDebug ? 6887092432 : getBotId()
+const botId = isDebug ? 7107835010 : getBotId()
 
 if (!botId) {
   router.push({ name: 'bot-not-identified' })
