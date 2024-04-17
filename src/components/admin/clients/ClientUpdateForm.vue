@@ -30,12 +30,11 @@ import Checkbox from 'primevue/checkbox'
 import Fieldset from 'primevue/fieldset'
 import Button from 'primevue/button'
 import { storeToRefs } from 'pinia'
-import useClientStore from '../../../stores/useClientStore.js'
+import { useClientStore } from '../../../stores'
 import { useToast } from 'primevue/usetoast'
 import { formatDate } from '../../../services/helpers.js'
 
 const clientStore = useClientStore()
-
 
 const toast = useToast()
 

@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { getClient, updateClient } from '../services/api/index.js'
-import useBotStore from './useBotStore.js'
-import useShopStore from './useShopStore.js'
+import { useBotStore } from './bot.js'
+import { useShopStore } from './shop.js'
 
 
-export default defineStore('client', {
+export const useClientStore = defineStore('client', {
   state: () => ({
     isLoading: false,
     id: null,
@@ -71,7 +71,7 @@ export default defineStore('client', {
     },
 
     mainGift(state) {
-      return state.gifts.find(({is_main}) => is_main) || null
+      return state.gifts.find(({ is_main }) => is_main) || null
     },
 
     hasMainGift() {
@@ -79,11 +79,11 @@ export default defineStore('client', {
     },
 
     nonMainGifts(state) {
-      return state.gifts.filter(({is_main}) => !is_main)
+      return state.gifts.filter(({ is_main }) => !is_main)
     },
 
     hasNonMainGifts() {
       return this.nonMainGifts.length > 0
-    }
+    },
   },
 })

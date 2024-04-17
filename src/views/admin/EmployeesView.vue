@@ -12,9 +12,9 @@ import BasicContainer from '../../layouts/BasicContainer.vue'
 import CardEmployeesList from '../../components/admin/cardSalesman/CardEmployeesList.vue'
 import ShopDetail from '../../components/admin/ShopDetail.vue'
 import { onMounted } from 'vue'
-import useSalesmansStore from '../../stores/useEmployeeStore.js'
+import { useEmployeeStore } from '../../stores/employee.js'
 
-const salesmansStore = useSalesmansStore()
+const employeeStore = useEmployeeStore()
 
-onMounted(salesmansStore.fetch)
+onMounted(employeeStore.fetch)
 </script>

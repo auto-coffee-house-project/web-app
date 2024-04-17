@@ -5,7 +5,7 @@
 
 <script setup>
 import ProductForm from './ProductForm.vue'
-import useBotStore from '../../../stores/useBotStore.js'
+import { useBotStore } from '../../../stores'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import { createProduct } from '../../../services/api'

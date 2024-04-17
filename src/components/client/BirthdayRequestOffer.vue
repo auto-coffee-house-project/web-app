@@ -35,8 +35,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import ClientProfileUpdateFormDialog from '../../components/client/ClientProfileUpdateFormDialog.vue'
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import useClientStore from '../../stores/useClientStore.js'
-import useShopStore from '../../stores/useShopStore.js'
+import { useClientStore, useShopStore } from '../../stores'
 
 const clientStore = useClientStore()
 const shopStore = useShopStore()

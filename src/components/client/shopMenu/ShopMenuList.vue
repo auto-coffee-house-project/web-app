@@ -1,17 +1,13 @@
 <template>
-  <ProgressSpinner
-    v-if="productsStore.isLoading"
-  />
-  <template
-    v-else
-  >
+  <ProgressSpinner v-if="isLoading"/>
+  <template v-else>
     <TabView :scrollable="true">
       <TabPanel
         header="Все"
         class="flex flex-col"
       >
         <ShopMenuItem
-          v-for="product in productsStore.products"
+          v-for="product in products"
           :key="product.id"
           :product="product"
         />
@@ -34,16 +30,16 @@
 
 <script setup>
 import { onMounted } from 'vue'
-import useProductsStore from '../../../stores/useProductsStore.js'
-import ProgressSpinner from 'primevue/progressspinner';
+import { useProductListStore } from '../../../stores'
+import ProgressSpinner from 'primevue/progressspinner'
 import { storeToRefs } from 'pinia'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import ShopMenuItem from './ShopMenuItem.vue'
 
-const productsStore = useProductsStore()
+const productListStore = useProductListStore()
 
-const { categoryProducts } = storeToRefs(productsStore)
+const { categoryProducts, isLoading, products } = storeToRefs(productListStore)
 
-onMounted(productsStore.fetch)
+onMounted(productListStore.fetch)
 </script>

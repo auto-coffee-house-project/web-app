@@ -1,8 +1,8 @@
-import useBotStore from './useBotStore.js'
+import { useBotStore } from './bot.js'
 import { getShop, updateShop } from '../services/api'
 import { defineStore } from 'pinia'
 
-export default defineStore('shop', {
+export const useShopStore = defineStore('shop', {
   state: () => ({
     isLoading: false,
     eachNthSaleFree: null,

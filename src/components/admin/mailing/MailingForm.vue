@@ -91,11 +91,9 @@ import MailingKeyboardMarkupBuilder from './MailingKeyboardMarkupBuilder.vue'
 import MailingRecipientsSegregationByPurchases from './MailingRecipientsSegregationByPurchases.vue'
 import MailingRecipientsSegregationByBirthdays from './MailingRecipientsSegregationByBirthdays.vue'
 import CheckboxWithLabel from './CheckboxWithLabel.vue'
-import useUserStore from '../../../stores/useUserStore.js'
-import useBotStore from '../../../stores/useBotStore.js'
+import { useBotStore, useUserStore } from '../../../stores'
 import { createMailing } from '../../../services/api'
 import { formatDatesRange } from '../../../services/helpers.js'
-import { get } from '@vueuse/core'
 
 const botStore = useBotStore()
 const userStore = useUserStore()
@@ -150,7 +148,7 @@ const requestData = computed(() => {
     parse_mode: parseMode.value || undefined,
     buttons: cleanedButtons.value || undefined,
     photo: photo.value || undefined,
-    segregation_options: segregationOptions.value || undefined
+    segregation_options: segregationOptions.value || undefined,
   }
 })
 

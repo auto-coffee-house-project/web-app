@@ -19,8 +19,7 @@ import { useToast } from 'primevue/usetoast'
 import { useCounter, useIntervalFn } from '@vueuse/core'
 import { ref } from 'vue'
 import { createSaleCode } from '../../services/api'
-import useUserStore from '../../stores/useUserStore.js'
-import useBotStore from '../../stores/useBotStore.js'
+import { useUserStore, useBotStore } from '../../stores'
 
 const userStore = useUserStore()
 const botStore = useBotStore()

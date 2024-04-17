@@ -15,7 +15,7 @@
 <script setup>
 import ProductForm from './ProductForm.vue'
 import { useRoute, useRouter } from 'vue-router'
-import useBotStore from '../../../stores/useBotStore.js'
+import { useBotStore } from '../../../stores'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { onMounted, ref } from 'vue'

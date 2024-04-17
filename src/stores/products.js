@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { getProducts } from '../services/api'
-import useBotStore from './useBotStore.js'
+import { useBotStore } from './bot.js'
 
 
-export default defineStore('products', {
+export const useProductListStore = defineStore('products', {
   state: () => ({
     isLoading: false,
     products: [],

@@ -14,7 +14,7 @@
 
 <script setup>
 import Button from 'primevue/button'
-import useBotStore from '../../stores/useBotStore.js'
+import { useBotStore } from '../../stores'
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import { ref } from 'vue'
 

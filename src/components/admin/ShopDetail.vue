@@ -40,10 +40,7 @@ import { useClipboard } from '@vueuse/core'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { createEmployeeInvitation } from '../../services/api'
-import useEmployeeStore from '../../stores/useEmployeeStore.js'
-import useBotStore from '../../stores/useBotStore.js'
-import useUserStore from '../../stores/useUserStore.js'
-import useShopStore from '../../stores/useShopStore.js'
+import { useBotStore, useEmployeeStore, useUserStore } from '../../stores'
 
 const invitationUrl = ref('')
 const dialogMessages = ref([])
@@ -57,16 +54,28 @@ const { employees, shopName } = storeToRefs(employeeStore)
 const { copy: copyInvitationUrl } = useClipboard({ source: invitationUrl })
 
 const onCopy = () => {
-  copyInvitationUrl(invitationUrl.value)
-  dialogMessages.value = [
-    {
-      id: Date.now(),
-      severity: 'success',
-      content: 'Скопировано',
-      life: 2000,
-      sticky: false,
-    },
-  ]
+  if (copyInvitationUrl === null || copyInvitationUrl === undefined) {
+    dialogMessages.value = [
+      {
+        id: Date.now(),
+        severity: 'error',
+        content: 'Не удалось скопировать',
+        life: 2000,
+        sticky: false,
+      },
+    ]
+  } else {
+    copyInvitationUrl(invitationUrl.value)
+    dialogMessages.value = [
+      {
+        id: Date.now(),
+        severity: 'success',
+        content: 'Скопировано',
+        life: 2000,
+        sticky: false,
+      },
+    ]
+  }
 }
 
 const onCreateInvitationLink = async () => {

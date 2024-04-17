@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { getBot, updateBot } from '../services/api'
 
 
-export default defineStore('bot', {
+export const useBotStore = defineStore('bot', {
   state: () => ({
     isLoading: false,
     id: null,

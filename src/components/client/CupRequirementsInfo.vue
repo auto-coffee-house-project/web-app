@@ -18,9 +18,7 @@ import { storeToRefs } from 'pinia'
 import CupIcon from './CupIcon.vue'
 import CupProgress from './CupProgress.vue'
 import CupDescription from './CupDescription.vue'
-import useClientStore from '../../stores/useClientStore.js'
-import useUserStore from '../../stores/useUserStore.js'
-import useShopStore from '../../stores/useShopStore.js'
+import { useClientStore, useShopStore, useUserStore } from '../../stores'
 
 const userStore = useUserStore()
 const clientStore = useClientStore()

@@ -27,7 +27,7 @@ import BasicContainer from '../../layouts/BasicContainer.vue'
 import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
-import useShopStore from '../../stores/useShopStore.js'
+import { useShopStore } from '../../stores'
 import { storeToRefs } from 'pinia'
 import { useToast } from 'primevue/usetoast'
 

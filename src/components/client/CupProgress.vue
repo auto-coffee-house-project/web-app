@@ -13,7 +13,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import ProgressBar from './progressBar/ProgressBar.vue';
 
 defineProps<{
   currentProgress: number;

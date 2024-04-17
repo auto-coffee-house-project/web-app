@@ -26,7 +26,7 @@
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 import { computed } from 'vue'
-import useUserStore from '../../../stores/useUserStore.js'
+import { useUserStore } from '../../../stores'
 import { storeToRefs } from 'pinia'
 
 interface User {

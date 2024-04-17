@@ -24,17 +24,16 @@ import InlineMessage from 'primevue/inlinemessage'
 import CardProductItem from '../../components/admin/cardProduct/CardProductItem.vue'
 import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import BasicContainer from '../../layouts/BasicContainer.vue'
-import useProductsStore from '../../stores/useProductsStore.js'
+import { useProductListStore } from '../../stores'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import CardProductCreateFloatingButton from '../../components/admin/cardProduct/CardProductCreateFloatingButton.vue'
 
 const isVisible = ref(false)
 
-const productsStore = useProductsStore()
+const productListStore = useProductListStore()
 
+const { products } = storeToRefs(productListStore)
 
-const { products } = storeToRefs(productsStore)
-
-onMounted(productsStore.fetch)
+onMounted(productListStore.fetch)
 </script>

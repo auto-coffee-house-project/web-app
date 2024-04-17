@@ -9,9 +9,7 @@ import { getColorScheme, getTelegramUser } from './services/telegram'
 import { getBotId } from './services/queryParams'
 import { RouterView, useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
-import useUserStore from './stores/useUserStore.js'
-import useBotStore from './stores/useBotStore.js'
-import useShopGroupStore from './stores/useShopStore.js'
+import { useUserStore, useBotStore, useShopStore } from './stores'
 import Toast from 'primevue/toast'
 import { useDebug } from './composables/index.js'
 
@@ -25,7 +23,7 @@ const telegramUser = getTelegramUser()
 
 const userStore = useUserStore()
 const botStore = useBotStore()
-const shopGroupStore = useShopGroupStore()
+const shopStore = useShopStore()
 
 const botId = isDebug ? 7107835010 : getBotId()
 
@@ -52,7 +50,7 @@ onMounted(async () => {
 
   await userStore.fetch()
   await botStore.fetch()
-  await shopGroupStore.fetch()
+  await shopStore.fetch()
 
   const roleToViewName = {
     admin: 'gift',

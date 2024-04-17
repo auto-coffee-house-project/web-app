@@ -42,7 +42,7 @@
 import { storeToRefs } from 'pinia'
 import Calendar from 'primevue/calendar'
 import Button from 'primevue/button'
-import useClientStore from '../../stores/useClientStore.js'
+import { useClientStore } from '../../stores'
 import { formatDate } from '../../services/helpers.js'
 import { ref } from 'vue'
 import { useDateFormat } from '@vueuse/core'

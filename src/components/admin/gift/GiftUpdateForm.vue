@@ -39,8 +39,7 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
 import GiftPhotoUpload from './GiftPhotoUpload.vue'
-import useBotStore from '../../../stores/useBotStore.js'
-import useShopStore from '../../../stores/useShopStore.js'
+import { useBotStore, useShopStore } from '../../../stores'
 
 const toast = useToast()
 const botStore = useBotStore()

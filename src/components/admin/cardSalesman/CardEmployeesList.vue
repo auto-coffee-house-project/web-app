@@ -16,11 +16,10 @@
 <script setup>
 import CardSalesmanItem from './CardEmployeeItem.vue'
 import InlineMessage from 'primevue/inlinemessage'
-import Toast from 'primevue/toast'
 import ConfirmDialog from 'primevue/confirmdialog'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
-import useEmployeeStore from '../../../stores/useEmployeeStore.js'
+import { useEmployeeStore } from '../../../stores'
 import { storeToRefs } from 'pinia'
 
 const toast = useToast()

@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { getClients } from '../services/api/index.js'
-import useBotStore from './useBotStore.js'
+import { useBotStore } from './bot.js'
 
-export default defineStore('clientList', {
+
+export const useClientListStore = defineStore('clientList', {
   state: () => ({
     clients: [],
     isLoading: false,

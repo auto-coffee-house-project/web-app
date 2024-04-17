@@ -26,11 +26,9 @@ import SaleCode from '../../components/client/SaleCode.vue'
 import BasicContainer from '../../layouts/BasicContainer.vue'
 import { storeToRefs } from 'pinia'
 import Divider from 'primevue/divider'
-import useClientStore from '../../stores/useClientStore.js'
-import useUserStore from '../../stores/useUserStore.js'
+import { useClientStore, useUserStore } from '../../stores'
 import NonMainGiftDisplay from '../../components/client/NonMainGiftDisplay.vue'
 import BirthdayRequestOffer from '../../components/client/BirthdayRequestOffer.vue'
-
 
 const clientStore = useClientStore()
 const userStore = useUserStore()

@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { deleteEmployee, getEmployees } from '../services/api'
-import useBotStore from './useBotStore.js'
-import useUserStore from './useUserStore.js'
+import { useBotStore } from './bot.js'
+import { useUserStore } from './user.js'
 
-export default defineStore('employee', {
+export const useEmployeeStore = defineStore('employee', {
   state: () => ({
     isLoading: false,
     shopName: '',
