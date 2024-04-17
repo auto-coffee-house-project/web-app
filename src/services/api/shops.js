@@ -10,7 +10,16 @@ export const getShop = ({ botId }) => {
 }
 
 
-export const updateShop = ({ botId, eachNthSaleFree, giftName, giftPhoto, isMenuShown, startText }) => {
+export const updateShop = (
+  {
+    botId,
+    eachNthSaleFree,
+    giftName,
+    giftPhoto,
+    isMenuShown,
+    startText,
+    birthdayOfferAfterNthSale,
+  }) => {
   const url = `/shops/me/`
   return useApiFetch(url, {
     headers: {
@@ -22,6 +31,7 @@ export const updateShop = ({ botId, eachNthSaleFree, giftName, giftPhoto, isMenu
     gift_photo: giftPhoto,
     is_menu_shown: isMenuShown,
     start_text: startText,
+    birthdays_offer_after_nth_sale: birthdayOfferAfterNthSale,
   }).json()
 }
 

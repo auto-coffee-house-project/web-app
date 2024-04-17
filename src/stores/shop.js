@@ -11,7 +11,7 @@ export const useShopStore = defineStore('shop', {
     giftPhoto: null,
     startText: '',
     isMenuShown: false,
-    birthdayOfferAfterNthSale: 0,
+    birthdayOfferAfterNthSale: null,
   }),
   actions: {
     async fetch() {
@@ -31,7 +31,7 @@ export const useShopStore = defineStore('shop', {
         this.isLoading = false
       }
     },
-    async update({ eachNthSaleFree, startText, giftName, giftPhoto, isMenuShown }) {
+    async update({ eachNthSaleFree, startText, giftName, giftPhoto, isMenuShown, birthdayOfferAfterNthSale }) {
       const botStore = useBotStore()
 
       try {
@@ -43,6 +43,7 @@ export const useShopStore = defineStore('shop', {
           giftPhoto,
           startText,
           isMenuShown,
+          birthdayOfferAfterNthSale,
         })
 
         this.eachNthSaleFree = data.value.result.each_nth_sale_free
@@ -50,6 +51,7 @@ export const useShopStore = defineStore('shop', {
         this.giftPhotoUrl = data.value.result.gift_photo_url
         this.isMenuShown = data.value.result.is_menu_shown
         this.startText = data.value.result.start_text
+        this.birthdayOfferAfterNthSale = data.value.result.birthdays_offer_after_nth_sale
       } finally {
         this.isLoading = false
       }
