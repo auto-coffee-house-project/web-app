@@ -5,6 +5,7 @@
     v-if="!code"
     @click="onShownCode"
     :loading="isLoading"
+    rounded
   />
   <div v-else>
     <p class="font-bold mt-4 mb-2 tg-text-primary">Скажите код: {{ code }}</p>
