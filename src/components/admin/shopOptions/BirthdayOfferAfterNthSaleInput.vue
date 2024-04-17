@@ -16,9 +16,14 @@
 
 <script setup>
 import InputNumber from 'primevue/inputnumber'
+import { onUnmounted } from 'vue'
 
 const birthdayOfferAfterNthSale = defineModel({
-  type: Number,
-  required: false,
+  type: [Number, null],
+  required: true,
+})
+
+onUnmounted(() => {
+  birthdayOfferAfterNthSale.value = null
 })
 </script>
