@@ -33,22 +33,22 @@ const routes = [
     component: () => import('./views/admin/SettingsShopMenuView.vue'),
   },
   {
-    path: '/staff',
+    path: '/admin/staff',
     name: 'staff',
     component: () => import('./views/admin/EmployeesView.vue'),
   },
   {
-    path: '/phrases',
+    path: '/admin/phrases',
     name: 'phrases',
     component: () => import('./views/admin/PhrasesView.vue'),
   },
   {
-    path: '/gift',
+    path: '/admin/gift',
     name: 'gift',
     component: () => import('./views/admin/SettingsGiftView.vue'),
   },
   {
-    path: '/options',
+    path: '/admin/options',
     name: 'options',
     component: () => import('./views/admin/ShopOptionsView.vue'),
   },
