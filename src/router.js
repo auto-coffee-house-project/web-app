@@ -50,7 +50,7 @@ const routes = [
   {
     path: '/options',
     name: 'options',
-    component: () => import('./views/admin/SettingsShopOptions.vue'),
+    component: () => import('./views/admin/ShopOptionsView.vue'),
   },
   {
     path: '/client/gift',
