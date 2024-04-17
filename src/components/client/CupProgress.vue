@@ -6,14 +6,14 @@
         {{ currentProgress }}/{{ eachNthSaleFree }}
       </p>
     </div>
-    <CupProgressBar
+    <ProgressBar
       :current-value="currentProgress"
       :max-value="eachNthSaleFree"
     />
   </div>
 </template>
 <script setup lang="ts">
-import CupProgressBar from "./CupProgressBar.vue";
+import ProgressBar from './progressBar/ProgressBar.vue';
 
 defineProps<{
   currentProgress: number;
