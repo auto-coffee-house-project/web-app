@@ -17,14 +17,6 @@
         <span v-else>{{ data.born_on }}</span>
       </template>
     </Column>
-    <Column field="has_gift" header="Подарок" :sortable="true">
-      <template #body="{ data }">
-        <i
-          class="pi"
-          :class="[data.has_gift ? 'pi-check-circle text-green-500' : 'pi-times-circle text-red-400' ]"
-        />
-      </template>
-    </Column>
   </DataTable>
 </template>
 
