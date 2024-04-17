@@ -1,0 +1,24 @@
+<template>
+  <div class="flex flex-col gap-y-2">
+    <label
+      class="font-semibold"
+      for="birthday-offer-after-nth-sale">
+      После какой покупки предложить заполнить дату рождения
+    </label>
+    <InputNumber
+      v-model="birthdayOfferAfterNthSale"
+      :min="0"
+      :max="100"
+      input-id="birthday-offer-after-nth-sale"
+    />
+  </div>
+</template>
+
+<script setup>
+import InputNumber from 'primevue/inputnumber'
+
+const birthdayOfferAfterNthSale = defineModel({
+  type: Number,
+  required: false,
+})
+</script>
