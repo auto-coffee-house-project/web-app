@@ -6,7 +6,7 @@
     />
 
     <div>
-      <Divider/>
+      <Divider class="mb-4"/>
       <BirthdaysOfferAfterNthSaleInput
         v-model="birthdayOfferAfterNthSale"
         :disabled="isLoading"
