@@ -49,7 +49,7 @@ const isOfferTemporaryDismissedByClient = ref(false)
 const isBirthdayDialogVisible = ref(false)
 
 const isOfferVisible = computed(() => {
-  const hasClientEnoughPurchases = totalPurchasesCount.value >= birthdayOfferAfterNthSale.value
+  const hasClientEnoughPurchases = birthdayOfferAfterNthSale.value !== null && totalPurchasesCount.value >= birthdayOfferAfterNthSale.value
 
   const isBirthdayAlreadySet = bornOn.value !== null
   return hasClientEnoughPurchases && !isBirthdayAlreadySet && !isOfferTemporaryDismissedByClient.value
