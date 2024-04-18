@@ -1,4 +1,4 @@
-const getTelegramWebApp = () => {
+export const getTelegramWebApp = () => {
   const webApp = window?.Telegram?.WebApp
   if (webApp === undefined) {
     console.log('Telegram WebApp not found')

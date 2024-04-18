@@ -1,35 +1,39 @@
 <template>
   <AdminNavbar/>
   <BasicContainer>
-    <template v-if="!isProductsLoading">
-      <Card
-        v-for="product in products"
-        :key="product.id"
-      >
-        {{ product }}
-      </Card>
-    </template>
-    <CardSkeleton v-else/>
+    <CardProductCreateFloatingButton
+      @click="isVisible = true"
+      :is-visible="isVisible"
+    />
+    <InlineMessage
+      severity="secondary"
+      class="w-full"
+    >
+      Количество товаров: {{ products.length }}
+    </InlineMessage>
+    <CardProductItem
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+    />
   </BasicContainer>
 </template>
 
 <script setup>
+import InlineMessage from 'primevue/inlinemessage'
+import CardProductItem from '../../components/admin/cardProduct/CardProductItem.vue'
 import AdminNavbar from '../../components/admin/AdminNavbar.vue'
 import BasicContainer from '../../layouts/BasicContainer.vue'
-import { useFetch } from '@vueuse/core'
-import { ref } from 'vue'
-import Card from 'primevue/card'
-import CardSkeleton from '../../components/skeletons/CardSkeleton.vue'
+import { useProductListStore } from '../../stores'
+import { storeToRefs } from 'pinia'
+import { onMounted, ref } from 'vue'
+import CardProductCreateFloatingButton from '../../components/admin/cardProduct/CardProductCreateFloatingButton.vue'
 
-const isProductsLoading = ref(true)
-const products = ref([])
+const isVisible = ref(false)
 
-const loadShopProducts = () => {
-  const {onFetchResponse, data} = useFetch('http://localhost:3000/products').json()
-  onFetchResponse(() => {
-    console.log(products.value)
-    products.value = data.value?.result
-    isProductsLoading.value = false
-  })
-}
+const productListStore = useProductListStore()
+
+const { products } = storeToRefs(productListStore)
+
+onMounted(productListStore.fetch)
 </script>

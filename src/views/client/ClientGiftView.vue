@@ -2,26 +2,47 @@
   <ClientNavbar/>
   <BasicContainer>
     <CupRequirementsInfo/>
-    <SaleTemporaryCode v-if="isCodeSown"/>
-    <Button
-      class="w-full my-4"
-      label="Получить код"
-      v-if="!isCodeSown"
-      @click="isCodeSown = true"
-    />
+    <SaleCode v-if="!hasMainGift"/>
+    <MainGiftDisplay v-else :gift="mainGift"/>
+
+    <BirthdayRequestOffer/>
+
+    <template v-if="hasNonMainGifts">
+      <Divider align="center">
+        <span class="font-semibold">Дополнительные подарки</span>
+      </Divider>
+      <NonMainGiftDisplay v-for="gift in nonMainGifts" :gift="gift"/>
+    </template>
+
   </BasicContainer>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useTitle } from '@vueuse/core'
+import { onMounted } from 'vue'
+import MainGiftDisplay from '../../components/client/MainGiftDisplay.vue'
 import CupRequirementsInfo from '../../components/client/CupRequirementsInfo.vue'
 import ClientNavbar from '../../components/client/ClientNavbar.vue'
-import SaleTemporaryCode from '../../components/client/SaleTemporaryCode.vue'
+import SaleCode from '../../components/client/SaleCode.vue'
 import BasicContainer from '../../layouts/BasicContainer.vue'
-import Button from 'primevue/button'
+import { storeToRefs } from 'pinia'
+import Divider from 'primevue/divider'
+import { useClientStore, useUserStore } from '../../stores'
+import NonMainGiftDisplay from '../../components/client/NonMainGiftDisplay.vue'
+import BirthdayRequestOffer from '../../components/client/BirthdayRequestOffer.vue'
 
-const isCodeSown = ref(false)
+const clientStore = useClientStore()
+const userStore = useUserStore()
 
-useTitle('Подарок | Coffeconnect')
+const {
+  nonMainGifts,
+  mainGift,
+  hasMainGift,
+  hasNonMainGifts,
+} = storeToRefs(clientStore)
+
+onMounted(async () => {
+  if (!clientStore.id) {
+    await clientStore.fetch({ userId: userStore.id })
+  }
+})
 </script>

@@ -1,33 +1,34 @@
 <template>
   <CupDescription
-    :start-text="botStore.startTextClientWebApp"
-    :user-first-name="userStore.firstName"
+    :start-text="startText"
+    :user-first-name="firstName"
   />
   <div class="flex gap-x-3">
-    <CupIcon/>
+    <CupIcon :gift-photo-url="giftPhoto"/>
     <CupProgress
-      :current-cups-count="clientStatisticsStore.data?.current_cups_count"
-      :each-nth-cup-free="clientStatisticsStore.data?.each_nth_cup_free"
+      :current-progress="currentProgress"
+      :each-nth-sale-free="eachNthSaleFree"
     />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import CupIcon from './CupIcon.vue'
 import CupProgress from './CupProgress.vue'
 import CupDescription from './CupDescription.vue'
-import useClientStatisticsStore from '../../stores/useClientStatisticsStore.js'
-import useUserStore from '../../stores/useUserStore.js'
-import useBotStore from '../../stores/useBotStore.js'
+import { useClientStore, useShopStore, useUserStore } from '../../stores'
 
 const userStore = useUserStore()
-const botStore = useBotStore()
+const clientStore = useClientStore()
+const shopStore = useShopStore()
 
-const clientStatisticsStore = useClientStatisticsStore()
+const { firstName } = storeToRefs(userStore)
+const { startText, eachNthSaleFree, giftPhoto } = storeToRefs(shopStore)
+const { currentProgress } = storeToRefs(clientStore)
 
-onMounted(clientStatisticsStore.fetch)
-
-useIntervalFn(clientStatisticsStore.fetch, 5 * 1000)
+useIntervalFn(async () => {
+  await clientStore.fetch({ userId: userStore.id })
+}, 5 * 1000)
 </script>

@@ -3,26 +3,20 @@
     <div class="flex justify-between gap-x-3">
       <p>Бесплатный напиток</p>
       <p class="font-semibold">
-        {{ currentCupsCount }}/{{ eachNthCupFree }}
+        {{ currentProgress }}/{{ eachNthSaleFree }}
       </p>
     </div>
-    <CupProgressBar
-      :current-value="currentCupsCount"
-      :max-value="eachNthCupFree"
+    <ProgressBar
+      :current-value="currentProgress"
+      :max-value="eachNthSaleFree"
     />
   </div>
 </template>
-<script setup>
-import CupProgressBar from "./CupProgressBar.vue";
+<script setup lang="ts">
+import ProgressBar from './progressBar/ProgressBar.vue'
 
-defineProps({
-  currentCupsCount: {
-    type: Number,
-    required: true,
-  },
-  eachNthCupFree: {
-    type: Number,
-    required: true,
-  },
-})
+defineProps<{
+  currentProgress: number;
+  eachNthSaleFree: number;
+}>()
 </script>
