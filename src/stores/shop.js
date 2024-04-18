@@ -27,6 +27,7 @@ export const useShopStore = defineStore('shop', {
         this.giftPhoto = data.value.result.gift_photo
         this.isMenuShown = data.value.result.is_menu_shown
         this.startText = data.value.result.start_text
+        this.birthdayOfferAfterNthSale = data.value.result.birthdays_offer_after_nth_sale
       } finally {
         this.isLoading = false
       }
