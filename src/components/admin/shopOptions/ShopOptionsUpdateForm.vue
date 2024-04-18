@@ -1,28 +1,18 @@
 <template>
-  <form class="flex flex-col gap-y-6" @submit.prevent>
-    <div class="flex gap-x-2 items-center">
-      <InputSwitch
-        input-id="is-menu-shown"
-        v-model="isMenuShown"
-        :disabled="isLoading"
-      />
-      <label for="is-menu-shown">Показывать каталог</label>
-    </div>
-    <div class="flex flex-col gap-y-2">
-      <div class="flex gap-x-2 items-center">
-        <InputSwitch
-          input-id="is-birthdays-collecting"
-          v-model="isBirthdaysOfferAfterNthSaleFeatureEnabled"
-          :disabled="isLoading"
-        />
-        <label for="is-birthdays-collecting">Система дней рождений</label>
-      </div>
-    </div>
-    <BirthdaysOfferAfterNthSaleInput
-      v-if="isBirthdaysOfferAfterNthSaleFeatureEnabled"
-      v-model="birthdayOfferAfterNthSale"
+  <form class="flex flex-col gap-y-3" @submit.prevent>
+    <IsMenuShownInput
+      v-model="isMenuShown"
       :disabled="isLoading"
     />
+
+    <div>
+      <Divider/>
+      <BirthdaysOfferAfterNthSaleInput
+        v-model="birthdayOfferAfterNthSale"
+        :disabled="isLoading"
+      />
+    </div>
+
     <Button
       @click="onUpdate"
       :loading="isLoading"
@@ -33,21 +23,19 @@
 </template>
 
 <script setup>
-import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
 import { useShopStore } from '../../../stores'
 import { storeToRefs } from 'pinia'
 import { useToast } from 'primevue/usetoast'
+import Divider from 'primevue/divider'
+import IsMenuShownInput from './IsMenuShownInput.vue'
 import BirthdaysOfferAfterNthSaleInput from './BirthdayOfferAfterNthSaleInput.vue'
-import { ref } from 'vue'
 
 const toast = useToast()
 const shopStore = useShopStore()
 
-const isBirthdaysOfferAfterNthSaleFeatureEnabled = ref(false)
 
 const { isMenuShown, birthdayOfferAfterNthSale, isLoading } = storeToRefs(shopStore)
-
 
 const onUpdate = async () => {
   try {

@@ -12,12 +12,12 @@
       input-id="birthday-offer-after-nth-sale"
       :disabled="disabled"
     />
+    <small>Оставьте пустым если хотите отключить сбор дней рождений</small>
   </div>
 </template>
 
 <script setup>
 import InputNumber from 'primevue/inputnumber'
-import { onUnmounted } from 'vue'
 
 defineProps({
   disabled: {
@@ -29,9 +29,5 @@ defineProps({
 const birthdayOfferAfterNthSale = defineModel({
   type: [Number, null],
   required: true,
-})
-
-onUnmounted(() => {
-  birthdayOfferAfterNthSale.value = null
 })
 </script>
